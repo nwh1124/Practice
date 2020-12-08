@@ -26,7 +26,7 @@ public class Article {
 		this.title = (String)map.get("title");
 		this.body = (String)map.get("body");
 		this.hit = (int)map.get("hit");
-		this.recommand = (int)map.get("recommand");
+		this.recommand = (int)map.get("recommend");
 		this.memberId = (int)map.get("memberId");
 		this.boardId = (int)map.get("boardId");
 		

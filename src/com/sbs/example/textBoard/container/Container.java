@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 import com.sbs.example.textBoard.controller.ArticleController;
 import com.sbs.example.textBoard.controller.BoardController;
-import com.sbs.example.textBoard.controller.ExportController;
+import com.sbs.example.textBoard.controller.BuildController;
 import com.sbs.example.textBoard.controller.MemberController;
 import com.sbs.example.textBoard.dao.ArticleDao;
 import com.sbs.example.textBoard.dao.BoardDao;
 import com.sbs.example.textBoard.dao.MemberDao;
 import com.sbs.example.textBoard.service.ArticleService;
 import com.sbs.example.textBoard.service.BoardService;
-import com.sbs.example.textBoard.service.ExportService;
+import com.sbs.example.textBoard.service.BuildService;
 import com.sbs.example.textBoard.service.MemberService;
 import com.sbs.example.textBoard.session.Session;
 
@@ -27,12 +27,12 @@ public class Container {
 	public static MemberService memberService;
 	public static BoardService boardService;
 	public static ArticleService articleService;
-	public static ExportService exportService;
+	public static BuildService exportService;
 	
 	public static MemberController memberController;
 	public static ArticleController articleController;
 	public static BoardController boardController;
-	public static ExportController exportController;
+	public static BuildController exportController;
 	
 	static {
 		
@@ -46,12 +46,12 @@ public class Container {
 		memberService = new MemberService();
 		boardService = new BoardService();
 		articleService = new ArticleService();
-		exportService = new ExportService();
+		exportService = new BuildService();
 		
 		memberController = new MemberController();
 		articleController = new ArticleController();
 		boardController = new BoardController();
-		exportController = new ExportController();
+		exportController = new BuildController();
 		
 	}
 

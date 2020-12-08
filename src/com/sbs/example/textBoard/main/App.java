@@ -7,7 +7,7 @@ import com.sbs.example.textBoard.container.Container;
 import com.sbs.example.textBoard.controller.ArticleController;
 import com.sbs.example.textBoard.controller.BoardController;
 import com.sbs.example.textBoard.controller.Controller;
-import com.sbs.example.textBoard.controller.ExportController;
+import com.sbs.example.textBoard.controller.BuildController;
 import com.sbs.example.textBoard.controller.MemberController;
 
 public class App {
@@ -17,7 +17,7 @@ public class App {
 	private MemberController memberController;
 	private ArticleController articleController;
 	private BoardController boardController;
-	private ExportController exportController;
+	private BuildController buildController;
 	
 	public App() {
 		
@@ -27,7 +27,7 @@ public class App {
 		memberController = Container.memberController;
 		articleController = Container.articleController;
 		boardController = Container.boardController;
-		exportController = Container.exportController;
+		buildController = Container.exportController;
 		
 	}
 	
@@ -65,8 +65,8 @@ public class App {
 			return articleController;
 		}else if(cmd.startsWith("board")) {
 			return boardController;
-		}else if(cmd.startsWith("export")) {
-			return exportController;
+		}else if(cmd.startsWith("build")) {
+			return buildController;
 		}
 		return null;
 	}

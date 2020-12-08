@@ -1,21 +1,21 @@
 package com.sbs.example.textBoard.controller;
 
 import com.sbs.example.textBoard.container.Container;
-import com.sbs.example.textBoard.service.ExportService;
+import com.sbs.example.textBoard.service.BuildService;
 
-public class ExportController extends Controller{
+public class BuildController extends Controller{
 	
-	private ExportService exportService;
+	private BuildService buildService;
 	
-	public ExportController(){
+	public BuildController(){
 		
-		exportService = Container.exportService;
+		buildService = Container.exportService;
 		
 	}
 
 	public void doCommand(String cmd) {
 		
-		if(cmd.equals("export html")) {
+		if(cmd.equals("build site")) {
 			doHtml();
 		}
 		
@@ -24,7 +24,7 @@ public class ExportController extends Controller{
 	private void doHtml() {
 		
 		System.out.println("== HTML 생성을 시작합니다 ==");
-		exportService.makeHtml();
+		buildService.buildSite_article();
 		
 	}
 	

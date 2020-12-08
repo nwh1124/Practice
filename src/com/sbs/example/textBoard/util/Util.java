@@ -12,8 +12,10 @@ public class Util {
 		BufferedOutputStream bs = null;
 		
 		try {
+			
 			bs = new BufferedOutputStream(new FileOutputStream(filePath));
 			bs.write(content.getBytes());
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
