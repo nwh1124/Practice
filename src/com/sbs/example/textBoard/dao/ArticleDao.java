@@ -69,6 +69,33 @@ public class ArticleDao {
 		return article;
 	}
 
+	public List<Article> getArticles(String boardName) {
+		
+		SecSql sql = new SecSql();
+		
+		sql.append("SELECT id");
+		sql.append("FROM board");
+		sql.append("WHERE code = ?", boardName);
+		
+		int boardId = MysqlUtil.selectRowIntValue(sql);
+		
+		sql = new SecSql();
+
+		sql.append("SELECT *");
+		sql.append("FROM article");
+		sql.append("WHERE boardId = ?", boardId);
+		
+		List<Map<String, Object>> listMap = MysqlUtil.selectRows(sql);
+		
+		List<Article> articles = new ArrayList<>();
+		
+		for(Map<String, Object> map : listMap) {
+			articles.add(new Article(map));
+		}
+		
+		return articles;
+	}
+
 	public void delete(int inputedId) {
 		
 		SecSql sql = new SecSql();

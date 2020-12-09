@@ -24,6 +24,10 @@ public class ArticleService {
 
 	public List<Article> getArticles() {
 		return articleDao.getArticles();
+	}	
+	
+	public List<Article> getArticles(String boardName) {
+		return articleDao.getArticles(boardName);
 	}
 
 	public Article getArticle(int inputedId) {
@@ -73,5 +77,4 @@ public class ArticleService {
 	public void modifyReply(String modReplyId, String modReplyBody) {
 		articleDao.modifyReply(modReplyId, modReplyBody);
 	}
-
 }
