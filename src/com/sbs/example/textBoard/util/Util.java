@@ -33,4 +33,10 @@ public class Util {
 		
 	}
 
+	public static void getFileContents(String string) {
+		
+		
+		
+	}
+
 }

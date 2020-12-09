@@ -113,10 +113,16 @@ public class BuildService {
 				
 			}
 			
+			String header;
+			
+			Util.getFileContents("site/template/header.html");
+			
 			//게시판 게시물
 			for(Article article : articles) {
 				
 				sb = new StringBuilder();
+				
+				sb.append(header);
 				
 				sb.append("<!DOCTYPE html>");
 				sb.append("<html lang=\"ko\">");
