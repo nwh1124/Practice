@@ -1,8 +1,6 @@
 package com.sbs.example.textBoard.service;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import com.sbs.example.textBoard.container.Container;
@@ -24,6 +22,9 @@ public class BuildService {
 	public void buildSite_article() {
 		
 		File makeFolder = new File("site/article");	
+		Util.copy("site_template/app.css", "site/app.css");
+		String head = Util.getFileContents("site_template/header.html");
+		String foot = Util.getFileContents("site_template/footer.html");
 		
 		if(makeFolder.exists() == false) {
 			makeFolder.mkdirs();
@@ -113,28 +114,12 @@ public class BuildService {
 				
 			}
 			
-			String header;
-			
-			Util.getFileContents("site/template/header.html");
-			
 			//게시판 게시물
 			for(Article article : articles) {
 				
 				sb = new StringBuilder();
-				
-				sb.append(header);
-				
-				sb.append("<!DOCTYPE html>");
-				sb.append("<html lang=\"ko\">");
-				
-				sb.append("<head>");
-				
-				sb.append("<meta charset=\"UTF-8\">");
-				sb.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
-				sb.append("<title>게시물 상세페이지 - " + article.title + "</title>");
-				
-				sb.append("</head>");			
-				sb.append("<body>");
+
+				sb.append(head);				
 				
 				sb.append("<h1>게시물 상세 페이지</h1>");			
 				sb.append("<div>");
@@ -166,6 +151,8 @@ public class BuildService {
 				sb.append("</div>");			
 				sb.append("</body>");			
 				sb.append("</html>");
+				
+				sb.append(foot);
 				
 				fileName = boardNameSplit[i] + "-list-" + (listId/10 + 1) + "-" + listId + ".html";
 				

@@ -2,6 +2,10 @@ package com.sbs.example.textBoard.main;
 
 import java.util.Scanner;
 
+<<<<<<< HEAD
+=======
+import com.sbs.example.crawling.crawling;
+>>>>>>> d999c1aeef2b044fd3c279851d86451a83856715
 import com.sbs.example.mysqlutil.MysqlUtil;
 import com.sbs.example.textBoard.container.Container;
 import com.sbs.example.textBoard.controller.ArticleController;
@@ -49,6 +53,14 @@ public class App {
 				controller.doCommand(cmd);
 			}
 			
+<<<<<<< HEAD
+=======
+			if(cmd.equals("crawling")) {
+				crawling.run();
+				continue;
+			}
+			
+>>>>>>> d999c1aeef2b044fd3c279851d86451a83856715
 			if(isCmdExit) {
 				MysqlUtil.closeConnection();
 				break;
