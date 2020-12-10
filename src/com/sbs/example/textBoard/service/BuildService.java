@@ -5,17 +5,20 @@ import java.util.List;
 
 import com.sbs.example.textBoard.container.Container;
 import com.sbs.example.textBoard.dto.Article;
+import com.sbs.example.textBoard.dto.Board;
 import com.sbs.example.textBoard.util.Util;
 
 public class BuildService {
 	
 	ArticleService articleService;
 	MemberService memberService;
+	private BoardService boardService;
 	
 	public BuildService() {
 		
 		articleService = Container.articleService;
 		memberService = Container.memberService;
+		boardService = Container.boardService;
 		
 	}
 
@@ -24,6 +27,31 @@ public class BuildService {
 		File makeFolder = new File("site/article");	
 		Util.copy("site_template/app.css", "site/app.css");
 		String head = Util.getFileContents("site_template/header.html");
+		StringBuilder boardHtml = new StringBuilder();
+		
+		List<Board> boardListHtml = boardService.getBoards();
+		
+		for(Board board : boardListHtml) {
+			
+			String icon = "";
+			
+			if(board.code.equals("free")) {
+				icon = "fab fa-free-code-camp";
+			}else if(board.code.equals("notice")) {
+				icon = "fas fa-flag";
+			}else {
+				icon = "far fa-comments";
+			}
+			
+			boardHtml.append("<li><a href=\"" + board.code + "-list-1.html\"");
+			boardHtml.append(" class=\"block\">");
+			boardHtml.append(" <i class=\"" + icon + "\"></i>");
+			boardHtml.append(" <span>" + board.name + "</span></a></li>");
+			
+		}
+		
+		head = head.replace("[[menu-bar__menu1__menulist]]", boardHtml);
+		
 		String foot = Util.getFileContents("site_template/footer.html");
 		
 		if(makeFolder.exists() == false) {
@@ -51,13 +79,9 @@ public class BuildService {
 			for(int j = 0; j < listSize; j++) {
 				
 				sb = new StringBuilder();
-				sb.append("<!DOCTYPE html>");
-				sb.append("<html lang=\"ko\">");
+
+				sb.append(head);
 				
-				sb.append("<head>");
-				
-				sb.append("<meta charset=\"UTF-8\">");
-				sb.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
 				sb.append("<title>" + boardNameSplit[i] + "게시판 </title>");
 				
 				sb.append("</head>");			
@@ -105,6 +129,8 @@ public class BuildService {
 				
 				sb.append("</html>");
 				
+				sb.append(foot);
+				
 				fileName = "site/article/" + boardNameSplit[i] + "-list-" + (j + 1) + ".html";
 				
 				Util.writeFileContents(fileName, sb.toString());
@@ -138,7 +164,7 @@ public class BuildService {
 						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + (listId/10 + 1) + "-" + (listId - 1) + ".html\">이전글</a><br>");
 					}
 				}
-				if(listId < articles.size()-1) {
+				if(listId < articles.size()) {
 					if(listId % 10 == 9) {
 						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + ((listId+1)/10 + 1) + "-" + (listId + 1) + ".html\">다음글</a><br>");
 					}else {				
@@ -171,6 +197,8 @@ public class BuildService {
 		//인덱스 생성
 		
 		sb = new StringBuilder();
+		
+		sb.append(head);
 		
 		sb.append("<!DOCTYPE html>");
 		sb.append("<html lang=\"ko\">");
@@ -215,6 +243,8 @@ public class BuildService {
 		
 		sb.append("</body>");		
 		sb.append("</html>");
+		
+		sb.append(foot);
 		
 		fileName = "site/index.html";
 		
