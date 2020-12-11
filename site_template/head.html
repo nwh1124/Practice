@@ -12,6 +12,7 @@
 </head>
 <body>
 <body class="flex flex-dir-c">
+<body class="flex flex-dir-c">
 	<!-- 로고 바 시작-->
 	<header class="logo-bar con-min-width">
 		<div class="con flex flex-jc-c flex-ai-c">
@@ -23,19 +24,29 @@
 	<header class="menu-bar con-min-width">
 		<div class="con">
 			<ul class="flex flex-jc-sa">
-				<li class=""><a href="#"> <i class="fas fa-home"></i> <span>HOME</span>
+				<li class=""><a href="[[href#HOME]]"> <i class="fas fa-home"></i>
+						<span>HOME</span>
 				</a></li>
-				<li><i></i> <a href="#"> <i class="fas fa-list"></i> <span>ARTICLES</span>
+				<li><i></i> <a href="[[href#ARTICLES]]"> <i
+						class="fas fa-list"></i> <span>ARTICLES</span>
 				</a>
-					<ul>[[menu-bar__menu1__menulist]]
+					<ul>
+						<li><a href="[[href#FREE]]"> <i
+								class="fab fa-free-code-camp"></i> <span>FREE</span>
+						</a></li>
+						<li><a href="[[href#NOTICE]]"> <i class="fas fa-flag"></i>
+								<span>NOTICE</span>
+						</a></li>
 					</ul></li>
 				<li><i></i>
 					<div></div> <a href="#"> <i class="fas fa-link"></i> <span>LINK</span>
 				</a>
 					<ul>
-						<li><a href=""> <i class="fab fa-blogger-b"></i> <span>BLOG</span>
+						<li><a href="https://nwh1124.tistory.com/"> <i
+								class="fab fa-blogger-b"></i> <span>BLOG</span>
 						</a></li>
-						<li><a href=""> <i class="fab fa-github"></i> <span>GITHUB</span>
+						<li><a href="https://github.com/"> <i
+								class="fab fa-github"></i> <span>GITHUB</span>
 						</a></li>
 					</ul></li>
 				<li><a href="#"> <i class="fas fa-chart-pie"></i> <span>STATISTICS</span>
@@ -45,16 +56,10 @@
 	</header>
 	<!-- 타이틀 바 시작-->
 	<main class="title-bar con con-min-width">
-		<h1 class="con">
-			<i class="fas fa-home"></i> <span>HOME</span>
-		</h1>
+		<h1 class="con">[[title-bar]]</h1>
 	</main>
-	<!-- 섹션-1 시작-->
-	<section class="section-1 con-min-width">
-		<div class="con">Lorem ipsum dolor sit amet consectetur
-			adipisicing elit. Labore recusandae culpa error molestiae deserunt ex
-			eum perspiciatis sapiente sit, vel, consectetur velit impedit illo
-			quo modi voluptatem delectus sequi eos!</div>
-	</section>
+
+
+	<section class="section-1 con">
 </body>
 </html>

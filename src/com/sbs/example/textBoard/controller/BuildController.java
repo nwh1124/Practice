@@ -17,15 +17,19 @@ public class BuildController extends Controller{
 		
 		if(cmd.equals("build site")) {
 			doHtml();
+		}else if(cmd.equals("build test")) {
+			doTest();
 		}
 		
 	}
 
-	private void doHtml() {
-		
+	private void doTest() {
+		buildService.doTest();
+	}
+
+	private void doHtml() {		
 		System.out.println("== HTML 생성을 시작합니다 ==");
-		buildService.buildSite_article();
-		
+		buildService.buildSite();		
 	}
 	
 }
