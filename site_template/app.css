@@ -163,7 +163,8 @@ span>span{
 /* 메뉴 바 끝 */
 /* 타이틀 바 시작 */
 .title-bar > .con {
-  margin:20px;
+  margin-top:20px;
+  margin-bottom:20px;
 }
 /* 타이틀 바 끝 */
 /* 섹션-1 시작 */

@@ -105,11 +105,11 @@ public class BuildService {
 		String head = getHeadHtml("article_detail");
 		String foot = Util.getFileContents("site_template/foot.html");
 		
-		int listId = 0;
+		int listNum = 0;
 		
 		for(Article article : articles) {
 			
-			listId++;
+			listNum++;
 						
 			StringBuilder sb = new StringBuilder();
 			
@@ -128,29 +128,33 @@ public class BuildService {
 	
 			sb.append("</div>");
 			
-			if(listId == 1) {				
+			if(listNum == 1) {				
 				sb.append("<div>");
-				sb.append("<a href=\"" + board.code + "-list-" + (((listId -1) / 10)+ 1)  + "-" + (listId + 1) + ".html\">");
+				sb.append("<a href=\"" + board.code + "-list-" + (((listNum) / 10)+ 1)  + "-" + (listNum + 1) + ".html\">");
 				sb.append("다음 글</a>");
 				sb.append("</div>");				
-			}else if(listId == articles.size()) {
+			}else if(listNum == articles.size()) {
 				sb.append("<div>");
-				sb.append("<a href=\"" + board.code + "-list-" + (((listId -1) / 10)+ 1)  + "-" + (listId - 1) + ".html\">");
+				sb.append("<a href=\"" + board.code + "-list-" + (((listNum - 2) / 10)+ 1)  + "-" + (listNum - 1) + ".html\">");
 				sb.append("이전 글</a>");
 				sb.append("</div>");
 			}else {
 				sb.append("<div>");
-				sb.append("<a href=\"" + board.code + "-list-" + (((listId -1) / 10)+ 1)  + "-" + (listId - 1) + ".html\">");
+				sb.append("<a href=\"" + board.code + "-list-" + (((listNum - 2) / 10)+ 1)  + "-" + (listNum - 1) + ".html\">");
 				sb.append("이전 글</a>");
-				sb.append("<a href=\"" + board.code + "-list-" + (((listId -1) / 10)+ 1)  + "-" + (listId + 1) + ".html\">");
+				sb.append("<a href=\"" + board.code + "-list-" + (((listNum) / 10)+ 1)  + "-" + (listNum + 1) + ".html\">");
 				sb.append("다음 글</a>");
 				sb.append("</div>");
 			}
 			
+			sb.append("<div>");			
+			sb.append("<a href=\"" + board.code + "-list-" + (((listNum - 1) / 10)+ 1) + ".html\">목록</a>");			
+			sb.append("</div>");
+			
 			sb.append(foot);
 			
-			Util.writeFileContents("site/article/" + board.code + "-list-" + (((listId -1) / 10)+ 1)  + "-" + listId + ".html", sb.toString());
-			System.out.println(board.code+"-list-" + (((listId -1) / 10)+ 1)  + "-" + listId + ".html 생성되었습니다");			
+			Util.writeFileContents("site/article/" + board.code + "-list-" + (((listNum -1) / 10)+ 1)  + "-" + listNum + ".html", sb.toString());
+			System.out.println(board.code+"-list-" + (((listNum -1) / 10)+ 1)  + "-" + listNum + ".html 생성되었습니다");			
 		}
 	}
 
