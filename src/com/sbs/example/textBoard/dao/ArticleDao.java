@@ -69,13 +69,13 @@ public class ArticleDao {
 		return article;
 	}
 
-	public List<Article> getArticles(String boardName) {
+	public List<Article> getArticles(String boardCode) {
 		
 		SecSql sql = new SecSql();
 		
 		sql.append("SELECT id");
 		sql.append("FROM board");
-		sql.append("WHERE code = ?", boardName);
+		sql.append("WHERE code = ?", boardCode);
 		
 		int boardId = MysqlUtil.selectRowIntValue(sql);
 		

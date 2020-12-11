@@ -227,3 +227,149 @@ String head = Util.getFileContents("site_template/header.html");
 		Util.writeFileContents(fileName, sb.toString());
 
 		System.out.printf(fileName + " 생성\n");
+		
+		
+		///////////////////////////////////
+		(구)게시물 생성 코딩
+		///////////////////////////////////
+		
+		String fileName = "";
+		String boardName = "free notice";
+		String[] boardNameSplit = boardName.split(" ");
+
+		int[] lastBoardList = new int[boardNameSplit.length];
+		int listId;
+
+		String head = getHeadHtml("boardList");
+
+		String foot = Util.getFileContents("site_template/foot.html");
+
+		for (int i = 0; i < boardNameSplit.length; i++) {
+			List<Article> articles = articleService.getArticles(boardNameSplit[i]);
+
+			int listSize = articles.size() / 10;
+			lastBoardList[i] = listSize;
+			listId = 1;
+
+			for (int j = 0; j < listSize; j++) {
+
+				StringBuilder sb = new StringBuilder();
+
+				head = getHeadHtml("article_list_free");
+
+				sb.append(head);
+
+				sb.append("<title>" + boardNameSplit[i] + "게시판 </title>");
+
+				sb.append("<body>");
+
+				sb.append("<h1>");
+				sb.append(boardNameSplit[i] + " 게시판");
+				sb.append("</h1>");
+
+				for (int k = 1; k <= 10; k++) {
+					int l = 10 * j;
+					if (k % 10 == 0) {
+						sb.append("<a href=\"article/" + boardNameSplit[i] + "-list-" + (j + 2) + "-" + (k + l)
+								+ ".html\">" + (k + l) + "번 게시물</a><br>");
+					} else {
+						sb.append("<a href=\"article/" + boardNameSplit[i] + "-list-" + (j + 1) + "-" + (k + l)
+								+ ".html\">" + (k + l) + "번 게시물</a><br>");
+					}
+				}
+
+				sb.append("</div>");
+				sb.append("<br>");
+				sb.append("<div>");
+
+				sb.append("<div>게시판 페이지 <br>");
+
+				for (int k = 1; k <= listSize; k++) {
+					sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + k + ".html\">" + k + "</a>&nbsp");
+				}
+
+				sb.append("</div><br>");
+
+				sb.append("<div>");
+
+				if (j > 0) {
+					sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + j + ".html\">이전 페이지</a><br>");
+				}
+				if (j < listSize - 1) {
+					sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + (j + 2) + ".html\">다음 페이지</a><br>");
+				}
+
+				sb.append("<a href=\"index.html\">HOME</a><br>");
+
+				sb.append("</div>");
+
+				sb.append("</body>");
+
+				sb.append("</section>");
+
+				sb.append(foot);
+
+				fileName = "site/" + boardNameSplit[i] + "-list-" + (j + 1) + ".html";
+
+				Util.writeFileContents(fileName, sb.toString());
+
+				System.out.printf(fileName + " 생성\n");
+
+			}
+
+			// 게시판 게시물
+			for (Article article : articles) {
+
+				StringBuilder sb = new StringBuilder();
+
+				head = getHeadHtml("article_detail");
+
+				sb.append(head);
+
+				sb.append("<h1>게시물 상세 페이지</h1>");
+				sb.append("<div>");
+
+				sb.append("번호 : " + article.id + "<br>");
+				sb.append("생성날짜 : " + article.regDate + "<br>");
+				sb.append("갱신날짜 : " + article.updateDate + "<br>");
+				sb.append("작성자 : " + article.memberId + "<br>");
+				sb.append("제목 : " + article.title + "<br>");
+				sb.append("내용 : " + article.body + "<br>");
+
+				if (listId > 1) {
+					if (listId % 10 == 0) {
+						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + ((listId - 1) / 10 + 1) + "-"
+								+ (listId - 1) + ".html\">이전글</a><br>");
+					} else {
+						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + (listId / 10 + 1) + "-" + (listId - 1)
+								+ ".html\">이전글</a><br>");
+					}
+				}
+				if (listId < articles.size()) {
+					if (listId % 10 == 9) {
+						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + ((listId + 1) / 10 + 1) + "-"
+								+ (listId + 1) + ".html\">다음글</a><br>");
+					} else {
+						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + (listId / 10 + 1) + "-" + (listId + 1)
+								+ ".html\">다음글</a><br>");
+					}
+				}
+
+				sb.append("<a href=\"../" + boardNameSplit[i] + "-list-" + (((listId - 1) / 10) + 1)
+						+ ".html\">게시물 목록</a><br>");
+
+				sb.append("</div>");
+				sb.append("</body>");
+				sb.append("</html>");
+
+				sb.append(foot);
+
+				fileName = boardNameSplit[i] + "-list-" + (listId / 10 + 1) + "-" + listId + ".html";
+
+				listId++;
+
+				String filePath = "site/article/" + fileName;
+
+				Util.writeFileContents(filePath, sb.toString());
+
+				System.out.println(filePath + " 생성");

@@ -26,8 +26,8 @@ public class ArticleService {
 		return articleDao.getArticles();
 	}	
 	
-	public List<Article> getArticles(String boardName) {
-		return articleDao.getArticles(boardName);
+	public List<Article> getArticles(String boardCode) {
+		return articleDao.getArticles(boardCode);
 	}
 
 	public Article getArticle(int inputedId) {

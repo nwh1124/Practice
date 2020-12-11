@@ -72,7 +72,7 @@ public class crawling {
 			sql.append(", hit = ?", hit);
 			sql.append(", recommend = ?", recommend);
 			sql.append(", memberId = ?", 2);
-			sql.append(", boardId = ?", 2);
+			sql.append(", boardId = ?", 1);
 			
 			MysqlUtil.insert(sql);
 			
