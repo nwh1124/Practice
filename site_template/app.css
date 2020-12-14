@@ -159,7 +159,7 @@ a {
 }
 
 /* 타이틀 바 */
-.title-bar {
+.title-bar.con-min-width {
   margin:20px 0;
 }
 
@@ -198,6 +198,10 @@ a {
   flex-grow:1;
 }
 
+.section-1__article-list > ul > li > span:nth-child(4):hover{
+  text-decoration:underline;
+}
+
 .section-1__article-list > ul > li:first-child > span:not(:last-child) {
   border-right:1px solid black;
 }
@@ -214,12 +218,23 @@ a {
 }
 
 .section-1__article-detail > ul li{
-  border-bottom:1px solid black;
   padding:20px 0;
 }
 
-.section-1__article-detail > ul li > span, a{
+.section-1__article-detail > ul li:not(:last-child){
+  border-bottom:1px solid black;
+}
+
+.section-1__article-detail > ul li > span{
   margin-right:15px;
+}
+
+.section-1__article-detail > ul li > a{
+  margin-right:15px;
+}
+
+.section-1__article-detail > ul li > a:hover{
+  text-decoration:underline;
 }
 
 .section-1__article-detail > ul .body {

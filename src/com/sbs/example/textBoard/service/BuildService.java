@@ -58,10 +58,6 @@ public class BuildService {
 			sb.append(head);
 
 			for (Article article : articles) {
-
-				if (listNum == 0) {
-					
-				}
 				
 				listNum++;
 				
@@ -173,23 +169,23 @@ public class BuildService {
 
 				sb.append("<a href=\"" + board.code + "-list-" + (((listNum - 1) / 10)+ 1) + ".html\">목록</a>");	
 				sb.append("<a href=\"" + board.code + "-list-" + (((listNum) / 10)+ 1)  + "-" + (listNum + 1) + ".html\">");
-				sb.append("다음 글</a>");
+				sb.append("다음 글 &gt;</a>");
 				sb.append("</ul>");	
 				sb.append("</li>");				
 			}else if(listNum == articles.size()) {
 				sb.append("<li class=\"list\">");
 				sb.append("<a href=\"" + board.code + "-list-" + (((listNum - 2) / 10)+ 1)  + "-" + (listNum - 1) + ".html\">");
-				sb.append("이전 글</a>");
+				sb.append("&lt; 이전 글 &lt;</a>");
 				sb.append("<a href=\"" + board.code + "-list-" + (((listNum - 1) / 10)+ 1) + ".html\">목록</a>");
 				sb.append("</ul>");	
 				sb.append("</li>");
 			}else {
 				sb.append("<li class=\"list\">");
 				sb.append("<a href=\"" + board.code + "-list-" + (((listNum - 2) / 10)+ 1)  + "-" + (listNum - 1) + ".html\">");
-				sb.append("이전 글</a>");
+				sb.append("&lt; 이전 글</a>");
 				sb.append("<a href=\"" + board.code + "-list-" + (((listNum - 1) / 10)+ 1) + ".html\">목록</a>");	
 				sb.append("<a href=\"" + board.code + "-list-" + (((listNum) / 10)+ 1)  + "-" + (listNum + 1) + ".html\">");
-				sb.append("다음 글</a>");
+				sb.append("다음 글 &gt;</a>");
 				sb.append("</ul>");	
 				sb.append("</li>");
 			}
@@ -236,7 +232,11 @@ public class BuildService {
 
 			boardMenuContents.append("<li>");
 
-			boardMenuContents.append("<a href=\"" + link + "\" class=\"block\">");
+			if(pageName.equals("index")) {
+				boardMenuContents.append("<a href=\"article/" + link + "\" class=\"block\">");
+			}else {
+				boardMenuContents.append("<a href=\"" + link + "\" class=\"block\">");
+			}
 
 			boardMenuContents.append(getTitleBarContentByPageName("article_list_" + board.code));
 
@@ -257,9 +257,9 @@ public class BuildService {
 		head = head.replace("[[title-bar]]", titleBarType);
 
 		if (pageName.equals("index")) {
-			head = head.replace("[[href#HOME]]", "./index.html");
+			head = head.replace("[[menu-bar__home-link]]", "./index.html");
 		} else {
-			head = head.replace("[[href#HOME]]", "../index.html");
+			head = head.replace("[[menu-bar__home-link]]", "../index.html");
 		}
 
 		return head;
@@ -269,13 +269,11 @@ public class BuildService {
 
 		if (pageName.equals("index")) {
 			return "<i class=\"fas fa-home\"></i> <span>HOME</span>";
-		} else if (pageName.equals("boardList")) {
-			return "<i class=\"fas fa-clipboard-list\"></i> <span>BOARD LIST</span>";
 		} else if (pageName.startsWith("article_list_free")) {
 			return "<i class=\"fab fa-free-code-camp\"></i> <span>FREE LIST</span>";
 		} else if (pageName.startsWith("article_list_notice")) {
 			return "<i class=\"fas fa-flag\"></i> <span>NOTICE LIST</span>";
-		} else if (pageName.startsWith("aritcle_list")) {
+		} else if (pageName.startsWith("article_list_")) {
 			return "<i class=\"fas fa-clipboard-list\"></i> <span>LIST</span>";
 		} else if (pageName.equals("article_detail")) {
 			return "<i class=\"fas fa-file-alt\"></i> <span>ARTICLE DETAIL</span>";
