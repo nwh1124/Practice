@@ -1,41 +1,50 @@
-/* 폰트 시작 */
+/* 폰트 */
 @font-face {
   font-family: 'LotteMartDream';
   font-style: normal;
   font-weight: 400;
-  src: url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff2') format('woff2'), url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff') format('woff');
+  src: url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff') format('woff');
 }
 @font-face {
   font-family: 'LotteMartDream';
   font-style: normal;
   font-weight: 700;
-  src: url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff2') format('woff2'), url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff') format('woff');
+  src: url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff') format('woff');
 }
 @font-face {
   font-family: 'LotteMartDream';
   font-style: normal;
   font-weight: 300;
-  src: url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
+  src: url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
 }
+
 html {
   font-family: 'LotteMartDream', sans-serif;
 }
-/* 폰트 끝 */
-/* 노말라이즈 시작 */
-body, ul, li, h1, h2{
-  list-style:none;
+
+/* 노말라이즈 */
+body, ul, li, h1 {
   margin:0;
   padding:0;
+  list-style:none;
 }
 
-a{
-  text-decoration:none;
+a {
   color:inherit;
+  text-decoration:none;
 }
-/* 노말라이즈 끝 */
-/* 라이브러리 시작*/
-.con-min-width{
-  min-width:1200px;
+
+/* lib */
+.color-red{
+	color:red;
+}
+
+.bg-red {
+  background-color:red;
+}
+
+.height-100vh{
+  height:100vh;
 }
 
 .con{
@@ -43,20 +52,13 @@ a{
   margin:0 auto;
 }
 
-.height-100p{
-	height:100%;
+.con-min-width {
+  min-width:1200px;
+  padding:0 20px;
 }
 
-.border-red{
-  border:1px solid red;
-}
-
-.border-blue{
-  border:1px solid blue;
-}
-
-.border-pink{
-  border:1px solid pink;
+.block{
+  display:block;
 }
 
 .flex{
@@ -67,123 +69,180 @@ a{
   justify-content:center;
 }
 
-.flex-ai-c{
-  align-items:center;
-}
-
 .flex-jc-sa{
   justify-content:space-around;
 }
 
-.flex-dir-c{
+.flex-column{
   flex-direction:column;
 }
-/* 라이브러리 끝*/
 
-body{
-  min-height:100vh;
+.flex-grow-1{
+  flex-grow:1;
+}
+/* cus */
+
+:root {
+  --site-width:1200px;
 }
 
-/* 로고 바 시작 */
-.logo-bar{
+/* top-bar */
+
+.top-bar {
   background-color:black;
   color:white;
-  height:150px;
+  padding:30px 0;
 }
 
-.logo-bar>.con{
-  height:100%;
-  font-size:3rem;
+.top-bar > .con {
+  font-size:4rem;
 }
 
-.logo-bar>.con>span{
+.top-bar > .con > span {
   margin-left:10px;
 }
 
-span>span{
+.top-bar > .con > span > span {
   color:red;
 }
-/* 로고 바 끝 */
-/* 메뉴 바 시작 */
-.menu-bar ul ul{
-  display:none;
-}
 
+/* menu bar */
 .menu-bar{
   background-color:black;
   color:white;
 }
 
-.menu-bar ul > li { 
+.menu-bar ul ul {
+  display:none;
+  background-color:black;
+  color:white;
+  width:100%;
+}
+
+.menu-bar > .con > ul {  
+  display:flex;
+  justify-content:space-between;
+}
+
+.menu-bar > .con > ul > li{
+  width:100%;
   position:relative;
-  justify-content:center;
-}
-
-.menu-bar > .con > ul > li { 
-  border-radius:10px 10px 0 0;
-  width:25%;
-}
-
-.menu-bar > .con > ul > li > a{ 
-  border-radius:10px 10px 0 0;
+  text-align:center;
 }
 
 .menu-bar ul > li > a{ 
-  display:block;
-  color:white;
   padding:20px 0;
-  text-align:center;
-  white-space:nowrap;
 }
 
-.menu-bar ul > li:hover > a{  
+.menu-bar > .con > ul > li:hover > a{   
+  border-radius:10px 10px 0 0;
+}
+
+.menu-bar ul > li:hover > a{ 
+  padding:20px 0;
   background-color:white;
   color:black;
 }
 
-.menu-bar ul > li:hover > ul {
-  display:block;
-}
-
-.menu-bar ul ul {
-  background-color:black;
-  border:10px solid black;
-  border-top-width:0;
-  border-radius:0 0 20px 20px;
-  position:absolute;
-  top:100%;
-  left:-10px;
-  width:100%;
-}
-
-.menu-bar ul ul li:last-child > a {
+.menu-bar ul > li:last-child > a{  
   border-radius:0 0 10px 10px;
 }
 
-/* 메뉴 바 끝 */
-/* 타이틀 바 시작 */
-.title-bar > .con {
-  margin-top:20px;
-  margin-bottom:20px;
+.menu-bar > .con > ul > li:hover > ul{  
+  display:block;
+  position:absolute;
+  top:100%;
+  left:-10px;
+  border:10px solid black;
+  border-top:0;
+  border-radius:0 0 20px 20px;
 }
-/* 타이틀 바 끝 */
-/* 섹션-1 시작 */
-.section-1{
+
+/* 타이틀 바 */
+.title-bar {
+  margin:20px 0;
+}
+
+
+/* section-1 */
+.section-1__article-list {
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+
+.section-1__article-list > ul {
+  display:flex;
+  flex-direction:column;  
+  justify-content:flex-start;
+  height:100%;
+}
+
+.section-1__article-list > ul > li {
+  display:flex;  
+  justify-content:space-around;  
+}
+
+.section-1__article-list > ul:first-child > li{  
+  border-bottom:1px solid black;
+  padding-bottom:15px;  
+}
+
+.section-1__article-list > ul > li:not(.title) > span{
+  display:flex;
+  justify-content:center;    
+  width:10%;
+}
+
+.section-1__article-list > ul > li > span:nth-child(4){
   flex-grow:1;
 }
-/* 섹션-1 끝 */
-/* 바텀 바 시작 */
-.bottom-bar{
-  background-color:black;
-  color:white;
+
+.section-1__article-list > ul > li:first-child > span:not(:last-child) {
+  border-right:1px solid black;
+}
+
+
+.section-1__article-detail {
+  height:100%;
+}
+
+.section-1__article-detail > ul {
+  height:100%;
+  display:flex;
+  flex-direction:column;    
+}
+
+.section-1__article-detail > ul li{
+  border-bottom:1px solid black;
   padding:20px 0;
 }
 
-.bottom-bar > .con{
+.section-1__article-detail > ul li > span, a{
+  margin-right:15px;
 }
 
-.bottom-bar > .con > .logo{
-  font-size:2rem;
-  padding:0 20px;
+.section-1__article-detail > ul .body {
+  flex-grow:1;
 }
-/* 바텀 바 끝 */
+
+
+/* bottom-bar */
+.bottom-bar {
+  background-color:black;
+  color:white;
+  padding:30px 0;
+}
+
+.bottom-bar .logo{
+  font-size:2rem;
+  white-space:nowrap;
+}
+
+.bottom-bar .logo > span > span {
+  color:red;
+}
+
+.bottom-bar .site-info{
+  margin-left:10px;
+}

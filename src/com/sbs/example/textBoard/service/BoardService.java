@@ -27,6 +27,10 @@ public class BoardService {
 	public List<Board> getBoards() {
 		return boardDao.getBoards();
 	}
+
+	public String getBoardNameById(int boardId) {
+		return boardDao.getBoardNameById(boardId);
+	}
 	
 	
 

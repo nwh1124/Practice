@@ -12,9 +12,19 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import com.sbs.example.mysqlutil.MysqlUtil;
 import com.sbs.example.mysqlutil.SecSql;
+import com.sbs.example.textBoard.container.Container;
+import com.sbs.example.textBoard.service.MemberService;
 
 public class crawling {
 	
+	private static MemberService memberService;
+	
+	crawling(){
+		
+		memberService = Container.memberService;
+		
+	}
+
 	public static void run() {
 		
 		doWriteArticleTodayHumorToDb();

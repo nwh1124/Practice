@@ -10,56 +10,71 @@
 <link rel="stylesheet" href="../app.css" />
 <link rel="stylesheet" href="app.css" />
 </head>
-<body>
-<body class="flex flex-dir-c">
-	<!-- 로고 바 시작-->
-	<header class="logo-bar con-min-width">
-		<div class="con flex flex-jc-c flex-ai-c">
-			<i class="fas fa-grin-beam-sweat"></i> <span>programming<span>B</span>eginner
-			</span>
-		</div>
-	</header>
-	<!-- 메뉴 바 시작-->
-	<header class="menu-bar con-min-width">
-		<div class="con">
-			<ul class="flex flex-jc-sa">
-				<li class=""><a href="[[href#HOME]]"> <i class="fas fa-home"></i>
-						<span>HOME</span>
-				</a></li>
-				<li><i></i> <a> <i
-						class="fas fa-list"></i> <span>ARTICLES</span>
-				</a>
-					<ul>
-						<li><a href="[[href#FREE]]"> <i
-								class="fab fa-free-code-camp"></i> <span>FREE</span>
-						</a></li>
-						<li><a href="[[href#NOTICE]]"> <i class="fas fa-flag"></i>
-								<span>NOTICE</span>
-						</a></li>
-					</ul></li>
-				<li><i></i>
-					<div></div> <a href="#"> <i class="fas fa-link"></i> <span>LINK</span>
-				</a>
-					<ul>
-						<li><a href="https://nwh1124.tistory.com/" target="_blank"> <i
-								class="fab fa-blogger-b" ></i> <span>BLOG</span>
-						</a></li>
-						<li><a href="https://github.com/" target="_blank"> <i
-								class="fab fa-github" ></i> <span>GITHUB</span>
-						</a></li>
-					</ul></li>
-				<li><a href="#"> <i class="fas fa-chart-pie"></i> <span>STATISTICS</span>
-				</a></li>
-			</ul>
-		</div>
-	</header>
+<!-- 전체 -->
+<div class="body-content height-100vh flex flex-column">
+  <!-- 탑 바 -->
+  <header class="top-bar con-min-width">
+    <div class="con flex flex-jc-c">
+      <i class="fas fa-sad-tear"></i>
+      <span>holiday<span>R</span>eview</span>
+    </div>
+  </header>
+  <!-- 메뉴 바 -->
+  <header class="menu-bar con-min-width">
+    <div class="con">
+      <ul>
+        <li>
+          <a href="#" class="block">
+            <i class="fas fa-home"></i>
+            <span>HOME</span> 
+          </a>
+        </li>
+        <li>
+          <a href="#" class="block">
+            <i class="fas fa-list"></i>
+            <span>ARTICLE</span> 
+          </a>
+          <ul>
+            [[menu-bar__menu1__menulist]]
+          </ul>
+        </li>
+        <li>
+          <a href="#" class="block">
+            <i class="fas fa-link"></i>
+            <span>LINK</span> 
+          </a>
+          <ul>
+            <li>
+              <a href="#" class="block">
+                <i class="fas fa-blog"></i>
+                <span>BLOG</span> 
+              </a>                
+            </li>
+            <li>
+              <a href="#" class="block">
+                <i class="fab fa-github"></i>
+                <span>GITHUB</span> 
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" class="block">
+            <i class="fas fa-chart-pie"></i>
+            <span>STATISTICS</span> 
+          </a>          
+        </li>
+      </ul>
+    </div>
+  </header>  	
+
 	<!-- 타이틀 바 시작-->
-	<main class="title-bar con con-min-width">
-		<h1 class="con">[[title-bar]]</h1>
+	<main class="title-bar con-min-width">
+		<div class="con">
+			<h1>[[title-bar]]</h1>
+		</div>
 	</main>
 
 
-	<section class="section-1 con-min-width">
-	<div class="con">
-</body>
-</html>
+  <section class="section-1 con-min-width flex flex-grow-1">
+    <div class="section-1__article-list con">

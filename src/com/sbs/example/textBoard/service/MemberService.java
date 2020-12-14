@@ -29,5 +29,4 @@ public class MemberService {
 	public String getMemberNameById(int memberId) {
 		return memberDao.getMemberNameById(memberId);
 	}
-
 }

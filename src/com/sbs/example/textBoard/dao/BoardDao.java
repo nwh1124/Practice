@@ -61,4 +61,14 @@ public class BoardDao {
 		return boards;
 	}
 
+	public String getBoardNameById(int boardId) {
+		SecSql sql = new SecSql();
+		
+		sql.append("SELECT code");
+		sql.append("FROM board");
+		sql.append("WHERE id = ?", boardId);
+		
+		return MysqlUtil.selectRowStringValue(sql);
+	}
+
 }
