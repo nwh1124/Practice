@@ -1,6 +1,5 @@
 package com.sbs.example.textBoard.service;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
@@ -151,11 +150,13 @@ public class BuildService {
 			
 			sb.append("<ul>");
 			
-			sb.append("<li class=\"title\">");
-
-			sb.append("<span>" + article.title + "</span>");
+			sb.append("<h1 class=\"title\">");
 			
+			sb.append("<li>");			
+			sb.append("<span>" + article.title + "</span>");
 			sb.append("</li>");
+			
+			sb.append("</h1>");
 			
 			sb.append("<li>");
 			

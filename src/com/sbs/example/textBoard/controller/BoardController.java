@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import com.sbs.example.textBoard.container.Container;
 import com.sbs.example.textBoard.dto.Board;
-import com.sbs.example.textBoard.dto.Member;
 import com.sbs.example.textBoard.service.BoardService;
 
 public class BoardController extends Controller{

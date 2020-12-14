@@ -7,7 +7,6 @@ import java.util.Map;
 import com.sbs.example.mysqlutil.MysqlUtil;
 import com.sbs.example.mysqlutil.SecSql;
 import com.sbs.example.textBoard.dto.Article;
-import com.sbs.example.textBoard.dto.Board;
 import com.sbs.example.textBoard.dto.Recommand;
 import com.sbs.example.textBoard.dto.Reply;
 
