@@ -1,375 +1,268 @@
-String head = Util.getFileContents("site_template/header.html");
-		StringBuilder boardHtml = new StringBuilder();
-
-		List<Board> boardListHtml = boardService.getBoards();
-
-		for (Board board : boardListHtml) {
-
-			String icon = "";
-
-			if (board.code.equals("free")) {
-				icon = "fab fa-free-code-camp";
-			} else if (board.code.equals("notice")) {
-				icon = "fas fa-flag";
-			} else {
-				icon = "far fa-comments";
-			}
-
-			boardHtml.append("<li><a href=\"" + board.code + "-list-1.html\"");
-			boardHtml.append(" class=\"block\">");
-			boardHtml.append(" <i class=\"" + icon + "\"></i>");
-			boardHtml.append(" <span>" + board.name + "</span></a></li>");
-
-		}
-
-		head = head.replace("[[menu-bar__menu1__menulist]]", boardHtml);
-
-		String foot = Util.getFileContents("site_template/footer.html");
-
-		String fileName = "";
-		StringBuilder sb = new StringBuilder();
-
+	private void buildArticleListNew() {
 		
+		List<Board> boards = boardService.getBoards();
+		
+		for(Board board : boards) {
+			
+			List<Article> articles = articleService.getArticles();
+			
+			buildArticleList(board, articles);
+			
+		}
+		
+	}
 
-// 목록 생성
-
-		String boardName = "free notice";
-		String[] boardNameSplit = boardName.split(" ");
-		int[] lastBoardList = new int[boardNameSplit.length];
-
-		for (int i = 0; i < boardNameSplit.length; i++) {
-			List<Article> articles = articleService.getArticles(boardNameSplit[i]);
-
-			int listSize = articles.size() / 10;
-			lastBoardList[i] = listSize;
-			listId = 1;
-
-			for (int j = 0; j < listSize; j++) {
-
-				sb = new StringBuilder();
-
-				sb.append(head);
-
-				sb.append("<title>" + boardNameSplit[i] + "게시판 </title>");
-
-				sb.append("</head>");
-				sb.append("<body>");
-
-				sb.append("<h1>");
-				sb.append(boardNameSplit[i] + " 게시판");
-				sb.append("</h1>");
-
-				sb.append("<div>게시판 페이지 <br>");
-
-				for (int k = 1; k <= listSize; k++) {
-					sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + k + ".html\">" + k + "</a>&nbsp");
-				}
-
-				sb.append("</div><br>");
-
-				sb.append("<div>");
-
-				for (int k = 1; k <= 10; k++) {
-					int l = 10 * j;
-					if (k % 10 == 0) {
-						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + (j + 2) + "-" + (k + l) + ".html\">"
-								+ (k + l) + "번 게시물</a><br>");
-					} else {
-						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + (j + 1) + "-" + (k + l) + ".html\">"
-								+ (k + l) + "번 게시물</a><br>");
-					}
-				}
-
-				sb.append("</div>");
-				sb.append("<br>");
-				sb.append("<div>");
-
-				if (j > 0) {
-					sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + j + ".html\">이전 페이지</a><br>");
-				}
-				if (j < listSize - 1) {
-					sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + (j + 2) + ".html\">다음 페이지</a><br>");
-				}
-
-				sb.append("<a href=\"../index.html\">HOME</a><br>");
-
-				sb.append("</div>");
-
-				sb.append("</body>");
-
-				sb.append("</html>");
-
-				sb.append(foot);
-
-				fileName = "site/article/" + boardNameSplit[i] + "-list-" + (j + 1) + ".html";
-
-				Util.writeFileContents(fileName, sb.toString());
-
-				System.out.printf(fileName + " 생성\n");
-
+	private void buildArticlePageBtn(Board board, List<Article> articles, StringBuilder articlePageHtml, int articleCount) {
+		
+		int pageSize = 10;
+		int pageBoxSize = 10;
+		int totalPage = articles.size() / pageSize;
+		int page = ((articleCount - 1) / (pageSize * pageBoxSize)) + 1;
+		
+		if(page > 1) {
+			articlePageHtml.append("<li><a href=\"./article_list_" + (((page - 2) * 10) + 1) + ".html\">&lt; 이전</a></li>");
+		}
+		for(int i = 1; i <= pageBoxSize; i++) {
+			
+			if(totalPage + 1 <= (((page - 1) * 10 ) + i)) {
+				break;
 			}
+			
+			articlePageHtml.append("<li>");		
+			
+			if((articleCount - 1) / pageSize == ((page - 1) * 10 ) + i - 1 ) {
+				articlePageHtml.append("<a href=\"./article_list_" + (((page - 1) * 10 ) + i) + ".html\" class=\"color-red\">");
+			}else {
+				articlePageHtml.append("<a href=\"./article_list_" + (((page - 1) * 10 ) + i) + ".html\">");
+			}
+			
+			
+			articlePageHtml.append(((page - 1) * 10 ) + i);
+			articlePageHtml.append("</a>");
+			articlePageHtml.append("</li>");			
+			
+		}
+		if(articleCount / pageSize < totalPage) {
+			articlePageHtml.append("<li><a href=\"./article_list_" + (((page) * 10) + 1) + ".html\">다음 &gt;</a></li>");
+		}
+		
+	}
 
-			// 게시판 게시물
+	private void buildArticleList(Board board, List<Article> articles) {
+		
+		buildArticleDetailPages(board, articles);
+		
+		StringBuilder articleListHtml = new StringBuilder();
+		StringBuilder articlePageHtml = new StringBuilder();
+		
+		int articleCount = 0;
+		
+		for(Article article : articles) {
+			
+			int pageSize = 10;
+			
+			articleCount++;
+			
+			String writer = memberService.getMemberNameById(article.memberId);
+			
+			articleListHtml.append("<ul class=\"flex\">");
+			
+			articleListHtml.append("<li>" + article.id + "</li>");
+			articleListHtml.append("<li>" + article.regDate + "</li>");
+			articleListHtml.append("<li>" + writer + "</li>");
+			articleListHtml.append("<li><a href=\"#\">" + article.title + "</a></li>");
+			articleListHtml.append("<li>" + article.hit + "</li>");
+			articleListHtml.append("<li>" + article.recommand + "</li>");		
+			
+			articleListHtml.append("</ul>");	
+			
+			if(articleCount % pageSize == 0 || articleCount == articles.size()) {
+				
+				StringBuilder sb = new StringBuilder();
+				sb.append(getHeadHtml("article_list_free"));				
+
+				buildArticlePageBtn(board, articles, articlePageHtml, articleCount);
+				String body = Util.getFileContents("site_template/article_list.html");
+				body = body.replace("[[article_list]]", articleListHtml);
+				body = body.replace("[[article_list_page]]", articlePageHtml);
+				sb.append(body);
+				
+				String foot = Util.getFileContents("site_template/foot.html");
+				sb.append(foot);
+				
+				Util.writeFileContents("site/article/article_list_" + (articleCount / pageSize) +".html", sb.toString());
+				
+				articleListHtml = new StringBuilder();
+				articlePageHtml = new StringBuilder();
+				
+			}
+			
+		}
+		
+	}
+
+	private void buildArticleListPages() {
+
+		List<Board> boards = boardService.getBoards();
+
+		for (Board board : boards) {
+			List<Article> articles = articleService.getArticles(board.code);
+
+			StringBuilder sb = new StringBuilder();
+			int listNum = 0;
+			int articleSize = (articles.size() - 1) / 10;
+
+			String head = getHeadHtml("article_list_" + board.code);
+			String foot = Util.getFileContents("site_template/foot.html");
+
+			sb.append(head);
+
+			Collections.reverse(articles);
+			
+			buildArticleDetailPages(board, articles);
+			
+			sb = new StringBuilder();
+			head = getHeadHtml("article_list_" + board.code);
+			sb.append(head);
+
 			for (Article article : articles) {
-
-				sb = new StringBuilder();
-
-				sb.append(head);
-
-				sb.append("<h1>게시물 상세 페이지</h1>");
-				sb.append("<div>");
-
-				sb.append("번호 : " + article.id + "<br>");
-				sb.append("생성날짜 : " + article.regDate + "<br>");
-				sb.append("갱신날짜 : " + article.updateDate + "<br>");
-				sb.append("작성자 : " + article.memberId + "<br>");
-				sb.append("제목 : " + article.title + "<br>");
-				sb.append("내용 : " + article.body + "<br>");
-
-				if (listId > 1) {
-					if (listId % 10 == 0) {
-						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + ((listId - 1) / 10 + 1) + "-"
-								+ (listId - 1) + ".html\">이전글</a><br>");
-					} else {
-						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + (listId / 10 + 1) + "-" + (listId - 1)
-								+ ".html\">이전글</a><br>");
-					}
-				}
-				if (listId < articles.size()) {
-					if (listId % 10 == 9) {
-						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + ((listId + 1) / 10 + 1) + "-"
-								+ (listId + 1) + ".html\">다음글</a><br>");
-					} else {
-						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + (listId / 10 + 1) + "-" + (listId + 1)
-								+ ".html\">다음글</a><br>");
-					}
+				
+				listNum++;
+				
+				if(listNum % 10 == 1) {
+					sb.append("<ul class=\"section-1__article-list\">");
+					sb.append("<li>");
+						sb.append("<span>번호</span>");
+						sb.append("<span>작성일</span>");
+						sb.append("<span>작성자</span>");
+						sb.append("<span>제목</span>");
+						sb.append("<span>조회수</span>");
+						sb.append("<span>추천수</span>");
+					sb.append("</li>");
+					sb.append("<br>");
 				}
 
-				sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + (((listId - 1) / 10) + 1)
-						+ ".html\">게시물 목록</a><br>");
+				sb.append("<li>");
+				sb.append("<span>" + article.id + "</span>");
+				sb.append("<span>" + article.regDate.substring(0, 10) + "</span>");
+				sb.append("<span>" + article.body + "</span>");
+				sb.append("<span><a href=\"" + board.code + "-list-" + (((listNum -1) / 10)+ 1)  + "-" + listNum + ".html" + "\">" + article.title + "</a></span>");
+				sb.append("<span>" + article.hit + "</span>");
+				sb.append("<span>" + article.recommand + "</span>");
+				sb.append("</li>");
+				sb.append("<br>");
 
-				sb.append("</div>");
-				sb.append("</body>");
-				sb.append("</html>");
-
-				sb.append(foot);
-
-				fileName = boardNameSplit[i] + "-list-" + (listId / 10 + 1) + "-" + listId + ".html";
-
-				listId++;
-
-				String filePath = "site/article/" + fileName;
-
-				Util.writeFileContents(filePath, sb.toString());
-
-				System.out.println(filePath + " 생성");
+				if (listNum != 0 && listNum % 10 == 0) {
+					sb.append("</ul>");
+					
+					sb.append("<br>");
+					
+					sb.append("<ul class=\"flex flex-jc-sa\">");
+					
+					sb.append("<li>");
+					
+					if(listNum > 10) {
+						sb.append("<a href=\"\">&lt; 이전</a>");	
+					}
+					
+					for(int i = 1; i <= articleSize + 1; i++) {
+						if((listNum / 10 ) == i) {
+							sb.append("<a href=\"" + board.code + "-list-" + i + ".html\" class=\"color-red\">[" + i +"]</a>");
+							continue;
+						}
+						sb.append("<a href=\"" + board.code + "-list-" + i + ".html\">[" + i +"]</a>");
+					}
+					
+					if((listNum / 10) < articleSize + 1) {
+						sb.append("<a href=\"\">다음 &gt;</a>");	
+					}
+					
+					sb.append("</li>");				
+					sb.append("</ul>");
+					
+					sb.append(foot);
+					
+					Util.writeFileContents("site/article/" + board.code + "-list-" + (listNum / 10) + ".html", sb.toString());
+					System.out.println(board.code + "-list-" + (listNum/10) +".html 생성되었습니다");					
+					
+					sb = new StringBuilder();
+					sb.append(head);
+				}
 
 			}
 
 		}
 
-		// 인덱스 생성
+	}
 
-		sb = new StringBuilder();
-
-		sb.append(head);
-
-		sb.append("<!DOCTYPE html>");
-		sb.append("<html lang=\"ko\">");
-
-		sb.append("<head>");
-
-		sb.append("<meta charset=\"UTF-8\">");
-		sb.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
-		sb.append("<title> HOME </title>");
-
-		sb.append("</head>");
-		sb.append("<body>");
-		sb.append("<h1>");
-		sb.append("게시판");
-		sb.append("</h1>");
-		sb.append("<div>");
-
-		sb.append("<a href=\"article/notice-list-" + lastBoardList[1] + ".html\">" + boardNameSplit[1]
-				+ " board</a><br>");
-		sb.append(
-				"<a href=\"article/free-list-" + lastBoardList[0] + ".html\">" + boardNameSplit[0] + " board</a><br>");
-		sb.append("</div>");
-
-		sb.append("<h2>");
-		sb.append("통계");
-		sb.append("</h2>");
-		sb.append("<div>");
-		sb.append("<a href=\"#\">통계</a>");
-		sb.append("</div>");
-
-		sb.append("<h2>");
-		sb.append("블로그");
-		sb.append("</h2>");
-		sb.append("<div>");
-		sb.append("<a href=\"https://nwh1124.tistory.com\" target=\"_blank\">블로그</a>");
-		sb.append("</div>");
-
-		sb.append("<h2>");
-		sb.append("GIT Repository");
-		sb.append("</h2>");
-		sb.append("<div>");
-		sb.append("<a href=\"https://github.com/nwh1124?tab=repositories\" target=\"_blank\">GIT Repository</a>");
-		sb.append("</div>");
-
-		sb.append("</body>");
-		sb.append("</html>");
-
-		sb.append(foot);
-
-		fileName = "site/index.html";
-
-		Util.writeFileContents(fileName, sb.toString());
-
-		System.out.printf(fileName + " 생성\n");
+	private void buildArticleDetailPages(Board board, List<Article> articles) {
 		
-		
-		///////////////////////////////////
-		(구)게시물 생성 코딩
-		///////////////////////////////////
-		
-		String fileName = "";
-		String boardName = "free notice";
-		String[] boardNameSplit = boardName.split(" ");
-
-		int[] lastBoardList = new int[boardNameSplit.length];
-		int listId;
-
-		String head = getHeadHtml("boardList");
-
+		String head = getHeadHtml("article_detail");
 		String foot = Util.getFileContents("site_template/foot.html");
+		
+		int listNum = 0;
+		
+		for(Article article : articles) {
+			
+			listNum++;
+						
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(head);
+			
+			sb.append("<div class=\"section-1__article-detail\">");
+			
+			sb.append("<ul>");
+			
+			sb.append("<h1 class=\"title\">");
+			
+			sb.append("<li>");			
+			sb.append("<span>" + article.title + "</span>");
+			sb.append("</li>");
+			
+			sb.append("</h1>");
+			
+			sb.append("<li>");
+			
+			sb.append("<span>" + boardService.getBoardNameById(article.boardId) + "</span>");
+			sb.append("<span>" + article.regDate.substring(0, 10) + "</span>");
+			sb.append("<span>" + memberService.getMemberNameById(1) + "</span>");
 
-		for (int i = 0; i < boardNameSplit.length; i++) {
-			List<Article> articles = articleService.getArticles(boardNameSplit[i]);
+			sb.append("</li>");
+			sb.append("<li class=\"body\"> 내용");
+			sb.append("</li>");
+			
+			if(listNum == 1) {				
+				sb.append("<li class=\"list\">");
 
-			int listSize = articles.size() / 10;
-			lastBoardList[i] = listSize;
-			listId = 1;
-
-			for (int j = 0; j < listSize; j++) {
-
-				StringBuilder sb = new StringBuilder();
-
-				head = getHeadHtml("article_list_free");
-
-				sb.append(head);
-
-				sb.append("<title>" + boardNameSplit[i] + "게시판 </title>");
-
-				sb.append("<body>");
-
-				sb.append("<h1>");
-				sb.append(boardNameSplit[i] + " 게시판");
-				sb.append("</h1>");
-
-				for (int k = 1; k <= 10; k++) {
-					int l = 10 * j;
-					if (k % 10 == 0) {
-						sb.append("<a href=\"article/" + boardNameSplit[i] + "-list-" + (j + 2) + "-" + (k + l)
-								+ ".html\">" + (k + l) + "번 게시물</a><br>");
-					} else {
-						sb.append("<a href=\"article/" + boardNameSplit[i] + "-list-" + (j + 1) + "-" + (k + l)
-								+ ".html\">" + (k + l) + "번 게시물</a><br>");
-					}
-				}
-
-				sb.append("</div>");
-				sb.append("<br>");
-				sb.append("<div>");
-
-				sb.append("<div>게시판 페이지 <br>");
-
-				for (int k = 1; k <= listSize; k++) {
-					sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + k + ".html\">" + k + "</a>&nbsp");
-				}
-
-				sb.append("</div><br>");
-
-				sb.append("<div>");
-
-				if (j > 0) {
-					sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + j + ".html\">이전 페이지</a><br>");
-				}
-				if (j < listSize - 1) {
-					sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + (j + 2) + ".html\">다음 페이지</a><br>");
-				}
-
-				sb.append("<a href=\"index.html\">HOME</a><br>");
-
-				sb.append("</div>");
-
-				sb.append("</body>");
-
-				sb.append("</section>");
-
-				sb.append(foot);
-
-				fileName = "site/" + boardNameSplit[i] + "-list-" + (j + 1) + ".html";
-
-				Util.writeFileContents(fileName, sb.toString());
-
-				System.out.printf(fileName + " 생성\n");
-
+				sb.append("<a href=\"" + board.code + "-list-" + (((listNum - 1) / 10)+ 1) + ".html\">목록</a>");	
+				sb.append("<a href=\"" + board.code + "-list-" + (((listNum) / 10)+ 1)  + "-" + (listNum + 1) + ".html\">");
+				sb.append("다음 글 &gt;</a>");
+				sb.append("</ul>");	
+				sb.append("</li>");				
+			}else if(listNum == articles.size()) {
+				sb.append("<li class=\"list\">");
+				sb.append("<a href=\"" + board.code + "-list-" + (((listNum - 2) / 10)+ 1)  + "-" + (listNum - 1) + ".html\">");
+				sb.append("&lt; 이전 글 &lt;</a>");
+				sb.append("<a href=\"" + board.code + "-list-" + (((listNum - 1) / 10)+ 1) + ".html\">목록</a>");
+				sb.append("</ul>");	
+				sb.append("</li>");
+			}else {
+				sb.append("<li class=\"list\">");
+				sb.append("<a href=\"" + board.code + "-list-" + (((listNum - 2) / 10)+ 1)  + "-" + (listNum - 1) + ".html\">");
+				sb.append("&lt; 이전 글</a>");
+				sb.append("<a href=\"" + board.code + "-list-" + (((listNum - 1) / 10)+ 1) + ".html\">목록</a>");	
+				sb.append("<a href=\"" + board.code + "-list-" + (((listNum) / 10)+ 1)  + "-" + (listNum + 1) + ".html\">");
+				sb.append("다음 글 &gt;</a>");
+				sb.append("</ul>");	
+				sb.append("</li>");
 			}
 
-			// 게시판 게시물
-			for (Article article : articles) {
-
-				StringBuilder sb = new StringBuilder();
-
-				head = getHeadHtml("article_detail");
-
-				sb.append(head);
-
-				sb.append("<h1>게시물 상세 페이지</h1>");
-				sb.append("<div>");
-
-				sb.append("번호 : " + article.id + "<br>");
-				sb.append("생성날짜 : " + article.regDate + "<br>");
-				sb.append("갱신날짜 : " + article.updateDate + "<br>");
-				sb.append("작성자 : " + article.memberId + "<br>");
-				sb.append("제목 : " + article.title + "<br>");
-				sb.append("내용 : " + article.body + "<br>");
-
-				if (listId > 1) {
-					if (listId % 10 == 0) {
-						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + ((listId - 1) / 10 + 1) + "-"
-								+ (listId - 1) + ".html\">이전글</a><br>");
-					} else {
-						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + (listId / 10 + 1) + "-" + (listId - 1)
-								+ ".html\">이전글</a><br>");
-					}
-				}
-				if (listId < articles.size()) {
-					if (listId % 10 == 9) {
-						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + ((listId + 1) / 10 + 1) + "-"
-								+ (listId + 1) + ".html\">다음글</a><br>");
-					} else {
-						sb.append("<a href=\"" + boardNameSplit[i] + "-list-" + (listId / 10 + 1) + "-" + (listId + 1)
-								+ ".html\">다음글</a><br>");
-					}
-				}
-
-				sb.append("<a href=\"../" + boardNameSplit[i] + "-list-" + (((listId - 1) / 10) + 1)
-						+ ".html\">게시물 목록</a><br>");
-
-				sb.append("</div>");
-				sb.append("</body>");
-				sb.append("</html>");
-
-				sb.append(foot);
-
-				fileName = boardNameSplit[i] + "-list-" + (listId / 10 + 1) + "-" + listId + ".html";
-
-				listId++;
-
-				String filePath = "site/article/" + fileName;
-
-				Util.writeFileContents(filePath, sb.toString());
-
-				System.out.println(filePath + " 생성");
+			sb.append("</div>");
+			
+			sb.append(foot);
+			
+			Util.writeFileContents("site/article/" + board.code + "-list-" + (((listNum -1) / 10)+ 1)  + "-" + listNum + ".html", sb.toString());
+			System.out.println(board.code+"-list-" + (((listNum -1) / 10)+ 1)  + "-" + listNum + ".html 생성되었습니다");			
+		}
+	}

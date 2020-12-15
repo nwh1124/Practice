@@ -17,14 +17,8 @@ public class BuildController extends Controller{
 		
 		if(cmd.equals("build site")) {
 			doHtml();
-		}else if(cmd.equals("build test")) {
-			doTest();
 		}
 		
-	}
-
-	private void doTest() {
-		buildService.doTest();
 	}
 
 	private void doHtml() {		

@@ -31,7 +31,5 @@ public class BoardService {
 	public String getBoardNameById(int boardId) {
 		return boardDao.getBoardNameById(boardId);
 	}
-	
-	
 
 }

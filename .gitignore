@@ -1,18 +1,7 @@
-<<<<<<< HEAD
-.classpath
-.project
-bin/
-db
-exportHtml/
-lib/
-site/
-=======
 .settings
 .classpath
 .project
 bin/
 /driver
 /lib
-/site
 /target
->>>>>>> d999c1aeef2b044fd3c279851d86451a83856715

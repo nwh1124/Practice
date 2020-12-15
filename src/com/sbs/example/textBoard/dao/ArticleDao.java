@@ -68,6 +68,25 @@ public class ArticleDao {
 		return article;
 	}
 
+	public List<Article> getArticleByBoardId(int inputedId) {
+		
+		SecSql sql = new SecSql();
+		
+		sql.append("SELECT *");
+		sql.append("FROM article");
+		sql.append("WHERE boardId = ?", inputedId);
+		
+		List<Map<String, Object>> listMap = MysqlUtil.selectRows(sql);
+		
+		List<Article> articles = new ArrayList<>();
+		
+		for(Map<String, Object> map : listMap) {
+			articles.add(new Article(map));
+		}
+		
+		return articles;
+	}
+
 	public List<Article> getArticles(String boardCode) {
 		
 		SecSql sql = new SecSql();

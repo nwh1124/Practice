@@ -77,4 +77,8 @@ public class ArticleService {
 	public void modifyReply(String modReplyId, String modReplyBody) {
 		articleDao.modifyReply(modReplyId, modReplyBody);
 	}
+
+	public List<Article> getArticleByBoardId(int id) {
+		return articleDao.getArticleByBoardId(id);
+	}
 }
