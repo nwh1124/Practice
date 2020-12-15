@@ -33,6 +33,109 @@ public class BuildService {
 		
 	}
 
+	private void buildArticleListNew() {
+		
+		List<Board> boards = boardService.getBoards();
+		
+		for(Board board : boards) {
+			
+			List<Article> articles = articleService.getArticles();
+			
+			buildArticleList(board, articles);
+			
+		}
+		
+	}
+
+	private void buildArticlePageBtn(Board board, List<Article> articles, StringBuilder articlePageHtml, int articleCount) {
+		
+		int pageSize = 10;
+		int pageBoxSize = 10;
+		int totalPage = articles.size() / pageSize;
+		int page = ((articleCount - 1) / (pageSize * pageBoxSize)) + 1;
+		
+		if(page > 1) {
+			articlePageHtml.append("<li><a href=\"./article_list_" + (((page - 2) * 10) + 1) + ".html\">&lt; 이전</a></li>");
+		}
+		for(int i = 1; i <= pageBoxSize; i++) {
+			
+			if(totalPage + 1 <= (((page - 1) * 10 ) + i)) {
+				break;
+			}
+			
+			articlePageHtml.append("<li>");		
+			
+			if((articleCount - 1) / pageSize == ((page - 1) * 10 ) + i - 1 ) {
+				articlePageHtml.append("<a href=\"./article_list_" + (((page - 1) * 10 ) + i) + ".html\" class=\"color-red\">");
+			}else {
+				articlePageHtml.append("<a href=\"./article_list_" + (((page - 1) * 10 ) + i) + ".html\">");
+			}
+			
+			
+			articlePageHtml.append(((page - 1) * 10 ) + i);
+			articlePageHtml.append("</a>");
+			articlePageHtml.append("</li>");			
+			
+		}
+		if(articleCount / pageSize < totalPage) {
+			articlePageHtml.append("<li><a href=\"./article_list_" + (((page) * 10) + 1) + ".html\">다음 &gt;</a></li>");
+		}
+		
+	}
+
+	private void buildArticleList(Board board, List<Article> articles) {
+		
+		buildArticleDetailPages(board, articles);
+		
+		StringBuilder articleListHtml = new StringBuilder();
+		StringBuilder articlePageHtml = new StringBuilder();
+		
+		int articleCount = 0;
+		
+		for(Article article : articles) {
+			
+			int pageSize = 10;
+			
+			articleCount++;
+			
+			String writer = memberService.getMemberNameById(article.memberId);
+			
+			articleListHtml.append("<ul class=\"flex\">");
+			
+			articleListHtml.append("<li>" + article.id + "</li>");
+			articleListHtml.append("<li>" + article.regDate + "</li>");
+			articleListHtml.append("<li>" + writer + "</li>");
+			articleListHtml.append("<li><a href=\"#\">" + article.title + "</a></li>");
+			articleListHtml.append("<li>" + article.hit + "</li>");
+			articleListHtml.append("<li>" + article.recommand + "</li>");		
+			
+			articleListHtml.append("</ul>");	
+			
+			if(articleCount % pageSize == 0 || articleCount == articles.size()) {
+				
+				StringBuilder sb = new StringBuilder();
+				sb.append(getHeadHtml("article_list_free"));				
+
+				buildArticlePageBtn(board, articles, articlePageHtml, articleCount);
+				String body = Util.getFileContents("site_template/article_list.html");
+				body = body.replace("[[article_list]]", articleListHtml);
+				body = body.replace("[[article_list_page]]", articlePageHtml);
+				sb.append(body);
+				
+				String foot = Util.getFileContents("site_template/foot.html");
+				sb.append(foot);
+				
+				Util.writeFileContents("site/article/article_list_" + (articleCount / pageSize) +".html", sb.toString());
+				
+				articleListHtml = new StringBuilder();
+				articlePageHtml = new StringBuilder();
+				
+			}
+			
+		}
+		
+	}
+
 	private void buildArticleListPages() {
 
 		List<Board> boards = boardService.getBoards();
@@ -94,7 +197,7 @@ public class BuildService {
 					sb.append("<li>");
 					
 					if(listNum > 10) {
-						sb.append("<a href=\"\">&lt; 이전 페이지</a>");	
+						sb.append("<a href=\"\">&lt; 이전</a>");	
 					}
 					
 					for(int i = 1; i <= articleSize + 1; i++) {
@@ -106,7 +209,7 @@ public class BuildService {
 					}
 					
 					if((listNum / 10) < articleSize + 1) {
-						sb.append("<a href=\"\">다음 페이지 &gt;</a>");	
+						sb.append("<a href=\"\">다음 &gt;</a>");	
 					}
 					
 					sb.append("</li>");				
@@ -248,10 +351,6 @@ public class BuildService {
 
 		head = head.replace("[[menu-bar__menu1__menulist]]", boardMenuContents);
 
-		String titleBarContentHtml = getTitleBarContentByPageName(pageName);
-
-		head = head.replace("[[title-bar__logo]]", titleBarContentHtml);
-
 		String titleBarType = getTitleBarContentByPageName(pageName);
 
 		head = head.replace("[[title-bar]]", titleBarType);
@@ -289,9 +388,7 @@ public class BuildService {
 
 		Util.copy("site_template/app.css", "site/app.css");
 
-		buildIndexPage();
-
-		buildArticleListPages();
+		buildArticleListNew();
 
 	}
 
