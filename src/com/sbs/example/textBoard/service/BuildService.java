@@ -143,6 +143,8 @@ public class BuildService {
 		if (end >= articlesCount) {
 			end = articlesCount - 1;
 		}
+		
+		Collections.reverse(articles);
 
 		for (int i = start; i <= end; i++) {
 
