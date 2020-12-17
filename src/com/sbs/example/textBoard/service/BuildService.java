@@ -23,10 +23,10 @@ public class BuildService {
 
 	public void buildSite() {
 
-		Util.rmdir("site");
-		Util.mkdirs("site/article");
+		Util.mkdirs("site");
 
 		Util.copy("site_template/app.css", "site/app.css");
+		Util.copy("site_template/app.js", "site/app.js");
 
 		buildIndexPage();
 		buildArticleListPages();
@@ -311,6 +311,8 @@ public class BuildService {
 			return "<i class=\"fab fa-free-code-camp\"></i> <span>FREE LIST</span>";
 		} else if (pageName.startsWith("article_list_notice")) {
 			return "<i class=\"fas fa-flag\"></i> <span>NOTICE LIST</span>";
+		} else if (pageName.startsWith("article_list_java")) {
+			return "<i class=\"fab fa-java\"></i> <span>JAVA LIST</span>";
 		} else if (pageName.startsWith("article_list_")) {
 			return "<i class=\"fas fa-clipboard-list\"></i> <span>LIST</span>";
 		} else if (pageName.equals("article_detail")) {

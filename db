@@ -1,0 +1,91 @@
+DROP DATABASE IF EXISTS exam;
+
+CREATE DATABASE exam;
+
+USE exam;
+
+CREATE TABLE `member`(
+id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+regDate DATETIME NOT NULL,
+updateDate DATETIME NOT NULL,
+loginId CHAR(100) NOT NULL,
+loginPw CHAR(100) NOT NULL,
+`name` CHAR(100) NOT NULL
+);
+
+CREATE TABLE board(
+id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+regDate DATETIME NOT NULL,
+updateDate DATETIME NOT NULL,
+`name` CHAR(100) NOT NULL,
+`code` CHAR(100) NOT NULL
+);
+
+CREATE TABLE article(
+id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+regDate DATETIME NOT NULL,
+updateDate DATETIME NOT NULL,
+title CHAR(100) NOT NULL,
+`body` TEXT NOT NULL,
+hit INT(10) UNSIGNED NOT NULL,
+recommend INT(10) UNSIGNED NOT NULL,
+memberId INT(10) UNSIGNED NOT NULL,
+boardId INT(10) UNSIGNED NOT NULL
+);
+
+CREATE TABLE recommend(
+id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+regDate DATETIME NOT NULL,
+updateDate DATETIME NOT NULL,
+recommend BOOLEAN NOT NULL,
+articleId INT(10) UNSIGNED NOT NULL,
+memberId INT(10) UNSIGNED NOT NULL
+);
+
+CREATE TABLE reply(
+id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+regDate DATETIME NOT NULL,
+updateDate DATETIME NOT NULL,
+`body` TEXT NOT NULL,
+articleId INT(10) UNSIGNED NOT NULL,
+memberId INT(10) UNSIGNED NOT NULL
+);
+
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = 'aaa',
+loginPw = 'aaa',
+`name` = 'aaa';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`name` = '자유',
+`code` = 'free';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`name` = '공지사항',
+`code` = 'notice';
+
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+`body` = '댓글',
+articleId = 1,
+memberId = 1;
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = CONCAT('제목_', RAND()),
+`body` = CONCAT('내용_', RAND()),
+hit = RAND()*100,
+recommend = RAND()*10,
+memberId = IF(RAND() > 0.5, 1, 2),
+boardId = IF(RAND() > 0.5, 1, 2);
+
+SELECT *
+FROM article;

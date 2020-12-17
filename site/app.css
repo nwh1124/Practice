@@ -18,8 +18,8 @@
   src: url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
 }
 
-html {
-  font-family: 'LotteMartDream', sans-serif;
+html, .tui-editor-contents {
+  font-family: 'LotteMartDream', sans-serif !important;
 }
 
 /* 노말라이즈 시작 */
@@ -173,20 +173,20 @@ a{
   padding:0 20px;
 }
 
-.logo-info{
+.bottom-bar__logo-info{
   padding:30px 0;
 }
 
-.logo-info > .logo-info__logo {
+.bottom-bar__logo-info > .logo {
   font-size:2rem;
   white-space:nowrap;
 }
 
-.logo-info > .logo-info__logo > span span {
+.bottom-bar__logo-info > .logo > span span {
   color:red;
 }
 
-.logo-info > .logo-info__info {
+.bottom-bar__logo-info > .bottom-bar__info {
   margin-left:20px;
 }
 /* 바텀 바 끝 */
