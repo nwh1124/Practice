@@ -38,7 +38,7 @@ CREATE TABLE `article` (
 insert  into `article`(`id`,`regDate`,`updateDate`,`title`,`body`,`hit`,`recommend`,`memberId`,`boardId`) values 
 (1,'2020-12-17 13:12:03','2020-12-17 13:12:03','자유 게시판 첫 글','자유 게시판 첫 내용',0,0,1,1),
 (2,'2020-12-17 13:12:03','2020-12-17 13:12:03','공지사항 게시판 첫 글','공지사항 게시판 첫 내용',0,0,1,2),
-(3,'2020-12-17 13:12:03','2020-12-17 13:12:03','자바 게시판 첫 글','# 자바\r\n\r\n- 정수형 선언, 덧셈 계산, 출력\r\n\r\n```java\r\nint a = 0;\r\nint b = 0;\r\nSystem.out.printf(\"%d + %d = %d\", a, b, a + b);\r\n```',0,0,1,3);
+(3,'2020-12-17 13:12:03','2020-12-17 13:12:03','자바#1 변수','# 자바\r\n\r\n## 변수\r\n\r\n- 임의의 값을 넣어 활용할 수 있다\r\n\r\n- 정수, 실수, 문자열, 참거짓 등의 자료형이 있다\r\n\r\n- int, float, String, boolean 등으로 변수를 선언할 수 있다\r\n\r\n### 변수 선언 예시\r\n\r\n```java\r\nint A = 10; // 정수형 변수 선언\r\nString str = \"문자열\" // 문자열 변수 선언\r\nboolean 참거짓 = false // 불린형(참거짓) 변수 선언\r\n```\r\n\r\n- 위와 같이 변수는 선언자에 의해 선언 가능하며 영문 소문자, 대문자, 한글 등을 가리지 않는다',0,0,1,3);
 
 /*Table structure for table `board` */
 

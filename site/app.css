@@ -175,11 +175,11 @@ a{
 
 .bottom-bar__logo-info{
   padding:30px 0;
+  align-items:center;
 }
 
 .bottom-bar__logo-info > .logo {
   font-size:2rem;
-  white-space:nowrap;
 }
 
 .bottom-bar__logo-info > .logo > span span {
