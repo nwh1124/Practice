@@ -91,6 +91,11 @@ a{
 .height-100vh{
   height:100vh;
 }
+
+.none{
+	display:none;
+}
+
 /* 라이브러리 끝 */
 /* 탑 바 시작 */
 .top-bar{
@@ -180,6 +185,7 @@ a{
 
 .bottom-bar__logo-info > .logo {
   font-size:2rem;
+  white-space:nowrap;
 }
 
 .bottom-bar__logo-info > .logo > span span {
@@ -249,8 +255,11 @@ a{
 }
 
 .article-detail > *{
-  border-bottom:1px solid black;
   padding:20px 0;
+}
+
+.article-detail > *:not(:last-of-type){
+  border-bottom:1px solid black;
 }
 
 .article-detail__title {

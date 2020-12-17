@@ -58,10 +58,10 @@ public class BuildService {
 				}
 				
 				Article nextArticle = null;
-				int nextArticleIndex = i + 1;
+				int nextArticleIndex = i - 1;
 				int nextArticleId = 0;
 				
-				if(nextArticleIndex < articles.size()) {
+				if(nextArticleIndex >= 0) {
 					nextArticle = articles.get(nextArticleIndex);
 					nextArticleId = nextArticle.id;
 				}
@@ -76,15 +76,16 @@ public class BuildService {
 				body = body.replace("[[article-detail__reg-date]]", article.regDate);
 				body = body.replace("[[article-detail__writer]]", writer);
 				body = body.replace("[[article-detail__body]]", article.body);
-				if(prevArticle != null) {
-					body = body.replace("[[article-detail-prev-url]]", getArticleDetailFileName(prevArticle.id));
-					body = body.replace("[[article-detail-prev-title]]", prevArticle != null ? prevArticle.title : "");
-				}
+
+				body = body.replace("[[article-detail-prev-url]]", getArticleDetailFileName(prevArticleId));
+				body = body.replace("[[article-detail-prev-attr]]", prevArticle != null ? prevArticle.title : "");
+				body = body.replace("[[article-detail-prev-addi]]", prevArticleId == 0 ? "none" : "");
+
 				body = body.replace("[[article-detail-list-url]]", getArticleListFileName(boardService.getBoardNameById(article.boardId), 1));
-				if(nextArticle != null) {
-					body = body.replace("[[article-detail-next-url]]", getArticleDetailFileName(nextArticle.id));
-					body = body.replace("[[article-detail-next-title]]", nextArticle != null ? nextArticle.title : "");
-				}
+
+				body = body.replace("[[article-detail-next-url]]", getArticleDetailFileName(nextArticleId));
+				body = body.replace("[[article-detail-next-attr]]", nextArticle != null ? nextArticle.title : "");
+				body = body.replace("[[article-detail-next-addi]]", nextArticleId == 0 ? "none" : "");
 				
 				sb.append(body);
 				
@@ -193,7 +194,7 @@ public class BuildService {
 		
 		// 다음 버튼 계산
 		int pageBoxEndAfterPage = pageBoxEndPage + 1;
-		if(pageBoxEndAfterPage < totalPage) {
+		if(pageBoxEndAfterPage > totalPage) {
 			pageBoxEndAfterPage = totalPage;
 		}
 		
@@ -307,16 +308,22 @@ public class BuildService {
 
 		if (pageName.equals("index")) {
 			return "<i class=\"fas fa-home\"></i> <span>HOME</span>";
+			
 		} else if (pageName.startsWith("article_list_free")) {
 			return "<i class=\"fab fa-free-code-camp\"></i> <span>FREE LIST</span>";
+			
 		} else if (pageName.startsWith("article_list_notice")) {
 			return "<i class=\"fas fa-flag\"></i> <span>NOTICE LIST</span>";
-		} else if (pageName.startsWith("article_list_java")) {
-			return "<i class=\"fab fa-java\"></i> <span>JAVA LIST</span>";
+			
+		} else if (pageName.startsWith("article_list_it")) {
+			return "<i class=\"fab fa-java\"></i> <span>IT LIST</span>";
+			
 		} else if (pageName.startsWith("article_list_")) {
 			return "<i class=\"fas fa-clipboard-list\"></i> <span>LIST</span>";
+			
 		} else if (pageName.equals("article_detail")) {
 			return "<i class=\"fas fa-file-alt\"></i> <span>ARTICLE DETAIL</span>";
+			
 		}
 
 		return "";

@@ -46,7 +46,7 @@ public class App {
 			
 			Controller controller = getControllerByCmd(cmd);
 			if(controller != null) {
-				MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "exam");
+				MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "ssgDb");
 				controller.doCommand(cmd);
 			}
 			

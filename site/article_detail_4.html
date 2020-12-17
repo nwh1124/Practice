@@ -78,21 +78,45 @@
 	<div class="con">
 		<div class="article-detail flex flex-column">
 			<div class="article-detail__title">
-				<span>자유 게시판 첫 글</span>
+				<span>자바#2 조건문</span>
 			</div>
 			<div class="article-detail__sub-info">
-				<span>free</span> <span>2020-12-17 13:12:03</span>
+				<span>it</span> <span>2020-12-17 16:17:50</span>
 				<span>노원하</span>
 			</div>
-			<div class="article-detail__body">자유 게시판 첫 내용</div>
+			<div class="article-detail__body"># 자바
+
+## 조건문
+
+- 특정 조건 하에서만 코드가 실행된다
+
+- 분기를 설정하거나 최초, 최후 등 특정 타이밍에만 실행되는 코드 등에 쓴다
+
+### 조건문 예시
+
+```java
+Scanner sc = new Scanner(System.in); 		// 입력을 받기 위한 Scanner 변수 선언 및 객체 생성
+int a = sc.nextInt(); 				// 정수형 변수 a에 정수형 입력을 받음
+if(a = >=20){ 					// 입력받은 정수가 20이상일 경우
+	System.out.printf("성인입니다.");		// "성인입니다." 출력
+}else{ 						// 정수가 20 미만일 경우
+	System.out.printf("미성년자입니다."); 	// "미성년자입니다." 출력
+}
+```
+
+- 위와 같이 조건문이 참일 경우 코드가 실행된다
+
+- 뒤이어 else if(){} 을 사용하면 추가적으로 조건을 달 수 있다
+
+- else {} 를 사용할 경우 조건을 제외한 모든 경우에 코드가 실행된다</div>
 			<div class="article-detail__menu">
 				<a title = ""
 				 href="article_detail_0.html"
 				 class="none">&lt; 이전 글</a> 
-				<a href="article_list_free_1.html">목록</a>
-				<a title = "" 
-				 href="article_detail_0.html"
-				 class="none">다음 글 &gt;</a>
+				<a href="article_list_it_1.html">목록</a>
+				<a title = "자바#1 변수" 
+				 href="article_detail_3.html"
+				 class="">다음 글 &gt;</a>
 			</div>
 		</div>
 	</div>
