@@ -30,6 +30,20 @@
 				<span>[[article-detail__writer]]</span>
 			</div>
 			<div class="article-detail__body">[[article-detail__body]]</div>
+			
+			<div class="article-detail__reply-box">
+			
+				<div id="disqus_thread"></div>
+					<script>
+					    (function() { // DON'T EDIT BELOW THIS LINE
+					    var d = document, s = d.createElement('script');
+					    s.src = 'https://ssg-blog.disqus.com/embed.js';
+					    s.setAttribute('data-timestamp', +new Date());
+					    (d.head || d.body).appendChild(s);
+					    })();
+					</script>			
+				</div>
+			
 			<div class="article-detail__menu">
 				<a title = "[[article-detail-prev-attr]]"
 				 href="[[article-detail-prev-url]]"
