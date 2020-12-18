@@ -88,13 +88,34 @@
 	<div class="con">
 		<div class="article-detail flex flex-column">
 			<div class="article-detail__title">
-				<span>공지사항 게시판 첫 글</span>
+				<span>자바#5 배열</span>
 			</div>
 			<div class="article-detail__sub-info">
-				<span>notice</span> <span>2020-12-17 13:12:03</span>
+				<span>it</span> <span>2020-12-18 11:18:42</span>
 				<span>노원하</span>
 			</div>
-			<div class="article-detail__body">공지사항 게시판 첫 내용</div>
+			<div class="article-detail__body"># 자바
+<br>
+## 배열
+-
+<br>
+### 반복문 예시
+<br>
+```java							// n까지의 합을 구하는 반복문
+Scanner sc = new Scanner(System.in);			// 정수 n을 입력받기 위한 스캐너 준비
+int n = sc.nextInt();					// 정수 n을 입력 받는다
+int sum = 0;						// 합을 저장할 정수형 변수 선언
+while( i < n){						// 반복문 while을 통해
+	sum = sum + i;					// n번만큼 덧셈을 반복한다
+	i++;						// 조건문 값 i를 1 증가시킨다
+}							// 반복문 종료
+System.out.printf("0부터 %d까지의 합 = %d", n, sum);	// 결과를 출력한다
+```
+- while 문은 for 문과 유사한 반복문이다
+- for문은 조건문에 초기값, 조건, 증감치가 들어있는 반면
+- while문은 참, 거짓 조건 하나만 들어 있다
+- for문은 특정할 수 있는 일정 구간의 반복에 쓰인다면
+- while문은 그때그때 조건에 따라 반복할 필요가 있을 경우에 쓰인다</div>
 			
 			<div class="article-detail__reply-box">
 			
@@ -113,10 +134,10 @@
 				<a title = ""
 				 href="article_detail_0.html"
 				 class="none">&lt; 이전 글</a> 
-				<a href="article_list_notice_1.html">목록</a>
-				<a title = "" 
-				 href="article_detail_0.html"
-				 class="none">다음 글 &gt;</a>
+				<a href="article_list_it_1.html">목록</a>
+				<a title = "자바#4 반복문#2" 
+				 href="article_detail_6.html"
+				 class="">다음 글 &gt;</a>
 			</div>
 		</div>
 	</div>
