@@ -1,6 +1,6 @@
 /*
-SQLyog Community v13.1.7 (64 bit)
-MySQL - 10.4.14-MariaDB : Database - ssgDb
+SQLyog Community v13.1.5  (64 bit)
+MySQL - 10.4.17-MariaDB : Database - ssgDb
 *********************************************************************
 */
 
