@@ -2,70 +2,83 @@
 <html lang="en">
 <head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1C79RKS6LG"></script>
+<script async
+	src="https://www.googletagmanager.com/gtag/js?id=G-1C79RKS6LG"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+	window.dataLayer = window.dataLayer || [];
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag('js', new Date());
 
-  gtag('config', 'G-1C79RKS6LG');
+	gtag('config', 'G-1C79RKS6LG');
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="google-site-verification" content="rfoCiMTF8Rs1HKRi3YMp1sh8UMzd_DiCDMe5u0fGFjk" />
-<title>Blog of Nwh</title>
+<meta name="google-site-verification"
+	content="rfoCiMTF8Rs1HKRi3YMp1sh8UMzd_DiCDMe5u0fGFjk" />
+<title>Java 애옹's Blog</title>
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <link rel="stylesheet" href="app.css" />
 </head>
 <!-- 바디 -->
-<div class="body height-100vh flex flex-column">
-	<!-- 탑 바 -->
-	<header class="top-bar con-min-width flex">
-		<div class="con">
-			<div class="logo flex flex-jc-c flex-ai-c">
-				<i class="far fa-sad-tear"></i> <span>Thursday <span>R</span>eview
-				</span>
-			</div>
+<div class="body-content flex flex-column bg-black">
+
+	<!-- 탑 로고 -->
+	<div class="con-min-width">
+		<div class="top-logo con">
+			<i class="fas fa-cat"></i> <span>Java <span>애</span>옹's
+			</span>
 		</div>
-	</header>
-	<!-- 메뉴 바 -->
-	<header class="menu-bar con-min-width">
-		<div class="con">
-			<div class="menu-list">
-				<ul class="flex flex-jc-sa">
-					<li><a href="./index.html"> <i class="fas fa-home"></i> <span>HOME</span>
-					</a></li>
-					<li><a > <i class="fas fa-list"></i> <span>ARTICLE</span>
-					</a>
-						<ul>
-							<li><a href="article_list_free_1.html" class="block"><i class="fab fa-free-code-camp"></i> <span>FREE LIST</span></a></li><li><a href="article_list_notice_1.html" class="block"><i class="fas fa-flag"></i> <span>NOTICE LIST</span></a></li><li><a href="article_list_it_1.html" class="block"><i class="fab fa-java"></i> <span>IT LIST</span></a></li>
-						</ul></li>
-					<li><a > <i class="fas fa-link"></i> <span>LINK</span>
-					</a>
-						<ul>
-							<li><a href="https://nwh1124.tistory.com/" target="_blank"> <i class="fab fa-blogger-b"></i> <span>BLOG</span>
-							</a></li>
-							<li><a href="https://github.com" target="_blank"> <i class="fab fa-github"></i> <span>GITHUM</span>
-							</a></li>
-						</ul></li>
-					<li><a href="#"> <i class="fas fa-chart-pie"></i> <span>STATISTICS</span>
-					</a></li>
-				</ul>
-			</div>
+	</div>
+		
+	<!-- 사이드 바 -->
+	<div class="side-bar flex flex-column border-2 bg-black">
+		<div class="side-bar__arrows flex">
+			<span>▷</span> <span>▽</span>
 		</div>
-	</header>
+		<div class="side-bar__menu flex">
+			<div class="side-bar__icon">
+				<i class="fas fa-cat"></i> <i class="fas fa-heart"></i> <i
+					class="fas fa-fish"></i>
+			</div>
+			<ul>
+				<li><a href="./index.html"> <i class="fas fa-home"></i> <span>HOME</span>
+				</a></li>
+				<li><a> <i class="fas fa-list"></i> <span>ARTICLE</span>
+				</a>
+					<ul>
+						<li><a href="article_list_free_1.html" class="block"><i class="fab fa-free-code-camp"></i> <span>FREE LIST</span></a></li><li><a href="article_list_notice_1.html" class="block"><i class="fas fa-flag"></i> <span>NOTICE LIST</span></a></li><li><a href="article_list_it_1.html" class="block"><i class="fab fa-java"></i> <span>IT LIST</span></a></li>
+					</ul></li>
+				<li><a href=""> <i class="fas fa-link"></i> <span>LINK</span>
+				</a>
+					<ul>
+						<li><a href=""> <i class="fab fa-blogger-b"></i> <span>BLOG</span>
+						</a></li>
+						<li><a href=""> <i class="fab fa-github"></i> <span>GITHUB</span>
+						</a></li>
+					</ul></li>
+				<li><a href=""> <i class="fas fa-chart-pie"></i> <span>STATISTICS</span>
+				</a></li>
+			</ul>
+		</div>
+		<div class="side-bar__tail">
+			<i class="fas fa-paw"></i>
+		</div>
+	</div>
 	<!-- 타이틀 바 -->
-	<main class="title-bar con-min-width">
+	<div class="title-bar con-min-width">
 		<div class="con">
-			<div class="logo">
-				<i class="fab fa-java"></i> <span>IT LIST</span>
+			<div class="title-bar__logo flex">
+				<div class=""><i class="fab fa-java"></i> <span>IT LIST</span></div>
+				<i class="fas fa-paw"></i>
 			</div>
 		</div>
-	</main><section class="section-1 con-min-width flex-grow-1 con">
+	</div><div class="main con-min-width">
 	<div class="con">
-		<div class="article-list">
+		<div class="article-list content">
 			<ul class="flex">
 				<li>번호</li>
 				<li>작성일</li>
@@ -74,7 +87,7 @@
 				<li>조회수</li>
 				<li>추천수</li>
 			</ul>
-			<ul class="flex"><li>3</li><li>2020-12-17 13:12:03</li><li>노원하</li><li><a href="article_detail_3.html">자바#1 변수</a></li><li>0</li><li>0</li></ul><ul class="flex"><li>4</li><li>2020-12-17 16:17:50</li><li>노원하</li><li><a href="article_detail_4.html">자바#2 조건문</a></li><li>0</li><li>0</li></ul><ul class="flex"><li>5</li><li>2020-12-18 10:29:46</li><li>노원하</li><li><a href="article_detail_5.html">자바#3 반복문</a></li><li>0</li><li>0</li></ul><ul class="flex"><li>6</li><li>2020-12-18 10:31:49</li><li>노원하</li><li><a href="article_detail_6.html">자바#4 반복문#2</a></li><li>0</li><li>0</li></ul><ul class="flex"><li>7</li><li>2020-12-18 11:18:42</li><li>노원하</li><li><a href="article_detail_7.html">자바#5 배열</a></li><li>0</li><li>0</li></ul>
+			<ul class="flex"><li>3</li><li>2020-12-17 13:12:03</li><li>노원하</li><li><a href="article_detail_3.html">자바#1 변수</a></li><li>0</li><li>0</li></ul><ul class="flex"><li>4</li><li>2020-12-17 16:17:50</li><li>노원하</li><li><a href="article_detail_4.html">자바#2 조건문</a></li><li>0</li><li>0</li></ul><ul class="flex"><li>5</li><li>2020-12-18 10:29:46</li><li>노원하</li><li><a href="article_detail_5.html">자바#3 반복문</a></li><li>0</li><li>0</li></ul><ul class="flex"><li>6</li><li>2020-12-18 10:31:49</li><li>노원하</li><li><a href="article_detail_6.html">자바#4 반복문#2</a></li><li>0</li><li>0</li></ul>
 		</div>
 		<div class="list-page">
 			<ul class="flex flex-jc-c">
@@ -83,18 +96,20 @@
 		</div>
 	</div>
 </section><!-- 바텀 바 -->
-<footer class="bottom-bar con-min-width">
-	<div class="bottom-bar__logo-info con flex">
-		<div class="logo">
-			<i class="far fa-sad-tear"></i><span>Thursday <span>R</span>eview</span>
+<div class="bottom-bar con-min-width">
+	<div class="con">
+		<div class="bottom-bar__site-info flex">
+			<div class="logo">
+				<i class="fas fa-cat"></i> <span>Java <span>애</span>옹's
+				</span>
+			</div>
+			<div class="info">Lorem ipsum dolor sit amet, consectetur
+				adipisicing elit. Cumque officiis ipsa vero ad culpa quia commodi
+				corrupti obcaecati? A architecto ad quasi inventore distinctio hic,
+				culpa labore suscipit corrupti quaerat.</div>
 		</div>
-		<div class="bottom-bar__info">Lorem ipsum dolor sit amet
-			consectetur adipisicing elit. At amet commodi alias doloremque sequi
-			eveniet, nesciunt consequatur temporibus eligendi. Eveniet sit
-			repellat esse eos architecto minima dolores necessitatibus aperiam
-			placeat.</div>
 	</div>
-</footer>
+</div>
 <script src="app.js"></script>
 </body>
 </html>

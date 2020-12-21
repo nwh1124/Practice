@@ -20,7 +20,7 @@ viewer_detail();
 
 function viewer_index() {
 	
-	var viewerEl = document.querySelector('.index-info');
+	var viewerEl = document.querySelector('.main .content');
 	
 	if ( viewerEl == null ) {
 		return;
