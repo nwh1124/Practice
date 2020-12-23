@@ -187,44 +187,40 @@ body {
 	color: #afffff;
 }
 /* 탑 로고 */
-/* 사이드 바 */
 .side-bar{
   z-index:10;
   width:300px;
   height:100vh;
   position:fixed;
-  right:-270px;
+  right:-265px;
   transition:all 0.3s;
   box-sizing:border-box;
 }
 
-.side-bar:hover {
-	right: -1px;
+.side-bar:hover{
+  right:-1px;
 }
 
-.side-bar>* {
-	color: white;
+.side-bar > * {
+  color:white;
 }
 
-.side-bar__arrows>span:first-child {
-	margin: 5px;
-	margin-right: auto;
-	font-size: 1.5rem;
+.side-bar__arrows > span {
+  margin:5px;
+  font-size:1.5rem;  
+  margin-right:auto;
 }
 
-.side-bar:hover>.side-bar__arrows>span:first-child {
-	display: none;
+.side-bar:hover > .side-bar__arrows > span:first-child {
+  display:none;
 }
 
-.side-bar__arrows>span:nth-child(2) {
-	display: none;
-	margin: 5px;
-	margin-right: auto;
-	font-size: 1.5rem;
+.side-bar__arrows > span:nth-child(2)  {
+  display:none;
 }
 
-.side-bar:hover>.side-bar__arrows>span:nth-child(2) {
-	display: block;
+.side-bar:hover > .side-bar__arrows > span:nth-child(2) {
+  display:block;
 }
 
 .side-bar__menu {
@@ -383,12 +379,17 @@ body {
 }
 
 .latest-articles{
-  width:50%;
+  width:100%;
+}
+
+.latest-articles > h2{
+  padding-bottom:10px;
+  border-bottom:3px double;
 }
 
 .latest-articles > div > span{
   display:inline-block;
-  width:20%;
+  width:10%;
   padding:5px 0;
 }
 
