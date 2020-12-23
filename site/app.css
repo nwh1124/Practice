@@ -34,6 +34,7 @@
 
 html, .tui-editor-contents {
 	font-family: 'LotteMartDream', sans-serif !important;
+	text-decoration:none !important;
 }
 
 /* 폰트 */
@@ -372,13 +373,13 @@ body {
 	height: 100%;
 }
 
-.main>.con>.content {
-	margin: 20px 0;
+.main > .con > .content{
   margin:20px 0;
   padding:20px;  
+  padding-bottom:30px;
   background-color:white;
   color:black;
-  border-radius:10px;
+  border-radius:10px;  
 }
 
 .latest-articles{
