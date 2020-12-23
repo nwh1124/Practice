@@ -386,28 +386,26 @@ body {
   width:50%;
 }
 
-.latest-articles > li > span{
+.latest-articles > div > span{
   display:inline-block;
-  width:10%;
-  text-align:center;
+  width:20%;
+  padding:5px 0;
 }
 
-.latest-articles > li > span:nth-child(2){
-  width:25%;
-}
-
-.latest-articles > li > span:nth-child(3){
-  width:45%;
-}
-
-.latest-articles > li > span:nth-child(4){
-  width:15%;
+.latest-articles > div > span:nth-child(2){
+  width:30%;
 }
 /* 메인 */
 /* 게시물 리스트 시작 */
 .article-list>ul {
 	padding: 14px 0;
 	border-bottom: 1px solid black;
+}
+
+.article-list>ul:hover{
+  background-color:black;
+  color:white;
+  opacity:0.7;
 }
 
 .article-list>ul>li {
@@ -438,18 +436,19 @@ body {
 	flex-grow: 1;
 }
 
-.article-list>ul:not(:first-child ) >li:nth-of-type(4):hover {
+.article-list>ul:not(:first-child ) >li:nth-of-type(4) > a:hover{
 	text-decoration: underline;
 }
 
 .list-page>ul>li>a {
 	display: block;
 	padding: 10px;
+	margin-bottom:10px;
 	border: 1px solid transparent;
 }
 
 .list-page>ul>li:hover:not(:first-of-type ):not(:last-of-type ) >a {
-	border-color: #afafaf;
+	border-color:#afafaf;
 }
 /* 게시물 리스트 끝 */
 /* 게시물 상세 시작 */

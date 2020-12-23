@@ -287,6 +287,8 @@ public class BuildService {
 		
 		if(pageBoxStartBeforeBtnNeedToShow) {
 			pageMenuContent.append("<li><a href=\"" + getArticleListFileName(board, pageBoxStartBeforePage) + "\">&lt; 이전</a></li>");
+		}else {
+			pageMenuContent.append("<li><a href=\"\"></li>");
 		}
 		
 		for(int i = pageBoxStartPage; i <= pageBoxEndPage; i++) {
@@ -304,6 +306,8 @@ public class BuildService {
 		
 		if(pageBoxEndAfterBtnNeedToShow) {
 			pageMenuContent.append("<li><a href=\"" + getArticleListFileName(board, pageBoxEndAfterPage) + "\">다음 &gt;</a></li>");
+		}else {
+			pageMenuContent.append("<li><a href=\"\"></li>");
 		}
 		
 		String body = bodyTemplate.replace("[[article_list]]", mainContent);
@@ -348,15 +352,12 @@ public class BuildService {
 		
 		StringBuilder latestArticles = new StringBuilder();
 		
-		latestArticles.append("<li><span>번호</span><span>작성일</span><span>제목</span><span>작성자</span></li>");
-		
 		for(Article article : articles) {
-			String writer = memberService.getMemberNameById(article.memberId);
 			
-			latestArticles.append("<li><span>" + article.id + "</span>");
-			latestArticles.append("<span>" + article.regDate + "</span>");
+			latestArticles.append("<div>");
+			latestArticles.append("<span>" + article.regDate.substring(0, 10) + "</span>");
 			latestArticles.append("<span><a href=\"" + getArticleDetailFileName(article.id) + "\">" + article.title + "</a></span>");
-			latestArticles.append("<span>" + writer + "</span></li>");
+			latestArticles.append("</div>");
 		}
 		
 		mainHtml = mainHtml.replace("[[latest articles]]", latestArticles);

@@ -55,4 +55,6 @@ function viewer_index_2() {
 }
 
 viewer_index();
+
+viewer_index_2.normalize();
 viewer_index_2();
