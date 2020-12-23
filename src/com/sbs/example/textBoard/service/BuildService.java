@@ -44,7 +44,6 @@ public class BuildService {
 		int totalHits = 0;
 		int[] boardArticlesArr = new int[boards.size()];
 		int[] boardArticleHitsArr = new int[boards.size()];
-		int boardSize = boards.size();
 		
 		String head = getHeadHtml("stat");
 		String body = Util.getFileContents("site_template/stat.html");
@@ -52,7 +51,7 @@ public class BuildService {
 		
 		StringBuilder totalMemberNum = new StringBuilder();
 		
-		totalMemberNum.append("<li><span>회원 수</span>");
+		totalMemberNum.append("<li class=\"total\"><span>회원 수</span>");
 		totalMemberNum.append("<span>" + members.size() + "</span></li>");
 		
 		StringBuilder totalArticlesNum = new StringBuilder();
@@ -198,6 +197,8 @@ public class BuildService {
 			List<Article> articles = articleService.getArticleByBoardId(board.id);
 			int articleCount = articles.size();
 			int totalPage = (int) Math.ceil((double) articleCount / itemsInAPage);
+			
+			Collections.reverse(articles);
 
 			for (int i = 1; i <= totalPage; i++) {
 				buildArticleListPage(board, itemsInAPage, pageBoxMenuSize, articles, i);
@@ -224,7 +225,7 @@ public class BuildService {
 
 		if (end >= articlesCount) {
 			end = articlesCount - 1;
-		}
+		}		
 
 		for (int i = start; i <= end; i++) {
 
@@ -347,7 +348,7 @@ public class BuildService {
 		
 		StringBuilder latestArticles = new StringBuilder();
 		
-		latestArticles.append("<ul class=\"latest-articles\"><li><span>번호</span><span>작성일</span><span>제목</span><span>작성자</span></li>");
+		latestArticles.append("<li><span>번호</span><span>작성일</span><span>제목</span><span>작성자</span></li>");
 		
 		for(Article article : articles) {
 			String writer = memberService.getMemberNameById(article.memberId);

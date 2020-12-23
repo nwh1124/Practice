@@ -486,11 +486,25 @@ body {
 }
 /* 게시물 상세 끝 */
 /* 통계 */
+.stat > ul{
+  border-top:1px solid;
+  border-bottom:1px solid;
+  margin:0 20px;
+  margin-top:10px;
+  padding-bottom:15px;
+}
+
+.stat > ul > li:first-of-type{
+  margin:20px 0;
+  font-weight:bold;
+  text-decoration:underline;
+}
+
 .stat > ul > li {
   display:block;
   width:100%;
   justify-content:space-around;
-  font-size:1.3rem;
+  font-size:1.1rem;
   text-align:center;
 }
 
@@ -499,18 +513,13 @@ body {
   width:30%;
   text-align:center; 
   padding:15px 0;
-  border-bottom:1px solid black;
 }
 
 .stat > ul > li:first-child > span{
   width:100;
 }
 
-.stat > ul > .total > span {
-  border-top:1px solid black;
-  
-}
-
-.stat > ul > .total > span:first-child {
+.stat > ul > .total {
+  font-weight:bold;
 }
 /* 통계 */
