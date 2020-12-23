@@ -81,4 +81,8 @@ public class ArticleService {
 	public List<Article> getArticleByBoardId(int id) {
 		return articleDao.getArticleByBoardId(id);
 	}
+
+	public List<Article> getLatestArticles() {
+		return articleDao.getLatestArticles();
+	}
 }

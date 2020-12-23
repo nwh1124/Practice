@@ -1,5 +1,7 @@
 package com.sbs.example.textBoard.dao;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.sbs.example.mysqlutil.MysqlUtil;
@@ -65,6 +67,24 @@ public class MemberDao {
 		sql.append("WHERE id = ?", memberId);
 		
 		return MysqlUtil.selectRowStringValue(sql);
+	}
+
+	public List<Member> getMembers() {
+		
+		SecSql sql = new SecSql();
+		
+		sql.append("SELECT *");
+		sql.append("FROM member");
+		
+		List<Map<String, Object>> listmap = MysqlUtil.selectRows(sql);
+		
+		List<Member> members = new ArrayList<>();
+		
+		for(Map<String, Object> map : listmap) {
+			members.add(new Member(map));
+		}
+		
+		return members;
 	}
 
 }

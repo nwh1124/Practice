@@ -1,5 +1,6 @@
 package com.sbs.example.textBoard.dto;
 
+import java.util.List;
 import java.util.Map;
 
 public class Member {
@@ -10,10 +11,6 @@ public class Member {
 	public String loginId;
 	public String loginPw;
 	public String name;
-	
-	public Member() {
-		
-	}
 
 	public Member(Map<String, Object> map) {
 

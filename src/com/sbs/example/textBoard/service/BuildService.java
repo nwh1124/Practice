@@ -6,6 +6,7 @@ import java.util.List;
 import com.sbs.example.textBoard.container.Container;
 import com.sbs.example.textBoard.dto.Article;
 import com.sbs.example.textBoard.dto.Board;
+import com.sbs.example.textBoard.dto.Member;
 import com.sbs.example.textBoard.util.Util;
 
 public class BuildService {
@@ -31,7 +32,88 @@ public class BuildService {
 		buildIndexPage();
 		buildArticleListPages();
 		buildDetailPages();
+		buildStatPage();
 
+	}
+
+	private void buildStatPage() {
+		
+		List<Member> members = memberService.getMembers();
+		List<Article> articles = articleService.getArticles();
+		List<Board> boards = boardService.getBoards();
+		int totalHits = 0;
+		int[] boardArticlesArr = new int[boards.size()];
+		int[] boardArticleHitsArr = new int[boards.size()];
+		int boardSize = boards.size();
+		
+		String head = getHeadHtml("stat");
+		String body = Util.getFileContents("site_template/stat.html");
+		String foot = Util.getFileContents("site_template/foot.html");
+		
+		StringBuilder totalMemberNum = new StringBuilder();
+		
+		totalMemberNum.append("<li><span>회원 수</span>");
+		totalMemberNum.append("<span>" + members.size() + "</span></li>");
+		
+		StringBuilder totalArticlesNum = new StringBuilder();
+		
+		totalArticlesNum.append("<li class=\"total\"><span>전체 게시물 수</span>");
+		totalArticlesNum.append("<span>" + articles.size() + "</span></li>");
+		
+		for(int i = 0; i < articles.size(); i++) {
+			totalHits += articles.get(i).hit;			
+		}
+
+		StringBuilder totalArticleHits = new StringBuilder();
+		
+		totalArticleHits.append("<li class=\"total\"><span>전체 조회수</span>");
+		totalArticleHits.append("<span>" + totalHits + "</span></li>");
+
+		StringBuilder boardArticles = new StringBuilder();
+		
+		for(int i = 0; i < boards.size(); i++) {
+			for(int j = 0; j < articles.size(); j++) {
+				if(articles.get(j).boardId-1 == i) {
+					boardArticlesArr[i]++;
+				}
+			}
+			
+			boardArticles.append("<li><span>" + boards.get(i).code + " 게시판 게시물 수</span>");
+			boardArticles.append("<span>" + boardArticlesArr[i] + "</span></li>");
+			
+		}
+
+		StringBuilder boardArticleHits = new StringBuilder();
+		
+		for(int i = 0; i < boards.size(); i++) {
+			for(int j = 0; j < articles.size(); j++) {
+				if(articles.get(j).boardId-1 == i) {
+					boardArticleHitsArr[i] += articles.get(j).hit;
+				}
+			}
+			
+			boardArticleHits.append("<li><span>" + boards.get(i).code + " 게시판 조회수</span>");
+			boardArticleHits.append("<span>" + boardArticleHitsArr[i] + "</span></li>");
+			
+		}
+		
+		body = body.replace("[[member-num]]", totalMemberNum);
+		body = body.replace("[[total-article-num]]", totalArticlesNum);
+		body = body.replace("[[board-article]]", boardArticles);
+		body = body.replace("[[total-hits-num]]", totalArticleHits);
+		body = body.replace("[[board-hits]]", boardArticleHits);
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(head);
+		sb.append(body);
+		sb.append(foot);
+		
+		String filePath = "site/stat.html";
+		
+		Util.writeFileContents(filePath, sb.toString());
+		System.out.println(filePath + " 생성");
+		
 	}
 
 	private void buildDetailPages() {
@@ -260,6 +342,23 @@ public class BuildService {
 		String foot = Util.getFileContents("site_template/foot.html");
 
 		String mainHtml = Util.getFileContents("site_template/index.html");
+		
+		List<Article> articles = articleService.getLatestArticles();
+		
+		StringBuilder latestArticles = new StringBuilder();
+		
+		latestArticles.append("<ul class=\"latest-articles\"><li><span>번호</span><span>작성일</span><span>제목</span><span>작성자</span></li>");
+		
+		for(Article article : articles) {
+			String writer = memberService.getMemberNameById(article.memberId);
+			
+			latestArticles.append("<li><span>" + article.id + "</span>");
+			latestArticles.append("<span>" + article.regDate + "</span>");
+			latestArticles.append("<span><a href=\"" + getArticleDetailFileName(article.id) + "\">" + article.title + "</a></span>");
+			latestArticles.append("<span>" + writer + "</span></li>");
+		}
+		
+		mainHtml = mainHtml.replace("[[latest articles]]", latestArticles);
 
 		sb.append(head);
 		sb.append(mainHtml);
@@ -323,6 +422,9 @@ public class BuildService {
 			
 		} else if (pageName.equals("article_detail")) {
 			return "<i class=\"fas fa-file-alt\"></i> <span>ARTICLE DETAIL</span>";
+			
+		} else if (pageName.equals("stat")) {
+			return "<i class=\"fas fa-chart-pie\"></i> <span>STATISTICS</span>";
 			
 		}
 

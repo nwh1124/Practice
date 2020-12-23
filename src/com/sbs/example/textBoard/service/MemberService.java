@@ -1,5 +1,7 @@
 package com.sbs.example.textBoard.service;
 
+import java.util.List;
+
 import com.sbs.example.textBoard.container.Container;
 import com.sbs.example.textBoard.dao.MemberDao;
 import com.sbs.example.textBoard.dto.Member;
@@ -28,5 +30,9 @@ public class MemberService {
 
 	public String getMemberNameById(int memberId) {
 		return memberDao.getMemberNameById(memberId);
+	}
+
+	public List<Member> getMembers() {
+		return memberDao.getMembers();		
 	}
 }

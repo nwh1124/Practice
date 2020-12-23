@@ -290,4 +290,24 @@ public class ArticleDao {
 		
 	}
 
+	public List<Article> getLatestArticles() {
+		
+		SecSql sql = new SecSql();
+		
+		sql.append("SELECT *");
+		sql.append("FROM article");
+		sql.append("ORDER BY regDate DESC");
+		sql.append("limit 3");
+		
+		List<Map<String, Object>> listMap = MysqlUtil.selectRows(sql);	
+		
+		List<Article> articles = new ArrayList<>();
+		
+		for(Map<String, Object> map : listMap) {
+			articles.add(new Article(map));
+		}
+		
+		return articles;
+	}
+
 }
