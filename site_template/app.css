@@ -137,10 +137,46 @@ a {
 	justify-content:center;
 }
 
+.flex-grow-1{
+  flex-grow:1;
+}
+
 .none {
 	display:none;
 }
 /* 라이브러리 */
+/* 미디어 */
+@media(min-width:1000px) and (max-width:1200px) {
+  .con {
+    min-width:1200px;
+}
+}
+@media(min-width:800px) and (max-width:999px) {
+  .con {
+    min-width:1000px;
+}
+}
+@media(min-width:600px) and (max-width:799px) {
+  .con {
+    min-width:800px;
+}
+}
+@media(min-width:400px) and (max-width:599px) {
+  .con {
+    min-width:600px;
+}
+}
+@media(min-width:200px) and (max-width:399px) {
+  .con {
+    min-width:400px;
+}
+}
+@media(min-width:0px) and (max-width:199px) {
+  .con {
+    min-width:200px;
+}
+}
+/* 미디어 */
 /* 바디 */
 body {
 	overflow-x: hidden;
@@ -187,12 +223,13 @@ body {
 	color: #afffff;
 }
 /* 탑 로고 */
+/* 사이드 바 */
 .side-bar{
   z-index:10;
   width:300px;
   height:100vh;
   position:fixed;
-  right:-265px;
+  right:-230px;
   transition:all 0.3s;
   box-sizing:border-box;
 }
@@ -206,8 +243,8 @@ body {
 }
 
 .side-bar__arrows > span {
-  margin:5px;
-  font-size:1.5rem;  
+  margin:12px;
+  font-size:2.5rem;  
   margin-right:auto;
 }
 
@@ -328,7 +365,7 @@ body {
 /* 타이틀 바 */
 /* 바텀 바 */
 .bottom-bar {
-	
+	padding-top:20px;
 }
 
 .bottom-bar>.con {
@@ -361,16 +398,20 @@ body {
 }
 /* 바텀 바 */
 /* 메인 */
-.main {
-	flex-grow: 1;
+.main{
+  flex-grow:1;
+  display:flex;
+  flex-direction:column;
 }
 
-.main>.con {
-	height: 100%;
+.main > .con {
+  display:flex;
+  flex-direction:column;
+  flex-grow:1;
 }
 
 .main > .con > .content{
-  margin:20px 0;
+  margin-top:20px;
   padding:20px;  
   padding-bottom:30px;
   background-color:white;
@@ -403,7 +444,7 @@ body {
 	border-bottom: 1px solid black;
 }
 
-.article-list>ul:hover{
+.article-list>ul:hover:not(:first-child){
   background-color:black;
   color:white;
   opacity:0.7;
@@ -486,18 +527,19 @@ body {
 }
 /* 게시물 상세 끝 */
 /* 통계 */
+.stat {
+  flex-direction:column;
+}
 .stat > ul{
+  display:flex;
+  flex-direction:column;
+  flex-grow:1;
+  justify-content:center;
   border-top:1px solid;
   border-bottom:1px solid;
   margin:0 20px;
   margin-top:10px;
   padding-bottom:15px;
-}
-
-.stat > ul > li:first-of-type{
-  margin:20px 0;
-  font-weight:bold;
-  text-decoration:underline;
 }
 
 .stat > ul > li {
@@ -508,7 +550,7 @@ body {
   text-align:center;
 }
 
-.stat > ul > li:not(:first-child) > span {
+.stat > ul > li > span {
   display:inline-block;
   width:30%;
   text-align:center; 

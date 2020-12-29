@@ -26,6 +26,7 @@ public class BuildService {
 
 		Util.mkdirs("site");
 
+		Util.copy("site_template/img/logo_transparent.png", "site/logo_transparent.png");
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
 
@@ -51,12 +52,12 @@ public class BuildService {
 		
 		StringBuilder totalMemberNum = new StringBuilder();
 		
-		totalMemberNum.append("<li class=\"total\"><span>회원 수</span>");
+		totalMemberNum.append("<li class=\"total\"><span>Total Members</span>");
 		totalMemberNum.append("<span>" + members.size() + "</span></li>");
 		
 		StringBuilder totalArticlesNum = new StringBuilder();
 		
-		totalArticlesNum.append("<li class=\"total\"><span>전체 게시물 수</span>");
+		totalArticlesNum.append("<li class=\"total\"><span>Total Articles</span>");
 		totalArticlesNum.append("<span>" + articles.size() + "</span></li>");
 		
 		for(int i = 0; i < articles.size(); i++) {
@@ -65,7 +66,7 @@ public class BuildService {
 
 		StringBuilder totalArticleHits = new StringBuilder();
 		
-		totalArticleHits.append("<li class=\"total\"><span>전체 조회수</span>");
+		totalArticleHits.append("<li class=\"total\"><span>Total Hits</span>");
 		totalArticleHits.append("<span>" + totalHits + "</span></li>");
 
 		StringBuilder boardArticles = new StringBuilder();
@@ -77,7 +78,7 @@ public class BuildService {
 				}
 			}
 			
-			boardArticles.append("<li><span>" + boards.get(i).code + " 게시판 게시물 수</span>");
+			boardArticles.append("<li><span>" + boards.get(i).name + " Articles</span>");
 			boardArticles.append("<span>" + boardArticlesArr[i] + "</span></li>");
 			
 		}
@@ -91,7 +92,7 @@ public class BuildService {
 				}
 			}
 			
-			boardArticleHits.append("<li><span>" + boards.get(i).code + " 게시판 조회수</span>");
+			boardArticleHits.append("<li><span>" + boards.get(i).name + " Hits</span>");
 			boardArticleHits.append("<span>" + boardArticleHitsArr[i] + "</span></li>");
 			
 		}
@@ -148,7 +149,10 @@ public class BuildService {
 				}
 				
 				StringBuilder sb = new StringBuilder();
-				String writer = memberService.getMemberNameById(article.memberId);
+				String writer = memberService.getMemberNameById(article.memberId);				
+				
+				head = getHeadHtml("article_detail");
+				head = head.replace("[[article-detail]]", article.title);
 				
 				sb.append(head);
 				
@@ -167,7 +171,7 @@ public class BuildService {
 				body = body.replace("[[article-detail-next-url]]", getArticleDetailFileName(nextArticleId));
 				body = body.replace("[[article-detail-next-attr]]", nextArticle != null ? nextArticle.title : "");
 				body = body.replace("[[article-detail-next-addi]]", nextArticleId == 0 ? "none" : "");
-				
+								
 				sb.append(body);
 				
 				sb.append(foot);
@@ -401,6 +405,18 @@ public class BuildService {
 		String titleBarType = getTitleBarContentByPageName(pageName);
 
 		head = head.replace("[[title-bar]]", titleBarType);
+
+		String pageTitle = "Java's Meow | ";
+		
+		if(pageName.equals("article_detail") == false) {
+			pageName = pageName.replaceAll("_", " ");
+		}else {
+			pageName = "[[article-detail]]";
+		}		
+		
+		pageTitle += pageName;
+		
+		head = head.replace("[[page-title]]", pageTitle);
 
 		return head;
 	}
