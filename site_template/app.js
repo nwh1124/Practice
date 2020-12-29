@@ -1,3 +1,21 @@
+/* 투탑 버튼 */
+$(function() {
+  $(window).scroll(function() { 
+    if ($(this).scrollTop() > 250) {  
+      $('.to-top-btn').fadeIn(); 
+      $('.to-top-btn').css(
+        'right', $('.side-bar').offset().left
+      ); 
+      left:0 } 
+    else { 
+      $('.to-top-btn').fadeOut(); } }); 
+      $(".to-top-btn").click(function() { 
+        $('html, body').animate({ scrollTop : 0  }, 400);  
+        return false; 
+      }); 
+});
+/* 투탑 버튼 */
+
 function viewer_detail() {
 	
 	var viewerEl = document.querySelector('.article-detail__body');
@@ -58,3 +76,4 @@ viewer_index();
 
 viewer_index_2.normalize();
 viewer_index_2();
+
