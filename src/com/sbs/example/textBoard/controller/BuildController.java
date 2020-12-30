@@ -9,7 +9,7 @@ public class BuildController extends Controller{
 	
 	public BuildController(){
 		
-		buildService = Container.exportService;
+		buildService = Container.buildService;
 		
 	}
 

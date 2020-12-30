@@ -2,6 +2,7 @@
 package com.sbs.example.textBoard.container;
 import java.util.Scanner;
 
+import com.sbs.example.textBoard.AppConfig;
 import com.sbs.example.textBoard.controller.ArticleController;
 import com.sbs.example.textBoard.controller.BoardController;
 import com.sbs.example.textBoard.controller.BuildController;
@@ -27,14 +28,18 @@ public class Container {
 	public static MemberService memberService;
 	public static BoardService boardService;
 	public static ArticleService articleService;
-	public static BuildService exportService;
+	public static BuildService buildService;
 	
 	public static MemberController memberController;
 	public static ArticleController articleController;
 	public static BoardController boardController;
 	public static BuildController exportController;
 	
+	public static AppConfig config;
+	
 	static {
+		
+		config = new AppConfig();
 		
 		sc = new Scanner(System.in);
 		session = new Session();
@@ -46,7 +51,7 @@ public class Container {
 		memberService = new MemberService();
 		boardService = new BoardService();
 		articleService = new ArticleService();
-		exportService = new BuildService();
+		buildService = new BuildService();
 		
 		memberController = new MemberController();
 		articleController = new ArticleController();

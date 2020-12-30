@@ -3,7 +3,16 @@
   <groupId>Practice</groupId>
   <artifactId>Practice</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <properties>
+  	<jackson.version>2.11.2</jackson.version> 
+  </properties>
   <dependencies>
+  <!-- jackson lib -->
+  <dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
   <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 	<dependency>
 	    <groupId>org.seleniumhq.selenium</groupId>

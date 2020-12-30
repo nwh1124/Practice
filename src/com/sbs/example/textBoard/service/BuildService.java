@@ -1,7 +1,9 @@
 package com.sbs.example.textBoard.service;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.sbs.example.textBoard.container.Container;
 import com.sbs.example.textBoard.dto.Article;
@@ -26,15 +28,36 @@ public class BuildService {
 
 		Util.mkdirs("site");
 
-		Util.copy("site_template/img/logo_transparent.png", "site/logo_transparent.png");
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
 
+		loadDisqusData();
+		
 		buildIndexPage();
 		buildArticleListPages();
 		buildDetailPages();
 		buildStatPage();
 
+	}
+	
+	private void loadDisqusData() {
+		List<Article> articles = articleService.getArticles();
+
+		for (Article article : articles) {
+			Map<String, Object> disqusArticleData = disqusApiService.getArticleData(article);
+
+			if (disqusArticleData != null) {
+				int likesCount = (int) disqusArticleData.get("likesCount");
+				int commentsCount = (int) disqusArticleData.get("commentsCount");
+
+				Map<String, Object> modifyArgs = new HashMap<>();
+				modifyArgs.put("id", article.id);
+				modifyArgs.put("likesCount", likesCount);
+				modifyArgs.put("commentsCount", commentsCount);
+
+				articleService.modify(modifyArgs);
+			}
+		}
 	}
 
 	private void buildStatPage() {
@@ -171,6 +194,9 @@ public class BuildService {
 				body = body.replace("[[article-detail-next-url]]", getArticleDetailFileName(nextArticleId));
 				body = body.replace("[[article-detail-next-attr]]", nextArticle != null ? nextArticle.title : "");
 				body = body.replace("[[article-detail-next-addi]]", nextArticleId == 0 ? "none" : "");
+
+				body = body.replace("${file-name}", getArticleDetailFileName(articles.get(i).id));
+				body = body.replace("${site-domain}", "blog.nwh.kr");
 								
 				sb.append(body);
 				
@@ -244,8 +270,8 @@ public class BuildService {
 			mainContent.append("<li>" + article.regDate + "</li>");
 			mainContent.append("<li>" + writer + "</li>");
 			mainContent.append("<li><a href=\"" + link + "\">" + article.title + "</a></li>");
-			mainContent.append("<li>" + article.hit + "</li>");
-			mainContent.append("<li>" + article.recommand + "</li>");
+			mainContent.append("<li>" + article.commentsCount + "</li>");
+			mainContent.append("<li>" + article.likesCount + "</li>");
 
 			mainContent.append("</ul>");
 
@@ -337,7 +363,7 @@ public class BuildService {
 		return "article_list_" + boardCode + "_" + page + ".html";
 	}
 
-	private String getArticleDetailFileName(int id) {
+	public String getArticleDetailFileName(int id) {
 
 		return "article_detail_" + id + ".html";
 

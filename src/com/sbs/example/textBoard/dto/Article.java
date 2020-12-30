@@ -13,6 +13,8 @@ public class Article {
 	public int recommand;
 	public int memberId;
 	public int boardId;
+	public int likesCount;
+	public int commentsCount;
 	
 	public Article() {
 		
@@ -29,6 +31,8 @@ public class Article {
 		this.recommand = (int)map.get("recommend");
 		this.memberId = (int)map.get("memberId");
 		this.boardId = (int)map.get("boardId");
+		this.likesCount = (int)map.get("likesCount");
+		this.commentsCount = (int)map.get("commentsCount");
 		
 	}
 

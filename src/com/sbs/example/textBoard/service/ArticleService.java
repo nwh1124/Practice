@@ -1,6 +1,8 @@
 package com.sbs.example.textBoard.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.sbs.example.textBoard.container.Container;
 import com.sbs.example.textBoard.dao.ArticleDao;
@@ -84,5 +86,18 @@ public class ArticleService {
 
 	public List<Article> getLatestArticles() {
 		return articleDao.getLatestArticles();
+	}
+	
+	public int modify(int id, String title, String body) {
+		Map<String, Object> modifyArgs = new HashMap<>();
+		modifyArgs.put("id", id);
+		modifyArgs.put("title", title);
+		modifyArgs.put("body", body);
+		
+		return modify(modifyArgs);
+	}
+	
+	public int modify(Map<String, Object> args) {
+		return articleDao.modify(args);
 	}
 }
