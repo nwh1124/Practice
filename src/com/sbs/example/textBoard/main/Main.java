@@ -7,20 +7,16 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		new App().run();
+//		new App().run();
 		
-//		testApi();
+		testApi();
 		
 	}
 
 	private static void testApi() {
 		
-		AppConfig ac = new AppConfig();
-		
-		String url = "https://disqus.com/api/3.0/forums/listThreads.json"; 
-		
-		String rs = Util.callApi(url, "api_key=" + ac.getDisqusApiKey(), "forum=" + ac.getDisqusForumName(), "thread:ident=article_detail_15.html");
-		System.out.println(rs);
+		String keyFilePath = System.getenv("GOOGLE_APPLICATION_CREDENTIALS");
+		System.out.println(keyFilePath);
 		
 	}
 
