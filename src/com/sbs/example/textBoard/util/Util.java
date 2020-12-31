@@ -186,6 +186,8 @@ public class Util {
 			return mapper.readValue(jsonString, cls);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 		return null;
