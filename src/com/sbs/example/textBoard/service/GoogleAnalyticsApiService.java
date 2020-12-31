@@ -1,4 +1,4 @@
-package com.sbs.example.textBoard.main;
+package com.sbs.example.textBoard.service;
 
 import java.io.IOException;
 
@@ -12,25 +12,12 @@ import com.google.analytics.data.v1alpha.RunReportRequest;
 import com.google.analytics.data.v1alpha.RunReportResponse;
 import com.sbs.example.textBoard.container.Container;
 
-public class Main {
-	
-	public static void main(String[] args) {
-		
-//		new App().run();
-		
-		testApi();
-		
-	}
+public class GoogleAnalyticsApiService {
 
-	private static void testApi() {
+	public void updatePageHitsApiDate() {
 		
-//		String keyFilePath = System.getenv("GOOGLE_APPLICATION_CREDENTIALS");
-//		System.out.println(keyFilePath);
+		String ga4PropertyId = Container.config.getGa4PropertyId();
 		
-		Container.googleAnalyticsApiService.updatePageHitsApiDate();
-		
-		String ga4PropertyId = Container.config.getGa4PropertyId(); 
-				
 		try (AlphaAnalyticsDataClient analyticsData = AlphaAnalyticsDataClient.create()) {
 		      RunReportRequest request = RunReportRequest.newBuilder()
 		          .setEntity(Entity.newBuilder().setPropertyId(ga4PropertyId))
@@ -39,10 +26,10 @@ public class Main {
 		          .addMetrics(Metric.newBuilder().setName("activeUsers"))
 		          .addDateRanges(
 		              DateRange.newBuilder().setStartDate("2020-12-17").setEndDate("today")).build();
-
+		
 		      // Make the request
 		      RunReportResponse response = analyticsData.runReport(request); 
-
+		
 		      System.out.println("Report result:");
 		      for (Row row : response.getRowsList()) {
 		        System.out.printf("%s, %s%n", row.getDimensionValues(0).getValue(),
@@ -52,7 +39,7 @@ public class Main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 	}
-	
+
 }

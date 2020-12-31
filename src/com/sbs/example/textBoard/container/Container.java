@@ -13,6 +13,7 @@ import com.sbs.example.textBoard.dao.MemberDao;
 import com.sbs.example.textBoard.service.ArticleService;
 import com.sbs.example.textBoard.service.BoardService;
 import com.sbs.example.textBoard.service.BuildService;
+import com.sbs.example.textBoard.service.GoogleAnalyticsApiService;
 import com.sbs.example.textBoard.service.MemberService;
 import com.sbs.example.textBoard.session.Session;
 
@@ -29,6 +30,7 @@ public class Container {
 	public static BoardService boardService;
 	public static ArticleService articleService;
 	public static BuildService buildService;
+	public static GoogleAnalyticsApiService googleAnalyticsApiService;
 	
 	public static MemberController memberController;
 	public static ArticleController articleController;
@@ -52,6 +54,7 @@ public class Container {
 		boardService = new BoardService();
 		articleService = new ArticleService();
 		buildService = new BuildService();
+		googleAnalyticsApiService = new GoogleAnalyticsApiService();
 		
 		memberController = new MemberController();
 		articleController = new ArticleController();
