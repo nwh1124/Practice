@@ -471,6 +471,10 @@ body {
 	width: 5%;
 }
 
+.article-list>ul>li:nth-child(7) {
+	width: 5%;
+}
+
 .article-list>ul:first-child>li:not(:last-child){
 	border-right:1px solid black;
 }
@@ -485,7 +489,7 @@ body {
 .list-page>ul>li>a {
 	display: block;
 	padding: 10px;
-	margin-bottom:10px;
+	margin:10px 0;
 	border: 1px solid transparent;
 }
 

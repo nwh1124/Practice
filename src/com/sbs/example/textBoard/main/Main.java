@@ -10,15 +10,16 @@ import com.google.analytics.data.v1alpha.Metric;
 import com.google.analytics.data.v1alpha.Row;
 import com.google.analytics.data.v1alpha.RunReportRequest;
 import com.google.analytics.data.v1alpha.RunReportResponse;
+import com.sbs.example.mysqlutil.MysqlUtil;
 import com.sbs.example.textBoard.container.Container;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		
-//		new App().run();
+		new App().run();
 		
-		testApi();
+//		testApi();
 		
 	}
 
@@ -27,32 +28,12 @@ public class Main {
 //		String keyFilePath = System.getenv("GOOGLE_APPLICATION_CREDENTIALS");
 //		System.out.println(keyFilePath);
 		
-		Container.googleAnalyticsApiService.updatePageHitsApiDate();
+		MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "ssgDb");
 		
-		String ga4PropertyId = Container.config.getGa4PropertyId(); 
-				
-		try (AlphaAnalyticsDataClient analyticsData = AlphaAnalyticsDataClient.create()) {
-		      RunReportRequest request = RunReportRequest.newBuilder()
-		          .setEntity(Entity.newBuilder().setPropertyId(ga4PropertyId))
-		          .addDimensions(
-		              Dimension.newBuilder().setName("pagePath"))
-		          .addMetrics(Metric.newBuilder().setName("activeUsers"))
-		          .addDateRanges(
-		              DateRange.newBuilder().setStartDate("2020-12-17").setEndDate("today")).build();
-
-		      // Make the request
-		      RunReportResponse response = analyticsData.runReport(request); 
-
-		      System.out.println("Report result:");
-		      for (Row row : response.getRowsList()) {
-		        System.out.printf("%s, %s%n", row.getDimensionValues(0).getValue(),
-		            row.getMetricValues(0).getValue());
-		      }
+		Container.googleAnalyticsApiService.updatePageHits();
+	
+		MysqlUtil.closeConnection();
 		
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 	
 }

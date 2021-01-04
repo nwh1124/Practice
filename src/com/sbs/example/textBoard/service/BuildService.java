@@ -32,6 +32,7 @@ public class BuildService {
 		Util.copy("site_template/app.js", "site/app.js");
 
 		loadDisqusData();
+		Container.googleAnalyticsApiService.updatePageHits();
 		
 		buildIndexPage();
 		buildArticleListPages();
@@ -270,6 +271,7 @@ public class BuildService {
 			mainContent.append("<li>" + article.regDate + "</li>");
 			mainContent.append("<li>" + writer + "</li>");
 			mainContent.append("<li><a href=\"" + link + "\">" + article.title + "</a></li>");
+			mainContent.append("<li>" + article.hit + "</li>");
 			mainContent.append("<li>" + article.commentsCount + "</li>");
 			mainContent.append("<li>" + article.likesCount + "</li>");
 

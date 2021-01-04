@@ -11,10 +11,11 @@ import com.google.analytics.data.v1alpha.Row;
 import com.google.analytics.data.v1alpha.RunReportRequest;
 import com.google.analytics.data.v1alpha.RunReportResponse;
 import com.sbs.example.textBoard.container.Container;
+import com.sbs.example.textBoard.dao.ga4DataDao;
 
 public class GoogleAnalyticsApiService {
 
-	public void updatePageHitsApiDate() {
+	public void updatePageHits() {
 		
 		String ga4PropertyId = Container.config.getGa4PropertyId();
 		
@@ -31,15 +32,24 @@ public class GoogleAnalyticsApiService {
 		      RunReportResponse response = analyticsData.runReport(request); 
 		
 		      System.out.println("Report result:");
-		      for (Row row : response.getRowsList()) {
-		        System.out.printf("%s, %s%n", row.getDimensionValues(0).getValue(),
-		            row.getMetricValues(0).getValue());
+		      for (Row row : response.getRowsList()) {		    	  
+		    	  String pagePath = row.getDimensionValues(0).getValue();
+		    	  int hit = Integer.parseInt(row.getMetricValues(0).getValue());
+		    	  
+		    	  System.out.printf("pagePath %s hit %d\n", pagePath, hit);		
+		    	  
+		    	  update(pagePath, hit);
 		      }
 		
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
+	}
+
+	private void update(String pagePath, int hit) {
+		ga4DataDao.deletePagePath(pagePath);
+		ga4DataDao.savaPagePath(pagePath, hit);
 	}
 
 }
