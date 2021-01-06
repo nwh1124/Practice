@@ -38,9 +38,35 @@ public class BuildService {
 		buildArticleListPages();
 		buildDetailPages();
 		buildStatPage();
+		buildSearchPage();
 
 	}
 	
+	private void buildSearchPage() {
+		
+		List<Article> articles = articleService.getLatestArticles();
+		
+		String jsonText = Util.getJsonText(articles);
+		Util.writeFileContents("site/article_list.json", jsonText);
+		
+		Util.copy("site_template/article_search.js", "site/article_search.js");
+		
+		StringBuilder sb = new StringBuilder();		
+
+		String head = getHeadHtml("search");		
+		String Html = Util.getFileContents("site_template/article_search.html");		
+		String foot = Util.getFileContents("site_template/foot.html");
+
+		sb.append(head);
+		sb.append(Html);
+		sb.append(foot);
+
+		String filePath = "site/article_search.html";
+		Util.writeFileContents(filePath, sb.toString());
+		System.out.println(filePath + " 생성");
+		
+	}
+
 	private void loadDisqusData() {
 		List<Article> articles = articleService.getArticles();
 
@@ -471,6 +497,9 @@ public class BuildService {
 			
 		} else if (pageName.equals("stat")) {
 			return "<i class=\"fas fa-chart-pie\"></i> <span>STATISTICS</span>";
+			
+		} else if (pageName.startsWith("articlei_search")) {
+			return "<i class=\"fas fa-search\"></i> <span>SEARCH</span>";
 			
 		}
 

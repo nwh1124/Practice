@@ -1,0 +1,15 @@
+# 주요 명령어
+- DB export
+  - cmd 접속
+  - 집
+  	- c:\xampp\mysql\bin\mysqldump.exe --databases -u sbsst -p ssgDb > C:\work\sts-4.8.0.RELEASE\workspace\Practice\site\current.sql
+  -	학원
+  	- c:\xampp\mysql\bin\mysqldump.exe --databases -u sbsst -p ssgDb > C:\work\
+
+# 환경 변수
+	- 구글API 변수명
+		- GOOGLE_APPLICATION_CREDENTIALS
+	- 변수 경로 (집)
+		- C:\work\sts-4.8.0.RELEASE\workspace\google_api_key\delta-daylight-288708-fa02da363e58.json
+	- 변수 경로 (학원)
+		- C:\work\
