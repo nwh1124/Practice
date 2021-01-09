@@ -12,6 +12,7 @@ import com.google.analytics.data.v1alpha.RunReportRequest;
 import com.google.analytics.data.v1alpha.RunReportResponse;
 import com.sbs.example.mysqlutil.MysqlUtil;
 import com.sbs.example.textBoard.container.Container;
+import com.sbs.example.textBoard.util.Util;
 
 public class Main {
 	
@@ -24,16 +25,9 @@ public class Main {
 	}
 
 	private static void testApi() {
+		String now = Util.getNowDateStr();
 		
-//		String keyFilePath = System.getenv("GOOGLE_APPLICATION_CREDENTIALS");
-//		System.out.println(keyFilePath);
-		
-		MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "ssgDb");
-		
-		Container.googleAnalyticsApiService.updatePageHits();
-	
-		MysqlUtil.closeConnection();
-		
+		System.out.println(now);
 	}
 	
 }

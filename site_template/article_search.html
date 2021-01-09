@@ -9,10 +9,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
-<div class="main con-min-width">
+<div class="main con-min-width" id="articleSearchList">
 	<div class="con">
 		<div class="article-search">
-          <form class="block">
+          <form>
             <input :value="searchKeyword" @input="update" type="text" placeholder="검색어">
           </form>
         </div>
@@ -21,7 +21,7 @@
 				<li>번호</li>
 				<li>작성일</li>
 				<li>작성자</li>
-				<li><a href="#">제목</a></li>
+				<li><a>제목</a></li>
 				<li>조회수</li>
 				<li>댓글수</li>
 				<li>추천수</li>
@@ -31,8 +31,11 @@
 	             <li>{{article.regDate}}</li>
 	             <li>{{article.writer}}</li>
 	             <li>
-	               <a :href="'article_' + article.id + '.html'" target="_blank">{{article.title}}</a>
-              </li>
+	               <a :href="'article_detail_' + article.id + '.html'" target="_blank">{{article.title}}</a>
+            	 </li>
+            	 <li>{{article.hit}}</li>
+	             <li>{{article.commentsCount}}</li>
+	             <li>{{article.likesCount}}</li>	             
 			</ul>
 		</div>
 	</div>

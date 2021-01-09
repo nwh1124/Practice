@@ -342,5 +342,26 @@ public class ArticleDao {
 
 		return MysqlUtil.update(sql);
 	}
+
+	public List<Article> getArticlesWithMemberName() {
+		
+		SecSql sql = new SecSql();
+		
+		sql.append("SELECT *");
+		sql.append("FROM article AS A");
+		sql.append("INNER JOIN `member` AS M");
+		sql.append("ON A.memberId = M.id");
+		
+		List<Map<String, Object>> listMap = MysqlUtil.selectRows(sql);
+		
+		List<Article> articles = new ArrayList<>();
+		
+		for(Map<String, Object> map : listMap) {
+			articles.add(new Article(map));
+		}
+		
+		return articles;
+		
+	}
 	
 }

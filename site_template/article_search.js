@@ -12,7 +12,10 @@ $.get(
 				regDate: row.regDate,
 				writer: row.extra__writer,
 				title: row.title,
-				body: row.body
+				body: row.body,
+				hit: row.hit,
+				likesCount: row.likesCount,
+				commentsCount: row.commentsCount
 			};
 
 			articleList.push(article);
@@ -22,15 +25,15 @@ $.get(
 );
 
 new Vue({
-  el: "#article-list-wrap",
+  el: "#articleSearchList",
   data: {
     articleList:articleList,
     searchKeyword:''
   },
   methods: {
-    update: function(e){
+    update: _.debounce(function(e){
       this.searchKeyword = e.target.value;
-    }
+    }, 500)
   },
   computed: {
     filterKey:function() {

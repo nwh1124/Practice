@@ -16,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -179,6 +181,7 @@ public class Util {
 		return content.toString();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static Object callApiResponseTo(Class cls, String urlStr, String... args) {
 		String jsonString = callApi(urlStr, args);
 
@@ -204,6 +207,12 @@ public class Util {
 		}
 		return rs;
 		
+	}
+
+	public static String getNowDateStr() {
+		SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");;
+		String nowDate = format.format(new Date()); 
+		return nowDate;
 	}
 
 }

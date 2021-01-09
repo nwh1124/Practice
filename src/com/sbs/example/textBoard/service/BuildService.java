@@ -44,7 +44,7 @@ public class BuildService {
 	
 	private void buildSearchPage() {
 		
-		List<Article> articles = articleService.getLatestArticles();
+		List<Article> articles = articleService.getArticlesWithMemberName();
 		
 		String jsonText = Util.getJsonText(articles);
 		Util.writeFileContents("site/article_list.json", jsonText);
@@ -53,7 +53,7 @@ public class BuildService {
 		
 		StringBuilder sb = new StringBuilder();		
 
-		String head = getHeadHtml("search");		
+		String head = getHeadHtml("article_search");		
 		String Html = Util.getFileContents("site_template/article_search.html");		
 		String foot = Util.getFileContents("site_template/foot.html");
 
@@ -222,8 +222,8 @@ public class BuildService {
 				body = body.replace("[[article-detail-next-attr]]", nextArticle != null ? nextArticle.title : "");
 				body = body.replace("[[article-detail-next-addi]]", nextArticleId == 0 ? "none" : "");
 
-				body = body.replace("${file-name}", getArticleDetailFileName(articles.get(i).id));
-				body = body.replace("${site-domain}", "blog.nwh.kr");
+				body = body.replace("[[file-name}", getArticleDetailFileName(articles.get(i).id));
+				body = body.replace("[[site-domain}", "blog.nwh.kr");
 								
 				sb.append(body);
 				
@@ -435,6 +435,18 @@ public class BuildService {
 		String head = Util.getFileContents("site_template/head.html");
 
 		StringBuilder boardMenuContents = new StringBuilder();
+		
+		String articleSearchLink = "article_search.html";
+
+		boardMenuContents.append("<li>");
+		
+		boardMenuContents.append("<a href=\"" + articleSearchLink + "\" class=\"block\">");
+
+		boardMenuContents.append(getTitleBarContentByPageName("article_search"));
+
+		boardMenuContents.append("</a>");
+
+		boardMenuContents.append("</li>");
 
 		List<Board> boards = boardService.getBoards();
 
@@ -459,20 +471,51 @@ public class BuildService {
 		String titleBarType = getTitleBarContentByPageName(pageName);
 
 		head = head.replace("[[title-bar]]", titleBarType);
-
-		String pageTitle = "Java's Meow | ";
 		
-		if(pageName.equals("article_detail") == false) {
-			pageName = pageName.replaceAll("_", " ");
-		}else {
-			pageName = "[[article-detail]]";
-		}		
+		String siteName = getPageTitle(pageName);
+		String siteDescription = "웹프로그래밍, 일상에 대해 포스팅합니다";
+		String siteDomain = "blog.nwh.kr";
+		String siteMainUrl = "https://" + siteDomain;
+		String currentDate = Util.getNowDateStr();
+		String siteSubject = "웹프로그래밍, 일상 블로그";
+		String siteKeywords = "JAVA, HTML, CSS, JSP, SQL";
 		
-		pageTitle += pageName;
-		
-		head = head.replace("[[page-title]]", pageTitle);
+		head = head.replace("[[site-name]]", siteName);
+		head = head.replace("[[page-title]]", siteName);
+		head = head.replace("[[site-description]]", siteDescription);
+		head = head.replace("[[site-domain]]", siteDomain);
+		head = head.replace("[[site-main-url]]", siteMainUrl);
+		head = head.replace("[[current-date]]", currentDate);
+		head = head.replace("[[site-subject]]", siteSubject);
+		head = head.replace("[[current-keywords]]", siteKeywords);
 
 		return head;
+	}
+
+	private String getPageTitle(String pageName) {
+
+		String forPrintPageName = "";
+		StringBuilder sb = new StringBuilder();
+						
+		if( pageName.equals("index")) {
+			forPrintPageName = "home";
+		} else if ( pageName.equals("stat")) {
+			forPrintPageName = "statistics";
+		} else if ( pageName.equals("search")) {
+			forPrintPageName = "search";
+		} else if ( pageName.startsWith("article_list")) {
+			forPrintPageName = pageName;
+		} else if ( pageName.startsWith("article_detail")) {
+			forPrintPageName = pageName;
+		} 
+		
+		forPrintPageName = forPrintPageName.toUpperCase();
+		forPrintPageName = forPrintPageName.replace("_", " ");
+		
+		sb.append("Java's Meow | ");
+		sb.append(forPrintPageName);
+		
+		return sb.toString();
 	}
 
 	private String getTitleBarContentByPageName(String pageName) {
@@ -498,7 +541,7 @@ public class BuildService {
 		} else if (pageName.equals("stat")) {
 			return "<i class=\"fas fa-chart-pie\"></i> <span>STATISTICS</span>";
 			
-		} else if (pageName.startsWith("articlei_search")) {
+		} else if (pageName.startsWith("article_search")) {
 			return "<i class=\"fas fa-search\"></i> <span>SEARCH</span>";
 			
 		}

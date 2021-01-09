@@ -16,6 +16,8 @@ public class Article {
 	public int likesCount;
 	public int commentsCount;
 	
+	public String extra__writer;
+	
 	public Article() {
 		
 	}
@@ -33,6 +35,8 @@ public class Article {
 		this.boardId = (int)map.get("boardId");
 		this.likesCount = (int)map.get("likesCount");
 		this.commentsCount = (int)map.get("commentsCount");
+		
+		this.extra__writer = (String)map.get("name");
 		
 	}
 
