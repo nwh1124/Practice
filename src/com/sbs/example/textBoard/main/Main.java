@@ -25,9 +25,11 @@ public class Main {
 	}
 
 	private static void testApi() {
-		String now = Util.getNowDateStr();
+		MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "ssgDb");
 		
-		System.out.println(now);
+		Container.googleAnalyticsApiService.updatePageHits();
+		
+		MysqlUtil.closeConnection();
 	}
 	
 }

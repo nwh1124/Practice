@@ -30,9 +30,9 @@ public class BuildService {
 
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
-
+		
 		loadDisqusData();
-		Container.googleAnalyticsApiService.updatePageHits();
+		loadGoogleData();
 		
 		buildIndexPage();
 		buildArticleListPages();
@@ -42,6 +42,12 @@ public class BuildService {
 
 	}
 	
+	private void loadGoogleData() {
+		
+		Container.googleAnalyticsApiService.updatePageHits();
+		
+	}
+
 	private void buildSearchPage() {
 		
 		List<Article> articles = articleService.getArticlesWithMemberName();

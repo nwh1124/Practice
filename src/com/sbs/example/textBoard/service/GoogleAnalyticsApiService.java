@@ -24,7 +24,7 @@ public class GoogleAnalyticsApiService {
 		          .setEntity(Entity.newBuilder().setPropertyId(ga4PropertyId))
 		          .addDimensions(
 		              Dimension.newBuilder().setName("pagePath"))
-		          .addMetrics(Metric.newBuilder().setName("activeUsers"))
+		          .addMetrics(Metric.newBuilder().setName("screenPageViews"))
 		          .addDateRanges(
 		              DateRange.newBuilder().setStartDate("2020-12-17").setEndDate("today")).build();
 		
@@ -39,6 +39,8 @@ public class GoogleAnalyticsApiService {
 		    	  System.out.printf("pagePath %s hit %d\n", pagePath, hit);		
 		    	  
 		    	  update(pagePath, hit);
+		    	  
+		    	  Container.articleService.updateDataHits();
 		      }
 		
 		} catch (IOException e) {

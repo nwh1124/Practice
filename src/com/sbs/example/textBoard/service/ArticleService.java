@@ -104,4 +104,8 @@ public class ArticleService {
 	public List<Article> getArticlesWithMemberName() {
 		return articleDao.getArticlesWithMemberName();
 	}
+
+	public void updateDataHits() {
+		articleDao.updatePageHits();
+	}
 }
