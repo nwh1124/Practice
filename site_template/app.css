@@ -137,6 +137,14 @@ a {
 	justify-content:center;
 }
 
+.flex-ai-c{
+  align-items:center;
+}
+
+.flex-jc-sa{
+  justify-content:space-around;
+}
+
 .flex-grow-1{
   flex-grow:1;
 }
@@ -145,6 +153,22 @@ a {
 	display:none;
 }
 /* 라이브러리 */
+/* 미디어 */
+@media ( max-width:720px ) {
+  .visible-md-up {
+    display:none;
+  }
+  .con{
+    display:none !important;
+  }
+}
+
+@media ( min-width:721px ) {
+  .visible-sm-down {
+    display:none;
+  }
+}
+/* 미디어 */
 /* 바디 */
 body {
 	overflow-x: hidden;
@@ -560,3 +584,93 @@ body {
   padding:10px;
 }
 /* 검색창 */
+/* 모바일 바디 */
+.mobile-body{
+  min-width:360px;
+}
+/* 모바일 바디 */
+/* 모바일 탑 바 */
+.mobile-body{
+  height:100vh;
+  background-color:black;
+  color:white;
+}
+
+.mobile-top-bar{
+  padding:15px 0;
+  font-size:2.5rem;
+  border-top:1px solid white;
+  border-bottom:1px solid white;
+}
+
+.mobile-top-bar > i:nth-of-type(2){
+  font-size:1rem;
+  margin-left:5px;
+}
+
+.mobile-top-bar > span{
+  margin-left:10px;
+}
+/* 모바일 탑 바 */
+/* 모바일 타이틀 바 */
+.mobile-title-bar__logo {
+	border-bottom: 1px solid white;
+	font-size: 1.2rem;
+	padding: 10px;
+	justify-content: space-between;
+}
+/* 모바일 타이틀 바 */
+/* 모바일 컨텐츠 */
+.mobile-content{
+  flex-grow:1;
+}
+
+.content-background{
+  background-color:white;
+  color:black;
+  height:95%;
+  margin:15px;
+  border-radius:15px; 
+}
+
+.content-background > .content {  
+  height:100%;
+  font-size:5rem;
+}
+/* 모바일 컨텐츠 */
+/* 모바일 바텀 메뉴 */
+.mobile-bottom-menu > ul{
+  width:100%;
+  margin-bottom:15px;
+}
+.mobile-bottom-menu > ul > li{
+}
+
+.mobile-bottom-menu > ul > li > a {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:20px;
+  font-size:1.2rem;
+}
+
+.mobile-bottom-menu > ul > li > a > i {
+  margin-bottom:5px;
+}
+
+.mobile-bottom-menu > ul > li:hover > a {
+  background-color:white;
+  color:black;
+  border-radius:10px;
+}
+/* 모바일 바텀 메뉴 */
+/* 모바일 바텀 바 */
+.mobile-bottom-bar{  
+  border-top:1px solid white;
+	border-bottom: 1px solid white;
+	font-size: 1rem;
+	padding: 10px;
+	justify-content:space-around;
+  align-items:center;
+}
+/* 모바일 바텀 바 */
