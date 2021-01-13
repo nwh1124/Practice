@@ -84,7 +84,7 @@ public class BuildService {
 				int commentsCount = (int) disqusArticleData.get("commentsCount");
 
 				Map<String, Object> modifyArgs = new HashMap<>();
-				modifyArgs.put("id", article.id);
+				modifyArgs.put("id", article.getId());
 				modifyArgs.put("likesCount", likesCount);
 				modifyArgs.put("commentsCount", commentsCount);
 
@@ -117,7 +117,7 @@ public class BuildService {
 		totalArticlesNum.append("<span>" + articles.size() + "</span></li>");
 		
 		for(int i = 0; i < articles.size(); i++) {
-			totalHits += articles.get(i).hit;			
+			totalHits += articles.get(i).getHitsCount();			
 		}
 
 		StringBuilder totalArticleHits = new StringBuilder();
@@ -129,12 +129,12 @@ public class BuildService {
 		
 		for(int i = 0; i < boards.size(); i++) {
 			for(int j = 0; j < articles.size(); j++) {
-				if(articles.get(j).boardId-1 == i) {
+				if(articles.get(j).getBoardId()-1 == i) {
 					boardArticlesArr[i]++;
 				}
 			}
 			
-			boardArticles.append("<li><span>" + boards.get(i).name + " Articles</span>");
+			boardArticles.append("<li><span>" + boards.get(i).getName() + " Articles</span>");
 			boardArticles.append("<span>" + boardArticlesArr[i] + "</span></li>");
 			
 		}
@@ -143,12 +143,12 @@ public class BuildService {
 		
 		for(int i = 0; i < boards.size(); i++) {
 			for(int j = 0; j < articles.size(); j++) {
-				if(articles.get(j).boardId-1 == i) {
-					boardArticleHitsArr[i] += articles.get(j).hit;
+				if(articles.get(j).getBoardId()-1 == i) {
+					boardArticleHitsArr[i] += articles.get(j).getHitsCount();
 				}
 			}
 			
-			boardArticleHits.append("<li><span>" + boards.get(i).name + " Hits</span>");
+			boardArticleHits.append("<li><span>" + boards.get(i).getName() + " Hits</span>");
 			boardArticleHits.append("<span>" + boardArticleHitsArr[i] + "</span></li>");
 			
 		}
@@ -181,7 +181,7 @@ public class BuildService {
 		
 		for(Board board : boards) {
 			
-			List<Article> articles = articleService.getArticleByBoardId(board.id);
+			List<Article> articles = articleService.getArticleByBoardId(board.getId());
 			
 			for(int i = 0; i < articles.size(); i++) {
 				
@@ -192,7 +192,7 @@ public class BuildService {
 				
 				if(prevArticleIndex < articles.size()) {
 					prevArticle = articles.get(prevArticleIndex);
-					prevArticleId = prevArticle.id;
+					prevArticleId = prevArticle.getId();
 				}
 				
 				Article nextArticle = null;
@@ -201,41 +201,41 @@ public class BuildService {
 				
 				if(nextArticleIndex >= 0) {
 					nextArticle = articles.get(nextArticleIndex);
-					nextArticleId = nextArticle.id;
+					nextArticleId = nextArticle.getId();
 				}
 				
 				StringBuilder sb = new StringBuilder();
-				String writer = memberService.getMemberNameById(article.memberId);				
+				String writer = memberService.getMemberNameById(article.getMemberId());				
 				
 				head = getHeadHtml("article_detail");
-				head = head.replace("[[article-detail]]", article.title);
+				head = head.replace("[[article-detail]]", article.getTitle());
 				
 				sb.append(head);
 				
-				String body = bodyTemplate.replace("[[article-detail__title]]", article.title);
-				body = body.replace("[[article-detail__board-name]]", boardService.getBoardNameById(article.boardId));
-				body = body.replace("[[article-detail__reg-date]]", article.regDate);
+				String body = bodyTemplate.replace("[[article-detail__title]]", article.getTitle());
+				body = body.replace("[[article-detail__board-name]]", boardService.getBoardNameById(article.getBoardId()));
+				body = body.replace("[[article-detail__reg-date]]", article.getRegDate());
 				body = body.replace("[[article-detail__writer]]", writer);
-				body = body.replace("[[article-detail__body]]", article.body);
+				body = body.replace("[[article-detail__body]]", article.getBody());
 
 				body = body.replace("[[article-detail-prev-url]]", getArticleDetailFileName(prevArticleId));
-				body = body.replace("[[article-detail-prev-attr]]", prevArticle != null ? prevArticle.title : "");
+				body = body.replace("[[article-detail-prev-attr]]", prevArticle != null ? prevArticle.getTitle() : "");
 				body = body.replace("[[article-detail-prev-addi]]", prevArticleId == 0 ? "none" : "");
 
-				body = body.replace("[[article-detail-list-url]]", getArticleListFileName(boardService.getBoardNameById(article.boardId), 1));
+				body = body.replace("[[article-detail-list-url]]", getArticleListFileName(boardService.getBoardNameById(article.getBoardId()), 1));
 
 				body = body.replace("[[article-detail-next-url]]", getArticleDetailFileName(nextArticleId));
-				body = body.replace("[[article-detail-next-attr]]", nextArticle != null ? nextArticle.title : "");
+				body = body.replace("[[article-detail-next-attr]]", nextArticle != null ? nextArticle.getTitle() : "");
 				body = body.replace("[[article-detail-next-addi]]", nextArticleId == 0 ? "none" : "");
 
-				body = body.replace("[[file-name}", getArticleDetailFileName(articles.get(i).id));
+				body = body.replace("[[file-name}", getArticleDetailFileName(articles.get(i).getId()));
 				body = body.replace("[[site-domain}", "blog.nwh.kr");
 								
 				sb.append(body);
 				
 				sb.append(foot);
 				
-				String fileName = getArticleDetailFileName(article.id);
+				String fileName = getArticleDetailFileName(article.getId());
 				
 				String filePath = "site/" + fileName;
 				
@@ -257,7 +257,7 @@ public class BuildService {
 
 		for (Board board : boards) {
 
-			List<Article> articles = articleService.getArticleByBoardId(board.id);
+			List<Article> articles = articleService.getArticleByBoardId(board.getId());
 			int articleCount = articles.size();
 			int totalPage = (int) Math.ceil((double) articleCount / itemsInAPage);
 			
@@ -276,7 +276,7 @@ public class BuildService {
 
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(getHeadHtml("article_list_" + board.code));
+		sb.append(getHeadHtml("article_list_" + board.getCode()));
 
 		String bodyTemplate = Util.getFileContents("site_template/article_list.html");
 
@@ -294,18 +294,18 @@ public class BuildService {
 
 			Article article = articles.get(i);
 
-			String link = getArticleDetailFileName(article.id);
-			String writer = memberService.getMemberNameById(article.memberId);
+			String link = getArticleDetailFileName(article.getId());
+			String writer = memberService.getMemberNameById(article.getMemberId());
 
 			mainContent.append("<ul class=\"flex\">");
 
-			mainContent.append("<li>" + article.id + "</li>");
-			mainContent.append("<li>" + article.regDate + "</li>");
+			mainContent.append("<li>" + article.getId() + "</li>");
+			mainContent.append("<li>" + article.getRegDate() + "</li>");
 			mainContent.append("<li>" + writer + "</li>");
-			mainContent.append("<li><a href=\"" + link + "\">" + article.title + "</a></li>");
-			mainContent.append("<li>" + article.hit + "</li>");
-			mainContent.append("<li>" + article.commentsCount + "</li>");
-			mainContent.append("<li>" + article.likesCount + "</li>");
+			mainContent.append("<li><a href=\"" + link + "\">" + article.getTitle() + "</a></li>");
+			mainContent.append("<li>" + article.getHitsCount() + "</li>");
+			mainContent.append("<li>" + article.getCommentsCount() + "</li>");
+			mainContent.append("<li>" + article.getLikesCount() + "</li>");
 
 			mainContent.append("</ul>");
 
@@ -390,7 +390,7 @@ public class BuildService {
 	}
 
 	private String getArticleListFileName(Board board, int page) {
-		return getArticleListFileName(board.code, page);
+		return getArticleListFileName(board.getCode(), page);
 	}
 
 	private String getArticleListFileName(String boardCode, int page) {
@@ -419,8 +419,8 @@ public class BuildService {
 		for(Article article : articles) {
 			
 			latestArticles.append("<div>");
-			latestArticles.append("<span>" + article.regDate.substring(0, 10) + "</span>");
-			latestArticles.append("<span><a href=\"" + getArticleDetailFileName(article.id) + "\">" + article.title + "</a></span>");
+			latestArticles.append("<span>" + article.getRegDate().substring(0, 10) + "</span>");
+			latestArticles.append("<span><a href=\"" + getArticleDetailFileName(article.getId()) + "\">" + article.getTitle() + "</a></span>");
 			latestArticles.append("</div>");
 		}
 		
@@ -458,13 +458,13 @@ public class BuildService {
 
 		for (Board board : boards) {
 
-			String link = "article_list_"+ board.code +"_1.html";
+			String link = "article_list_"+ board.getCode() +"_1.html";
 
 			boardMenuContents.append("<li>");
 			
 			boardMenuContents.append("<a href=\"" + link + "\" class=\"block\">");
 
-			boardMenuContents.append(getTitleBarContentByPageName("article_list_" + board.code));
+			boardMenuContents.append(getTitleBarContentByPageName("article_list_" + board.getCode()));
 
 			boardMenuContents.append("</a>");
 

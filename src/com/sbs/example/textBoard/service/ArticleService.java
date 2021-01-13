@@ -7,7 +7,7 @@ import java.util.Map;
 import com.sbs.example.textBoard.container.Container;
 import com.sbs.example.textBoard.dao.ArticleDao;
 import com.sbs.example.textBoard.dto.Article;
-import com.sbs.example.textBoard.dto.Recommand;
+import com.sbs.example.textBoard.dto.Recommend;
 import com.sbs.example.textBoard.dto.Reply;
 
 public class ArticleService {
@@ -52,16 +52,16 @@ public class ArticleService {
 		return articleDao.getReplys();
 	}
 
-	public List<Recommand> getReco(int inputedId) {
+	public List<Recommend> getReco(int inputedId) {
 		return articleDao.getReco(inputedId);
 	}
 
-	public void recommand(int inputedId, int loginedId) {
-		articleDao.recommand(inputedId, loginedId);
+	public void recommend(int inputedId, int loginedId) {
+		articleDao.recommend(inputedId, loginedId);
 	}
 
 	public void cancelRoce(int inputedId, int loginedId) {
-		articleDao.cancelRecommand(inputedId, loginedId);
+		articleDao.cancelrecommend(inputedId, loginedId);
 	}
 
 	public void writeReply(String reply, int inputedId, int loginedId) {

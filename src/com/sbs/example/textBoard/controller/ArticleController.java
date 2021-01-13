@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import com.sbs.example.textBoard.container.Container;
 import com.sbs.example.textBoard.dto.Article;
-import com.sbs.example.textBoard.dto.Recommand;
+import com.sbs.example.textBoard.dto.Recommend;
 import com.sbs.example.textBoard.dto.Reply;
 import com.sbs.example.textBoard.service.ArticleService;
 import com.sbs.example.textBoard.service.MemberService;
@@ -38,10 +38,10 @@ public class ArticleController extends Controller{
 			modify(cmd);
 		}else if(cmd.startsWith("article detail ")) {
 			detail(cmd);
-		}else if(cmd.startsWith("article recommand")) {
-			recommand(cmd);
-		}else if(cmd.startsWith("article cancelRecommand")) {
-			cancelRecommand(cmd);
+		}else if(cmd.startsWith("article recommend")) {
+			recommend(cmd);
+		}else if(cmd.startsWith("article cancelrecommend")) {
+			cancelrecommend(cmd);
 		}else if(cmd.startsWith("article writeReply")) {
 			writeReply(cmd);
 		}else if(cmd.startsWith("article deleteReply")) {
@@ -164,7 +164,7 @@ public class ArticleController extends Controller{
 				
 	}
 
-	private void cancelRecommand(String cmd) {
+	private void cancelrecommend(String cmd) {
 		
 		System.out.println("== 게시물 추천 취소 ==");
 		
@@ -192,11 +192,11 @@ public class ArticleController extends Controller{
 			return;
 		}
 		
-		List<Recommand> recos = articleService.getReco(inputedId);
+		List<Recommend> recos = articleService.getReco(inputedId);
 		
 		
-		for(Recommand reco : recos) {
-			if(reco.memberId == Container.session.getLoginedId() && reco.recommand == true){
+		for(Recommend reco : recos) {
+			if(reco.getMemberId() == Container.session.getLoginedId() && reco.getPoint() > 0){
 				articleService.cancelRoce(inputedId, Container.session.getLoginedId());				
 				System.out.println("= 추천 취소되었습니다 =");
 				return;
@@ -207,7 +207,7 @@ public class ArticleController extends Controller{
 		
 	}
 
-	private void recommand(String cmd) {
+	private void recommend(String cmd) {
 		
 		System.out.println("== 게시물 추천 ==");
 		
@@ -235,17 +235,17 @@ public class ArticleController extends Controller{
 			return;
 		}
 		
-		List<Recommand> replys = articleService.getReco(inputedId);
+		List<Recommend> replys = articleService.getReco(inputedId);
 		
 		
-		for(Recommand reply : replys) {
-			if(reply.memberId == Container.session.getLoginedId() && reply.recommand == true){
+		for(Recommend reply : replys) {
+			if(reply.getMemberId() == Container.session.getLoginedId() && reply.getPoint() > 0 ){
 				System.out.println("= 이미 추천한 게시물입니다 =");
 				return;
 			}
 		}
 		
-		articleService.recommand(inputedId, Container.session.getLoginedId());
+		articleService.recommend(inputedId, Container.session.getLoginedId());
 		System.out.println("= 추천되었습니다 =");
 		
 	}
@@ -278,16 +278,16 @@ public class ArticleController extends Controller{
 			return;
 		}
 		
-		String writer = memberService.getMemberNameById(article.memberId);
+		String writer = memberService.getMemberNameById(article.getMemberId());
 
-		System.out.printf("게시판 : %s\n", article.boardId);
-		System.out.printf("번호 : %d\n", article.id);
-		System.out.printf("작성일 : %s\n", article.regDate);
-		System.out.printf("조회수 : %d\n", article.hit);
-		System.out.printf("추천: %d\n", article.recommand);
+		System.out.printf("게시판 : %s\n", article.getBoardId());
+		System.out.printf("번호 : %d\n", article.getId());
+		System.out.printf("작성일 : %s\n", article.getRegDate());
+		System.out.printf("조회수 : %d\n", article.getHitsCount());
+		System.out.printf("추천: %d\n", article.getRecommend());
 		System.out.printf("작성자 : %s\n", writer);
-		System.out.printf("제목 : %s\n", article.title);
-		System.out.printf("내용 : %s\n", article.boardId);
+		System.out.printf("제목 : %s\n", article.getTitle());
+		System.out.printf("내용 : %s\n", article.getBody());
 
 		articleService.doHitPlus(inputedId);
 		
@@ -296,7 +296,7 @@ public class ArticleController extends Controller{
 		List<Reply> listReply = new ArrayList<>();
 		
 		for(Reply reply : replys) {
-			if(reply.articleId == inputedId) {
+			if(reply.relId == inputedId) {
 				listReply.add(reply);
 			}
 		}
@@ -344,7 +344,7 @@ public class ArticleController extends Controller{
 			return;
 		}
 		
-		if(Container.session.getLoginedId() != article.memberId) {
+		if(Container.session.getLoginedId() != article.getMemberId()) {
 			System.out.println("= 권한이 없습니다 =");
 			return;
 		}
@@ -408,7 +408,7 @@ public class ArticleController extends Controller{
 			return;
 		}
 		
-		if(Container.session.getLoginedId() != article.memberId) {
+		if(Container.session.getLoginedId() != article.getMemberId()) {
 			System.out.println("= 권한이 없습니다 =");
 			return;
 		}
@@ -432,13 +432,13 @@ public class ArticleController extends Controller{
 		System.out.println("번호 / 작성일 / 작성자 / 제목 / 조회수 / 추천");
 		
 		for(Article article : articles) {
-			String writer = memberService.getMemberNameById(article.memberId);
-			System.out.printf("%d /", article.id);
-			System.out.printf("%s /", article.regDate);
+			String writer = memberService.getMemberNameById(article.getMemberId());
+			System.out.printf("%d /", article.getId());
+			System.out.printf("%s /", article.getRegDate());
 			System.out.printf("%s /", writer);
-			System.out.printf("%s /", article.title);
-			System.out.printf("%d /", article.hit);
-			System.out.printf("%d \n", article.recommand);
+			System.out.printf("%s /", article.getTitle());
+			System.out.printf("%d /", article.getHitsCount());
+			System.out.printf("%d \n", article.getRecommend());
 		}
 		
 	}

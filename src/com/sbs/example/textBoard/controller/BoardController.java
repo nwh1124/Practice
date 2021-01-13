@@ -37,16 +37,16 @@ public class BoardController extends Controller{
 		
 		System.out.println("번호 / 생성일 / 이름 / 코드");
 		for(Board board : boards) {
-			System.out.printf("%d / %s / %s / %s\n", board.id, board.regDate, board.name, board.code);
+			System.out.printf("%d / %s / %s / %s\n", board.getId(), board.getRegDate(), board.getName(), board.getCode());
 		}
 				
 		System.out.printf("게시판 코드 : ");
 		String inStr = sc.nextLine();
 		
 		for(Board board : boards) {
-			if(board.code.equals(inStr)) {
-				Container.session.selectBoard(board.id);
-				System.out.printf("= %s(%d번) 게시판이 선택되었습니다 =\n", board.name, board.id);
+			if(board.getCode().equals(inStr)) {
+				Container.session.selectBoard(board.getId());
+				System.out.printf("= %s(%d번) 게시판이 선택되었습니다 =\n", board.getName(), board.getId());
 				return;
 			}
 		}

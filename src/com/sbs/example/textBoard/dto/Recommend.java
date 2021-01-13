@@ -2,30 +2,25 @@ package com.sbs.example.textBoard.dto;
 
 import java.util.Map;
 
-public class Reply{
-	
-	public int id;
-	public String regDate;
-	public String updateDate;
-	public String body;
-	private String relTypeCode;
-	public int relId;
-	public int memberId;
-	private String delDate;
-	private int delStatus;
+public class Recommend {
 
-	public Reply(Map<String, Object> map) {
+	private int id;
+	private String regDate;
+	private String updateDate;
+	private int memberId;
+	private String relTypeCode;
+	private int relId;
+	private int point;
+		
+	public Recommend(Map<String, Object> map) {
 		
 		this.id = (int)map.get("id");
 		this.regDate = (String)map.get("regDate");
 		this.updateDate = (String)map.get("updateDate");
-		this.body = (String)map.get("body");
+		this.memberId = (int)map.get("memberId");
 		this.relTypeCode = (String)map.get("relTypeCode");
 		this.relId = (int)map.get("relId");
-		this.memberId = (int)map.get("memberId");
-		this.delDate = (String)map.get("delDate");
-		this.delStatus = (int)map.get("delStatus");
-		
+		this.point = (int)map.get("point");
 	}
 
 	public int getId() {
@@ -52,12 +47,12 @@ public class Reply{
 		this.updateDate = updateDate;
 	}
 
-	public String getBody() {
-		return body;
+	public int getMemberId() {
+		return memberId;
 	}
 
-	public void setBody(String body) {
-		this.body = body;
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 
 	public String getRelTypeCode() {
@@ -76,28 +71,12 @@ public class Reply{
 		this.relId = relId;
 	}
 
-	public int getMemberId() {
-		return memberId;
+	public int getPoint() {
+		return point;
 	}
 
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
+	public void setPoint(int point) {
+		this.point = point;
 	}
-
-	public String getDelDate() {
-		return delDate;
-	}
-
-	public void setDelDate(String delDate) {
-		this.delDate = delDate;
-	}
-
-	public int getDelStatus() {
-		return delStatus;
-	}
-
-	public void setDelStatus(int delStatus) {
-		this.delStatus = delStatus;
-	}
-
+	
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 import com.sbs.example.mysqlutil.MysqlUtil;
 import com.sbs.example.mysqlutil.SecSql;
 import com.sbs.example.textBoard.dto.Article;
-import com.sbs.example.textBoard.dto.Recommand;
+import com.sbs.example.textBoard.dto.Recommend;
 import com.sbs.example.textBoard.dto.Reply;
 
 public class ArticleDao {
@@ -21,8 +21,8 @@ public class ArticleDao {
 		sql.append(", updateDate = NOW()");
 		sql.append(", title = ?", title);
 		sql.append(", body = ?", body);
-		sql.append(", hit = 0");
-		sql.append(", recommand = 0");
+		sql.append(", hitsCount = 0");
+		sql.append(", recommend = 0");
 		sql.append(", memberId = ?", loginedId);
 		sql.append(", boardId = ?", selectedBoardId);
 		
@@ -169,33 +169,33 @@ public class ArticleDao {
 		return replys;
 	}
 
-	public List<Recommand> getReco(int inputedId) {
+	public List<Recommend> getReco(int inputedId) {
 		
 		SecSql sql = new SecSql();
 		
 		sql.append("SELECT *");
-		sql.append("FROM recommand");
+		sql.append("FROM recommend");
 		sql.append("WHERE articleId = ?", inputedId);
 		
 		List<Map<String, Object>> listMap = MysqlUtil.selectRows(sql);
 		
-		List<Recommand> recos = new ArrayList<>();
+		List<Recommend> recos = new ArrayList<>();
 		
 		for(Map<String, Object> map : listMap) {
-			recos.add(new Recommand(map));
+			recos.add(new Recommend(map));
 		}
 		
 		return recos;
 	}
 
-	public void recommand(int inputedId, int loginedId) {
+	public void recommend(int inputedId, int loginedId) {
 		
 		SecSql sql = new SecSql();
 		
-		sql.append("INSERT INTO recommand");
+		sql.append("INSERT INTO recommend");
 		sql.append("SET regDate = NOW()");
 		sql.append(", updateDate = NOW()");
-		sql.append(", recommand = true");
+		sql.append(", recommend = true");
 		sql.append(", articleId = ?", inputedId);
 		sql.append(", memberId = ?", loginedId);
 	
@@ -203,20 +203,20 @@ public class ArticleDao {
 		sql = new SecSql();
 		
 		sql.append("UPDATE article");
-		sql.append("SET recommand = recommand + 1");
+		sql.append("SET recommend = recommend + 1");
 		sql.append("WHERE id = ?", inputedId);
 		
 		MysqlUtil.update(sql);			
 		
 	}
 
-	public void cancelRecommand(int inputedId, int loginedId) {
+	public void cancelrecommend(int inputedId, int loginedId) {
 		
 		SecSql sql = new SecSql();
 		
-		sql.append("UPDATE recommand");
+		sql.append("UPDATE recommend");
 		sql.append("SET updateDate = NOW()");
-		sql.append(", recommand = false");
+		sql.append(", recommend = false");
 		sql.append("WHERE articleId = ?", inputedId);
 		sql.append("AND memberId = ?", loginedId);
 	
@@ -224,7 +224,7 @@ public class ArticleDao {
 		sql = new SecSql();
 		
 		sql.append("UPDATE article");
-		sql.append("SET recommand = recommand - 1");
+		sql.append("SET recommend = recommend - 1");
 		sql.append("WHERE id = ?", inputedId);
 		
 		MysqlUtil.update(sql);		
