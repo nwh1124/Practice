@@ -31,17 +31,65 @@ public class BuildService {
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
 		
-		loadDisqusData();
-		loadGoogleData();
+//		loadDisqusData();
+//		loadGoogleData();
 		
 		buildIndexPage();
-		buildArticleListPages();
-		buildDetailPages();
-		buildStatPage();
-		buildSearchPage();
+//		buildArticleListPages();
+//		buildDetailPages();
+//		buildStatPage();
+//		buildSearchPage();
+		
+		buildMobileIndexPage();
 
 	}
 	
+	private void buildMobileIndexPage() {
+		
+		StringBuilder sb = new StringBuilder();
+
+		String head = getMobileHeadHtml("index");
+		String foot = Util.getFileContents("site_template/mobile_foot.html");
+
+		String html = Util.getFileContents("site_template/mobile_index.html");
+		
+		List<Article> articles = articleService.getLatestArticles();
+		
+		StringBuilder latestArticles = new StringBuilder();
+		
+		for(Article article : articles) {
+			
+			latestArticles.append("<div>");
+			latestArticles.append("<span>" + article.getRegDate().substring(0, 10) + "</span>");
+			latestArticles.append("<span><a href=\"" + getArticleDetailFileName(article.getId()) + "\">" + article.getTitle() + "</a></span>");
+			latestArticles.append("</div>");
+		}
+		
+		html = html.replace("[[mobile content]]", latestArticles);
+
+		sb.append(head);
+		sb.append(html);
+		sb.append(foot);
+
+		String filePath = "site/index_mobile.html";
+		Util.writeFileContents(filePath, sb.toString());
+		System.out.println(filePath + " 생성");
+		
+	}
+
+	private String getMobileHeadHtml(String mobilePageName) {
+		
+		String head = Util.getFileContents("site_template/mobile_head.html");
+
+		StringBuilder boardMenuContents = new StringBuilder();	
+		
+		String titleBarType = getTitleBarContentByPageName(mobilePageName);
+
+		head = head.replace("[[title-bar]]", titleBarType);
+
+		return head;
+	}
+
 	private void loadGoogleData() {
 		
 		Container.googleAnalyticsApiService.updatePageHits();
@@ -410,7 +458,7 @@ public class BuildService {
 		String head = getHeadHtml("index");
 		String foot = Util.getFileContents("site_template/foot.html");
 
-		String mainHtml = Util.getFileContents("site_template/index.html");
+		String html = Util.getFileContents("site_template/index.html");
 		
 		List<Article> articles = articleService.getLatestArticles();
 		
@@ -424,11 +472,13 @@ public class BuildService {
 			latestArticles.append("</div>");
 		}
 		
-		mainHtml = mainHtml.replace("[[latest articles]]", latestArticles);
+		html = html.replace("[[latest articles]]", latestArticles);
 
 		sb.append(head);
-		sb.append(mainHtml);
+		sb.append(html);
 		sb.append(foot);
+		
+		
 
 		String filePath = "site/index.html";
 		Util.writeFileContents(filePath, sb.toString());

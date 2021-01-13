@@ -172,6 +172,7 @@ a {
 /* 바디 */
 body {
 	overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .body-content {

@@ -12,24 +12,23 @@ import com.google.analytics.data.v1alpha.RunReportRequest;
 import com.google.analytics.data.v1alpha.RunReportResponse;
 import com.sbs.example.mysqlutil.MysqlUtil;
 import com.sbs.example.textBoard.container.Container;
+import com.sbs.example.textBoard.service.BuildService;
 import com.sbs.example.textBoard.util.Util;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		
-		new App().run();
+//		new App().run();
 		
-//		testApi();
+		testApi();
 		
 	}
 
 	private static void testApi() {
-		MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "ssgDb");
 		
-		Container.googleAnalyticsApiService.updatePageHits();
+		new BuildService().buildSite();
 		
-		MysqlUtil.closeConnection();
 	}
 	
 }
