@@ -7,13 +7,13 @@ import lombok.Data;
 @Data
 public class Reply{
 	
-	public int id;
-	public String regDate;
-	public String updateDate;
-	public String body;
+	private int id;
+	private String regDate;
+	private String updateDate;
+	private String body;
 	private String relTypeCode;
-	public int relId;
-	public int memberId;
+	private int relId;
+	private int memberId;
 	private String delDate;
 	private int delStatus;
 

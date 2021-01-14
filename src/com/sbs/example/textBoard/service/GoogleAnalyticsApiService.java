@@ -50,6 +50,7 @@ public class GoogleAnalyticsApiService {
 	}
 
 	private void update(String pagePath, int hit) {
+		System.out.println(pagePath);
 		ga4DataDao.deletePagePath(pagePath);
 		ga4DataDao.savaPagePath(pagePath, hit);
 	}

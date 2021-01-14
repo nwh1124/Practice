@@ -172,7 +172,6 @@ a {
 /* 바디 */
 body {
 	overflow-x: hidden;
-  overflow-y: hidden;
 }
 
 .body-content {
@@ -626,6 +625,20 @@ body {
   flex-grow:1;
 }
 
+/* 임시 */
+.mobile-content > lastest-articles{
+	display:none;	
+}
+
+.mobile-content .intro{
+	height:90%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:6rem;
+}
+/* 임시 */
+
 .content-background{
   background-color:white;
   color:black;
@@ -663,6 +676,10 @@ body {
   background-color:white;
   color:black;
   border-radius:10px;
+}
+
+.mobile-bottom-menu ul ul {
+  display:none;
 }
 /* 모바일 바텀 메뉴 */
 /* 모바일 바텀 바 */

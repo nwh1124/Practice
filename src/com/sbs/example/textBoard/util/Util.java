@@ -151,8 +151,8 @@ public class Util {
 			URL url = new URL(urlStr);
 			con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
-			con.setConnectTimeout(5000); // 최대통신시간 제한
-			con.setReadTimeout(5000); // 최대데이터읽기시간 제한
+			con.setConnectTimeout(10000); // 최대통신시간 제한
+			con.setReadTimeout(10000); // 최대데이터읽기시간 제한
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			return null;

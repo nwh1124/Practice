@@ -35,22 +35,19 @@ public class BuildService {
 //		loadGoogleData();
 		
 		buildIndexPage();
-//		buildArticleListPages();
-//		buildDetailPages();
-//		buildStatPage();
-//		buildSearchPage();
-		
-		buildMobileIndexPage();
+		buildArticleListPages();
+		buildDetailPages();
+		buildStatPage();
+		buildSearchPage();
 
 	}
 	
-	private void buildMobileIndexPage() {
+	private String buildMobileIndexPage(StringBuilder mobileSb) {
 		
-		StringBuilder sb = new StringBuilder();
+		mobileSb = new StringBuilder();
 
 		String head = getMobileHeadHtml("index");
-		String foot = Util.getFileContents("site_template/mobile_foot.html");
-
+		String foot = getMobileFootHtml();
 		String html = Util.getFileContents("site_template/mobile_index.html");
 		
 		List<Article> articles = articleService.getLatestArticles();
@@ -65,16 +62,41 @@ public class BuildService {
 			latestArticles.append("</div>");
 		}
 		
-		html = html.replace("[[mobile content]]", latestArticles);
+		html = html.replace("[[mobile-content]]", latestArticles);
+				
+		mobileSb.append(head);
+		mobileSb.append(html);
+		mobileSb.append(foot);
 
-		sb.append(head);
-		sb.append(html);
-		sb.append(foot);
-
-		String filePath = "site/index_mobile.html";
-		Util.writeFileContents(filePath, sb.toString());
-		System.out.println(filePath + " 생성");
+		return mobileSb.toString();
 		
+	}
+
+	private String getMobileFootHtml() {
+		String foot = Util.getFileContents("site_template/mobile_foot.html");		
+		StringBuilder bottomMenuBar = new StringBuilder(); 
+				
+		List<Board> boards = boardService.getBoards();
+
+		for (Board board : boards) {
+
+			String link = "article_list_"+ board.getCode() +"_1.html";
+
+			bottomMenuBar.append("<li>");
+			
+			bottomMenuBar.append("<a href=\"" + link + "\" class=\"block\">");
+
+			bottomMenuBar.append(getTitleBarContentByPageName("article_list_" + board.getCode()));
+
+			bottomMenuBar.append("</a>");
+
+			bottomMenuBar.append("</li>");
+
+		}
+		
+		foot = foot.replace("[[mobile-bottom-menu-bar]]", bottomMenuBar);
+		
+		return foot;
 	}
 
 	private String getMobileHeadHtml(String mobilePageName) {
@@ -85,7 +107,7 @@ public class BuildService {
 		
 		String titleBarType = getTitleBarContentByPageName(mobilePageName);
 
-		head = head.replace("[[title-bar]]", titleBarType);
+		head = head.replace("[[mobile-title-bar]]", titleBarType);
 
 		return head;
 	}
@@ -478,7 +500,11 @@ public class BuildService {
 		sb.append(html);
 		sb.append(foot);
 		
+		StringBuilder mobileSb = new StringBuilder();
 		
+		mobileSb.append(buildMobileIndexPage(mobileSb));
+		
+		sb.append(mobileSb);
 
 		String filePath = "site/index.html";
 		Util.writeFileContents(filePath, sb.toString());

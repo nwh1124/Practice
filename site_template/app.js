@@ -72,8 +72,29 @@ function viewer_index_2() {
 	});
 }
 
+
+function viewer_index_3() {
+	
+	var viewerEl = document.querySelector('.mobile-content .intro + lastest-articles');
+	
+	if ( viewerEl == null ) {
+		return;
+	}
+	
+	var body = viewerEl.innerHTML;
+	
+	var viewer = new toastui.Editor.factory({
+		el : viewerEl,
+		initialValue : body,
+		viewer : true,
+	    plugins: [toastui.Editor.plugin.codeSyntaxHighlight]
+	});
+}
+
 viewer_index();
 
 viewer_index_2.normalize();
 viewer_index_2();
 
+viewer_index_3.normalize;
+viewer_index_3();

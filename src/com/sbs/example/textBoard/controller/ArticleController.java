@@ -65,8 +65,8 @@ public class ArticleController extends Controller{
 				
 		System.out.println("= 사용자가 작성한 댓글 목록 =");
 		for(Reply reply : replys) {
-			String writer = memberService.getMemberNameById(reply.memberId);
-			System.out.printf("%d / %s / %s / %s\n", reply.id, reply.regDate, writer, reply.body);
+			String writer = memberService.getMemberNameById(reply.getMemberId());
+			System.out.printf("%d / %s / %s / %s\n", reply.getId(), reply.getRegDate(), writer, reply.getBody());
 		}
 		
 	}
@@ -84,8 +84,8 @@ public class ArticleController extends Controller{
 				
 		System.out.println("= 사용자가 작성한 댓글 목록 =");
 		for(Reply reply : replys) {
-			String writer = memberService.getMemberNameById(reply.memberId);
-			System.out.printf("%d / %s / %s / %s\n", reply.id, reply.regDate, writer, reply.body);
+			String writer = memberService.getMemberNameById(reply.getMemberId());
+			System.out.printf("%d / %s / %s / %s\n", reply.getId(), reply.getRegDate(), writer, reply.getBody());
 		}
 		
 		System.out.printf("수정할 댓글 번호 : ");
@@ -112,8 +112,8 @@ public class ArticleController extends Controller{
 				
 		System.out.println("= 사용자가 작성한 댓글 목록 =");
 		for(Reply reply : replys) {
-			String writer = memberService.getMemberNameById(reply.memberId);
-			System.out.printf("%d / %s / %s / %s\n", reply.id, reply.regDate, writer, reply.body);
+			String writer = memberService.getMemberNameById(reply.getMemberId());
+			System.out.printf("%d / %s / %s / %s\n", reply.getId(), reply.getRegDate(), writer, reply.getBody());
 		}
 		
 		System.out.printf("삭제할 댓글 번호 : ");
@@ -296,7 +296,7 @@ public class ArticleController extends Controller{
 		List<Reply> listReply = new ArrayList<>();
 		
 		for(Reply reply : replys) {
-			if(reply.relId == inputedId) {
+			if(reply.getRelId() == inputedId) {
 				listReply.add(reply);
 			}
 		}
@@ -305,12 +305,12 @@ public class ArticleController extends Controller{
 		System.out.println("번호 / 작성일 / 작성자 / 내용");
 		
 		for(Reply reply : listReply) {
-			writer = memberService.getMemberNameById(reply.memberId);
+			writer = memberService.getMemberNameById(reply.getMemberId());
 
-			System.out.printf("%d /", reply.id);
-			System.out.printf("%s /", reply.regDate);
+			System.out.printf("%d /", reply.getId());
+			System.out.printf("%s /", reply.getRegDate());
 			System.out.printf("%s /", writer);
-			System.out.printf("%s \n", reply.body);
+			System.out.printf("%s \n", reply.getBody());
 			
 		}
 		

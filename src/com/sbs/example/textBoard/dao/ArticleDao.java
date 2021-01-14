@@ -377,14 +377,14 @@ public class ArticleDao {
 		sql.append("            GA4_PP.pagePath,");
 		sql.append("            SUBSTR(GA4_PP.pagePath, 1, INSTR(GA4_PP.pagePath, '?') - 1)");
 		sql.append("        ) AS pagePathWoQueryStr,");
-		sql.append("        SUM(GA4_PP.hit) AS hit");
+		sql.append("        SUM(GA4_PP.hitsCount) AS hit");
 		sql.append("        FROM ga4DataPagePath AS GA4_PP");
 		sql.append("        WHERE GA4_PP.pagePath LIKE '/article_detail_%.html%'");
 		sql.append("        GROUP BY pagePathWoQueryStr");
 		sql.append("    ) AS GA4_PP");
 		sql.append(") AS GA4_PP");
 		sql.append("ON AR.id = GA4_PP.articleId");
-		sql.append("SET AR.hit = GA4_PP.hit");
+		sql.append("SET AR.hitsCount = GA4_PP.hit");
 		
 		return MysqlUtil.update(sql);
 	}

@@ -21,7 +21,7 @@ public class ga4DataDao {
 		sql.append("SET regDate = NOW()");
 		sql.append(", updateDate = NOW()");
 		sql.append(", pagePath = ?", pagePath);
-		sql.append(", hit = ?", hit);
+		sql.append(", hitsCount = ?", hit);
 		
 		MysqlUtil.insert(sql);		
 	}
