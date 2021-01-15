@@ -32,8 +32,8 @@ public class BuildService {
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
 		
-//		loadDisqusData();
-//		loadGoogleData();
+		loadDisqusData();
+		loadGoogleData();
 		
 		buildIndexPage();
 		buildArticleListPages();
@@ -321,7 +321,9 @@ public class BuildService {
 				
 				for(int j = 0; j < tagBits.length; j++) {
 					tagBits[j] = tagBits[j].replace("#", "");
-					tagBits[j] = "<a href=\"article_tag.html?tag=" + tagBits[j] + "\">#" + tagBits[j] + " </a>";
+					if(tagBits[j].length() > 0) {
+						tagBits[j] = "<a href=\"article_tag.html?tag=" + tagBits[j] + "\">#" + tagBits[j] + " </a>";
+					}
 					tagContent = tagContent + tagBits[j];
 				}
 				
@@ -644,14 +646,11 @@ public class BuildService {
 		if (pageName.equals("index")) {
 			return "<i class=\"fas fa-home\"></i> <span>HOME</span>";
 			
-		} else if (pageName.startsWith("article_list_free")) {
-			return "<i class=\"fab fa-free-code-camp\"></i> <span>FREE LIST</span>";
-			
-		} else if (pageName.startsWith("article_list_notice")) {
-			return "<i class=\"fas fa-flag\"></i> <span>NOTICE LIST</span>";
-			
 		} else if (pageName.startsWith("article_list_it")) {
 			return "<i class=\"fab fa-java\"></i> <span>IT LIST</span>";
+			
+		} else if (pageName.startsWith("article_list_note")) {
+			return "<i class=\"fas fa-book-open\"></i> <span>NOTE</span>";	
 			
 		} else if (pageName.startsWith("article_list_")) {
 			return "<i class=\"fas fa-clipboard-list\"></i> <span>LIST</span>";
@@ -665,8 +664,11 @@ public class BuildService {
 		} else if (pageName.startsWith("article_search")) {
 			return "<i class=\"fas fa-search\"></i> <span>SEARCH</span>";
 			
-		}
-
+		} else if (pageName.startsWith("article_tag")) {
+			return "<i class=\"fas fa-hashtag\"></i> <span>TAG</span>";
+			
+		} 		
+		
 		return "";
 	}
 

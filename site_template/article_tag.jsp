@@ -3,6 +3,11 @@
     
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<% String title = request.getParameter("tag"); %>
+
 <!DOCTYPE html>
 <html>
 <head>

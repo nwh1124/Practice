@@ -69,13 +69,13 @@ public class ArticleDao {
 		return article;
 	}
 
-	public List<Article> getArticleByBoardId(int inputedId) {
+	public List<Article> getArticleByBoardId(int id) {
 		
 		SecSql sql = new SecSql();
 		
 		sql.append("SELECT *");
 		sql.append("FROM article");
-		sql.append("WHERE boardId = ?", inputedId);
+		sql.append("WHERE boardId = ?", id);
 		
 		List<Map<String, Object>> listMap = MysqlUtil.selectRows(sql);
 		
