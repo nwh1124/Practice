@@ -9,6 +9,7 @@ import com.sbs.example.mysqlutil.SecSql;
 import com.sbs.example.textBoard.dto.Article;
 import com.sbs.example.textBoard.dto.Recommend;
 import com.sbs.example.textBoard.dto.Reply;
+import com.sbs.example.textBoard.dto.Tag;
 
 public class ArticleDao {
 
@@ -387,6 +388,37 @@ public class ArticleDao {
 		sql.append("SET AR.hitsCount = GA4_PP.hit");
 		
 		return MysqlUtil.update(sql);
+	}
+
+	public String getTagsByRelTypeCodeAndRelId(String relTypeCode, int relId) {
+		
+		SecSql sql = new SecSql();
+		
+		sql.append("SELECT body");
+		sql.append("FROM tag");
+		sql.append("WHERE relTypeCode = ?", relTypeCode);
+		sql.append("AND relId = ?", relId);
+		
+		return MysqlUtil.selectRowStringValue(sql);
+		
+	}
+
+	public List<Tag> getTags() {
+		
+		SecSql sql = new SecSql();
+		
+		sql.append("SELECT *");
+		sql.append("FROM tag");
+		
+		List<Map<String, Object>> listMap = MysqlUtil.selectRows(sql);
+		
+		List<Tag> tags = new ArrayList<>();
+		
+		for(Map<String, Object> map : listMap) {
+			tags.add(new Tag(map));
+		}
+		
+		return tags;
 	}
 	
 }

@@ -9,6 +9,7 @@ import com.sbs.example.textBoard.container.Container;
 import com.sbs.example.textBoard.dto.Article;
 import com.sbs.example.textBoard.dto.Board;
 import com.sbs.example.textBoard.dto.Member;
+import com.sbs.example.textBoard.dto.Tag;
 import com.sbs.example.textBoard.util.Util;
 
 public class BuildService {
@@ -39,9 +40,35 @@ public class BuildService {
 		buildDetailPages();
 		buildStatPage();
 		buildSearchPage();
+		buildTagPage();
 
 	}
 	
+	private void buildTagPage() {
+		
+		List<Tag> tags = articleService.getTags();
+		
+		String jsonText = Util.getJsonText(tags);
+		Util.writeFileContents("site/article_tag.json", jsonText);
+		
+		Util.copy("site_template/article_tag.js", "site/article_tag.js");
+		
+		StringBuilder sb = new StringBuilder();		
+
+		String head = getHeadHtml("article_tag");		
+		String Html = Util.getFileContents("site_template/article_tag.html");		
+		String foot = Util.getFileContents("site_template/foot.html");
+
+		sb.append(head);
+		sb.append(Html);
+		sb.append(foot);
+
+		String filePath = "site/article_tag.html";
+		Util.writeFileContents(filePath, sb.toString());
+		System.out.println(filePath + " 생성");
+		
+	}
+
 	private String buildMobileIndexPage(StringBuilder mobileSb) {
 		
 		mobileSb = new StringBuilder();
@@ -287,6 +314,18 @@ public class BuildService {
 				body = body.replace("[[article-detail__reg-date]]", article.getRegDate());
 				body = body.replace("[[article-detail__writer]]", writer);
 				body = body.replace("[[article-detail__body]]", article.getBody());
+				
+				String tags = Container.articleService.getTagsByRelTypeCodeAndRelId("article", article.getId());
+				String[] tagBits = tags.split(" ");
+				String tagContent = "";
+				
+				for(int j = 0; j < tagBits.length; j++) {
+					tagBits[j] = tagBits[j].replace("#", "");
+					tagBits[j] = "<a href=\"article_tag.html?tag=" + tagBits[j] + "\">#" + tagBits[j] + " </a>";
+					tagContent = tagContent + tagBits[j];
+				}
+				
+				body = body.replace("[[tag-content]]", tagContent);
 
 				body = body.replace("[[article-detail-prev-url]]", getArticleDetailFileName(prevArticleId));
 				body = body.replace("[[article-detail-prev-attr]]", prevArticle != null ? prevArticle.getTitle() : "");

@@ -9,6 +9,7 @@ import com.sbs.example.textBoard.dao.ArticleDao;
 import com.sbs.example.textBoard.dto.Article;
 import com.sbs.example.textBoard.dto.Recommend;
 import com.sbs.example.textBoard.dto.Reply;
+import com.sbs.example.textBoard.dto.Tag;
 
 public class ArticleService {
 	
@@ -107,5 +108,14 @@ public class ArticleService {
 
 	public void updateDataHits() {
 		articleDao.updatePageHits();
+	}
+
+	public String getTagsByRelTypeCodeAndRelId(String relTypeCode, int relId) {
+		return articleDao.getTagsByRelTypeCodeAndRelId(relTypeCode, relId);
+		
+	}
+
+	public List<Tag> getTags() {
+		return articleDao.getTags();
 	}
 }
