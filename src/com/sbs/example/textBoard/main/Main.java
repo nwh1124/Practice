@@ -1,19 +1,8 @@
 package com.sbs.example.textBoard.main;
 
-import java.io.IOException;
-
-import com.google.analytics.data.v1alpha.AlphaAnalyticsDataClient;
-import com.google.analytics.data.v1alpha.DateRange;
-import com.google.analytics.data.v1alpha.Dimension;
-import com.google.analytics.data.v1alpha.Entity;
-import com.google.analytics.data.v1alpha.Metric;
-import com.google.analytics.data.v1alpha.Row;
-import com.google.analytics.data.v1alpha.RunReportRequest;
-import com.google.analytics.data.v1alpha.RunReportResponse;
 import com.sbs.example.mysqlutil.MysqlUtil;
 import com.sbs.example.textBoard.container.Container;
-import com.sbs.example.textBoard.service.BuildService;
-import com.sbs.example.textBoard.util.Util;
+import com.sbs.example.textBoard.dto.Article;
 
 public class Main {
 	
@@ -27,8 +16,13 @@ public class Main {
 
 	private static void testApi() {
 		
-		new BuildService().buildSite();
+		MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "ssgDb");
 		
+		String tags = Container.articleService.getTagsByRelTypeCodeAndRelId("article", 19);
+		
+		MysqlUtil.closeConnection();
+		
+		System.out.println(tags);
 	}
 	
 }

@@ -13,8 +13,6 @@ public class Tag {
 	private String body;
 	private String relTypeCode;
 	private int relId;
-	
-	public String extra__writer;
 
 	public Tag(Map<String, Object> map) {
 		
@@ -22,8 +20,8 @@ public class Tag {
 		this.regDate = (String)map.get("regDate");
 		this.updateDate = (String)map.get("updateDate");
 		this.body = (String)map.get("body");
-		this.regDate = (String)map.get("relTypeCode");
-		this.id = (int)map.get("relId");
+		this.relTypeCode = (String)map.get("relTypeCode");
+		this.relId = (int)map.get("relId");
 	}
 
 }

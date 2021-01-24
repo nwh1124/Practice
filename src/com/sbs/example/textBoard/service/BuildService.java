@@ -32,8 +32,8 @@ public class BuildService {
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
 		
-		loadDisqusData();
-		loadGoogleData();
+//		loadDisqusData();
+//		loadGoogleData();
 		
 		buildIndexPage();
 		buildArticleListPages();
@@ -46,9 +46,9 @@ public class BuildService {
 	
 	private void buildTagPage() {
 		
-		List<Tag> tags = articleService.getTags();
+		List<Article> articles = articleService.getArticlesWithTags();
 		
-		String jsonText = Util.getJsonText(tags);
+		String jsonText = Util.getJsonText(articles);
 		Util.writeFileContents("site/article_tag.json", jsonText);
 		
 		Util.copy("site_template/article_tag.js", "site/article_tag.js");
@@ -316,19 +316,28 @@ public class BuildService {
 				body = body.replace("[[article-detail__body]]", article.getBody());
 				
 				String tags = Container.articleService.getTagsByRelTypeCodeAndRelId("article", article.getId());
-				String[] tagBits = tags.split(" ");
-				String tagContent = "";
 				
-				for(int j = 0; j < tagBits.length; j++) {
-					tagBits[j] = tagBits[j].replace("#", "");
-					if(tagBits[j].length() > 0) {
-						tagBits[j] = "<a href=\"article_tag.html?tag=" + tagBits[j] + "\">#" + tagBits[j] + " </a>";
+				if( tags != null ) {
+					
+					String[] tagBits = tags.split(",");
+					String tagContent = "";
+					
+					for(int j = 0; j < tagBits.length; j++) {
+						tagBits[j] = tagBits[j].replace("#", "");
+						if(tagBits[j].length() > 0) {
+							tagBits[j] = "<a href=\"article_tag.html?tag=" + tagBits[j] + "\">#" + tagBits[j] + " </a>";
+						}
+						tagContent = tagContent + tagBits[j];
 					}
-					tagContent = tagContent + tagBits[j];
+					
+					body = body.replace("[[tag-content]]", tagContent);
+					
+				}else {
+					
+					body = body.replace("[[tag-content]]", "#Notag");
+					
 				}
 				
-				body = body.replace("[[tag-content]]", tagContent);
-
 				body = body.replace("[[article-detail-prev-url]]", getArticleDetailFileName(prevArticleId));
 				body = body.replace("[[article-detail-prev-attr]]", prevArticle != null ? prevArticle.getTitle() : "");
 				body = body.replace("[[article-detail-prev-addi]]", prevArticleId == 0 ? "none" : "");

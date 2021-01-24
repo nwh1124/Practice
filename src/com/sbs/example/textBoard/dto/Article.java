@@ -18,8 +18,8 @@ public class Article {
 	private int boardId;
 	private int likesCount;
 	private int commentsCount;
-	
-	public String extra__writer;
+
+	public String extra__tags;
 	
 	public Article() {
 		
@@ -38,8 +38,8 @@ public class Article {
 		this.boardId = (int)map.get("boardId");
 		this.likesCount = (int)map.get("likesCount");
 		this.commentsCount = (int)map.get("commentsCount");
-		
-		this.extra__writer = (String)map.get("name");
+
+		this.extra__tags = (String)map.get("tags");
 		
 	}
 

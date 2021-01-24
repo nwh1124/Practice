@@ -1,3 +1,22 @@
+// 유튜브 플러그인 시작
+function youtubePlugin() {
+  toastui.Editor.codeBlockManager.setReplacer('youtube', youtubeId => {
+    // Indentify multiple code blocks
+    const wrapperId = `yt${Math.random().toString(36).substr(2, 10)}`;
+
+    // Avoid sanitizing iframe tag
+    setTimeout(renderYoutube.bind(null, wrapperId, youtubeId), 0);
+
+    return `<div id="${wrapperId}"></div>`;
+  });
+}
+
+function renderYoutube(wrapperId, youtubeId) {
+  const el = document.querySelector(`#${wrapperId}`);
+
+  el.innerHTML = `<div class="toast-ui-youtube-plugin-wrap"><iframe src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+}
+// 유튜브 플러그인 끝
 /* 투탑 버튼 */
 $(function() {
   $(window).scroll(function() { 
@@ -30,7 +49,7 @@ function viewer_detail() {
 		el : viewerEl,
 		initialValue : body,
 		viewer : true,
-	    plugins: [toastui.Editor.plugin.codeSyntaxHighlight]
+	    plugins: [toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin]
 	});
 }
 

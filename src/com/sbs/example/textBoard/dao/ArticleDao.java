@@ -394,8 +394,8 @@ public class ArticleDao {
 		
 		SecSql sql = new SecSql();
 		
-		sql.append("SELECT body");
-		sql.append("FROM tag");
+		sql.append("SELECT GROUP_CONCAT(T.body)");
+		sql.append("FROM tag as T");
 		sql.append("WHERE relTypeCode = ?", relTypeCode);
 		sql.append("AND relId = ?", relId);
 		
@@ -419,6 +419,28 @@ public class ArticleDao {
 		}
 		
 		return tags;
+	}
+
+	public List<Article> getArticlesWithTags() {
+		
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT A.*, GROUP_CONCAT(T.body) AS tags");
+		sql.append("FROM article AS A");
+		sql.append("LEFT JOIN tag AS T\r\n");
+		sql.append("ON T.relId = A.id");
+		sql.append("WHERE T.relTypeCode = 'article'");
+		sql.append("GROUP BY A.id");
+		
+		List<Map<String, Object>> listMap = MysqlUtil.selectRows(sql);
+		
+		List<Article> articles = new ArrayList<>();
+		
+		for(Map<String, Object> map : listMap ) {
+			articles.add(new Article(map));
+		}
+		
+		return articles;
 	}
 	
 }

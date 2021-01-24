@@ -118,4 +118,8 @@ public class ArticleService {
 	public List<Tag> getTags() {
 		return articleDao.getTags();
 	}
+
+	public List<Article> getArticlesWithTags() {
+		return articleDao.getArticlesWithTags();
+	}
 }
