@@ -26,8 +26,9 @@ public class GoogleAnalyticsApiService {
 		              Dimension.newBuilder().setName("pagePath"))
 		          .addMetrics(Metric.newBuilder().setName("screenPageViews"))
 		          .addDateRanges(
-		              DateRange.newBuilder().setStartDate("2020-12-17").setEndDate("today")).build();
-		
+		              DateRange.newBuilder().setStartDate("2020-12-17").setEndDate("today"))
+		          .setLimit(-1).build();
+		      	
 		      // Make the request
 		      RunReportResponse response = analyticsData.runReport(request); 
 		

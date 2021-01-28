@@ -8,6 +8,12 @@
   </properties>
   
   <dependencies>
+  <!-- 구글 API data -->
+  	<dependency>
+	  <groupId>com.google.analytics</groupId>
+	  <artifactId>google-analytics-data</artifactId>
+	  <version>0.1.0</version>
+	</dependency>
 <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 	<dependency>
 	    <groupId>org.seleniumhq.selenium</groupId>

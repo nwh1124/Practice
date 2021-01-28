@@ -29,11 +29,11 @@ public class BuildService {
 
 		Util.mkdirs("site");
 
-		Util.copy("site_template/app.css", "site/app.css");
-		Util.copy("site_template/app.js", "site/app.js");
+//		Util.copy("site_template/app.css", "site/app.css");
+//		Util.copy("site_template/app.js", "site/app.js");
 		
-//		loadDisqusData();
-//		loadGoogleData();
+		loadDisqusData();
+		loadGoogleData();
 		
 		buildIndexPage();
 		buildArticleListPages();
